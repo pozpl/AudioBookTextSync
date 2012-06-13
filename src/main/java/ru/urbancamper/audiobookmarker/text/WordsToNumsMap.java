@@ -40,4 +40,20 @@ public class WordsToNumsMap {
         }
         return wordsNumbersList.toArray(new Integer[wordsNumbersList.size()]);
     }
+
+    public Integer[] getNumbersFromWords(String[] words){
+        ArrayList<Integer> wordsNumbersList = new ArrayList<Integer>();
+        for (String word: words) {
+            Integer numberForWord;
+            if(this.wordsNumbersMap.containsKey(word)){
+                numberForWord = this.wordsNumbersMap.get(word);
+            }else{
+                this.wordsNumbersMap.put(word, this.newWordsCounter);
+                numberForWord = this.newWordsCounter;
+                this.newWordsCounter++;
+            }
+            wordsNumbersList.add(numberForWord);
+        }
+        return wordsNumbersList.toArray(new Integer[wordsNumbersList.size()]);
+    }
 }

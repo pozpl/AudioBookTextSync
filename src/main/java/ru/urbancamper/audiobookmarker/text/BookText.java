@@ -21,28 +21,42 @@ public class BookText {
 
     private Integer[] textInNumericForm;
 
-    private ArrayList<RecognizedTextOfSingleAudiofile> audiofilesHashes;
+    private ArrayList<RecognizedTextOfSingleAudiofile> recognizedAudioFiles;
+
+    private TextTokenizer textTokenizer;
+
+    private WordsToNumsMap wordsToNumMapper;
+
+    private LongestSubsequenceFinder longestSubsequenceFinder;
 
     public BookText(TextTokenizer textTokenizer,
             WordsToNumsMap wordsToNumMapper,
             LongestSubsequenceFinder subsequnceFinder
             ){
-
+        this.recognizedAudioFiles = new ArrayList<RecognizedTextOfSingleAudiofile>();
+        this.textTokenizer = textTokenizer;
+        this.wordsToNumMapper = wordsToNumMapper;
+        this.longestSubsequenceFinder = subsequnceFinder;
     }
 
     public void setFullText(String fullText){
         this.fullText = fullText;
+        this.tokenizedBookText = textTokenizer.tokenize(fullText);
+        this.textInNumericForm = this.wordsToNumMapper.getNumbersFromWords(tokenizedBookText);
     }
 
     public void registerRecognisedTextPeace(RecognizedTextOfSingleAudiofile recognizedFileText){
-
+        this.recognizedAudioFiles.add(recognizedFileText);
     }
 
-    public ArrayList<RecognizedTextOfSingleAudiofile> getListOfRegistredAudiofiles(){
-        return new ArrayList<RecognizedTextOfSingleAudiofile>();
+    public RecognizedTextOfSingleAudiofile[] getListOfRegistredAudiofiles(){
+        return this.recognizedAudioFiles.toArray(
+                new RecognizedTextOfSingleAudiofile[this.recognizedAudioFiles.size()]);
     }
 
     public String buildTextWithAudioMarks(){
+
+
         return "";
     }
 }

@@ -126,4 +126,34 @@ public class WordsToNumsMapTest extends TestCase {
     }
 
 
+    /**
+     * Test of getNumbersFromWords method, of class WordsToNumsMap.
+     */
+    public void testGetNumbersFromWords_StringArr() {
+        ArrayList<String> testWordsArray = new ArrayList<String>();
+        String baseWord = "word";
+        for (int wordsCounter = 0; wordsCounter < 10; wordsCounter++) {
+            String wordToAdd = baseWord + String.valueOf(wordsCounter);
+            testWordsArray.add(wordToAdd);
+        }
+
+        WordsToNumsMap wordsToNums = new WordsToNumsMap();
+        Integer[] textInNumbers = wordsToNums.getNumbersFromWords(
+                testWordsArray.toArray(new String[testWordsArray.size()]));
+
+        WordsToNumsMapTest.assertEquals(textInNumbers.length, testWordsArray.size());
+        for (int numCounter = 0; numCounter < 10; numCounter++) {
+            WordsToNumsMapTest.assertEquals(textInNumbers[numCounter], Integer.valueOf(numCounter));
+        }
+
+        textInNumbers = wordsToNums.getNumbersFromWords(testWordsArray);
+        //Words<->numbers representation do not have to change in second time with th same
+        //text
+        WordsToNumsMapTest.assertEquals(textInNumbers.length, testWordsArray.size());
+        for (int numCounter = 0; numCounter < 10; numCounter++) {
+            WordsToNumsMapTest.assertEquals(textInNumbers[numCounter], Integer.valueOf(numCounter));
+        }
+    }
+
+
 }
