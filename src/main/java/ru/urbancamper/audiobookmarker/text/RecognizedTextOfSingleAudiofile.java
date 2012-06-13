@@ -7,6 +7,7 @@ package ru.urbancamper.audiobookmarker.text;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.springframework.context.annotation.Configuration;
 
 /**
  *
@@ -35,6 +36,9 @@ public class RecognizedTextOfSingleAudiofile {
      */
     private ArrayList<Double> stopTimeOfTokens;
 
+    /**
+     * hash summ from binary content of audiofile
+     */
     private String audioFileHash;
 
     /**

@@ -15,7 +15,7 @@ public class BookText {
     /**
      * the full text of Audiobook in plain text fomat
      */
-    private String fullText;
+    private String fullText = "";
 
     private String[] tokenizedBookText;
 
@@ -23,11 +23,15 @@ public class BookText {
 
     private ArrayList<RecognizedTextOfSingleAudiofile> audiofilesHashes;
 
-    public BookText(String fullText, TextTokenizer textTokenizer,
+    public BookText(TextTokenizer textTokenizer,
             WordsToNumsMap wordsToNumMapper,
             LongestSubsequenceFinder subsequnceFinder
             ){
 
+    }
+
+    public void setFullText(String fullText){
+        this.fullText = fullText;
     }
 
     public void registerRecognisedTextPeace(RecognizedTextOfSingleAudiofile recognizedFileText){
