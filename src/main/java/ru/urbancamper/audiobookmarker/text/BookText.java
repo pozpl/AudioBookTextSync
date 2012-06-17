@@ -4,6 +4,8 @@
 package ru.urbancamper.audiobookmarker.text;
 
 import java.util.ArrayList;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
 /**
  *Class to hold book text, it's tokenized structure and
@@ -55,8 +57,33 @@ public class BookText {
     }
 
     public String buildTextWithAudioMarks(){
+        ArrayList<TreeMap<Integer, Integer>> recognizedTextLongestSubsequences = this.getLongestSubsequenceMappingFromRecognizedTexts();
+        String markedText = "";
+        Integer subsequenceCounter = 0;
+        for(TreeMap<Integer, Integer> longestSubsequence: recognizedTextLongestSubsequences){
+            RecognizedTextOfSingleAudiofile recognizedFile = this.recognizedAudioFiles.get(subsequenceCounter);
+            for(Entry<Integer, Integer> fullTextToRecText: longestSubsequence.entrySet()){
+                Integer fullTextWordIndex = fullTextToRecText.getKey();
+                Integer recognizedTextWordIndex = fullTextToRecText.getValue();
 
+                Double beginTime = recognizedFile.getBeginTimeOfTokenAtPosition(recognizedTextWordIndex);
+                Double endTime = recognizedFile.getEndTimeOfTokenAtPosition(recognizedTextWordIndex);
+            }
+            subsequenceCounter++;
+        }
 
         return "";
+    }
+
+    private ArrayList<TreeMap<Integer, Integer>> getLongestSubsequenceMappingFromRecognizedTexts(){
+        ArrayList<TreeMap<Integer, Integer>> recognizedTextLongestSubsequences = new ArrayList<TreeMap<Integer, Integer>>();
+        for(RecognizedTextOfSingleAudiofile recognizedText: this.recognizedAudioFiles){
+            String[] recognizedTextAsTokens = recognizedText.getTokens();
+            Integer[] recognizedTextAsNumbers = this.wordsToNumMapper.getNumbersFromWords(tokenizedBookText);
+            TreeMap<Integer, Integer> recTextLongestSubsequence = this.longestSubsequenceFinder.findLogestSubsequence(this.textInNumericForm, recognizedTextAsNumbers);
+            recognizedTextLongestSubsequences.add(recTextLongestSubsequence);
+        }
+
+        return recognizedTextLongestSubsequences;
     }
 }
