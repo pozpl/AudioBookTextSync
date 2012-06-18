@@ -79,11 +79,11 @@ public class RecognizedTextOfSingleAudiofile {
         return this.alignedTextTokens.toArray(new String[this.alignedTextTokens.size()]);
     }
 
-    public Double getBeginTimeOfTokenAtPosition(int wordIndex){
+    public Double getBeginTimeOfTokenAtPosition(Integer wordIndex){
         return this.startTimeOfTokens.get(wordIndex);
     }
 
-    public Double getEndTimeOfTokenAtPosition(int wordIndex){
+    public Double getEndTimeOfTokenAtPosition(Integer wordIndex){
         return this.stopTimeOfTokens.get(wordIndex);
     }
 

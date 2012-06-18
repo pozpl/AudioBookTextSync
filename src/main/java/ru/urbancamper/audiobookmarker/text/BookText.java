@@ -4,6 +4,7 @@
 package ru.urbancamper.audiobookmarker.text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
@@ -31,6 +32,8 @@ public class BookText {
 
     private LongestSubsequenceFinder longestSubsequenceFinder;
 
+    private HashMap<String, Integer> registredFileMapper;
+
     public BookText(TextTokenizer textTokenizer,
             WordsToNumsMap wordsToNumMapper,
             LongestSubsequenceFinder subsequnceFinder
@@ -39,6 +42,7 @@ public class BookText {
         this.textTokenizer = textTokenizer;
         this.wordsToNumMapper = wordsToNumMapper;
         this.longestSubsequenceFinder = subsequnceFinder;
+        this.registredFileMapper = new HashMap<String, Integer>();
     }
 
     public void setFullText(String fullText){
@@ -49,30 +53,12 @@ public class BookText {
 
     public void registerRecognisedTextPeace(RecognizedTextOfSingleAudiofile recognizedFileText){
         this.recognizedAudioFiles.add(recognizedFileText);
+        this.registredFileMapper.put(recognizedFileText.getAudioFileHash(), this.recognizedAudioFiles.size());
     }
 
     public RecognizedTextOfSingleAudiofile[] getListOfRegistredAudiofiles(){
         return this.recognizedAudioFiles.toArray(
                 new RecognizedTextOfSingleAudiofile[this.recognizedAudioFiles.size()]);
-    }
-
-    public String buildTextWithAudioMarks(){
-        ArrayList<TreeMap<Integer, Integer>> recognizedTextLongestSubsequences = this.getLongestSubsequenceMappingFromRecognizedTexts();
-        String markedText = "";
-        Integer subsequenceCounter = 0;
-        for(TreeMap<Integer, Integer> longestSubsequence: recognizedTextLongestSubsequences){
-            RecognizedTextOfSingleAudiofile recognizedFile = this.recognizedAudioFiles.get(subsequenceCounter);
-            for(Entry<Integer, Integer> fullTextToRecText: longestSubsequence.entrySet()){
-                Integer fullTextWordIndex = fullTextToRecText.getKey();
-                Integer recognizedTextWordIndex = fullTextToRecText.getValue();
-
-                Double beginTime = recognizedFile.getBeginTimeOfTokenAtPosition(recognizedTextWordIndex);
-                Double endTime = recognizedFile.getEndTimeOfTokenAtPosition(recognizedTextWordIndex);
-            }
-            subsequenceCounter++;
-        }
-
-        return "";
     }
 
     private ArrayList<TreeMap<Integer, Integer>> getLongestSubsequenceMappingFromRecognizedTexts(){
@@ -86,4 +72,46 @@ public class BookText {
 
         return recognizedTextLongestSubsequences;
     }
+
+    public String constructWordWithMarkInfo(String word, Integer fileIndex,Double startTime){
+        String fileIndexStr = fileIndex.toString();
+        String startTimeStr = startTime.toString();
+
+        String returnToken = "<" + fileIndexStr + ":" + startTimeStr + "/>" + word;
+        return returnToken;
+    }
+
+    private String implodeTokensArray(String[] tokensArray){
+        String resultString = "";
+        for(String token: tokensArray){
+            resultString += token + " ";
+        }
+
+        return resultString;
+    }
+
+    public String buildTextWithAudioMarks(){
+        ArrayList<TreeMap<Integer, Integer>> recognizedTextLongestSubsequences = this.getLongestSubsequenceMappingFromRecognizedTexts();
+        String markedText = "";
+        Integer subsequenceCounter = 0;
+        for(TreeMap<Integer, Integer> longestSubsequence: recognizedTextLongestSubsequences){
+            RecognizedTextOfSingleAudiofile recognizedFile = this.recognizedAudioFiles.get(subsequenceCounter);
+            Integer fileIndex = this.registredFileMapper.get(recognizedFile.getAudioFileHash());
+            for(Entry<Integer, Integer> fullTextToRecText: longestSubsequence.entrySet()){
+                Integer fullTextWordIndex = fullTextToRecText.getKey();
+                Integer recognizedTextWordIndex = fullTextToRecText.getValue();
+                System.out.println(recognizedTextWordIndex);
+                Double beginTime = recognizedFile.getBeginTimeOfTokenAtPosition(recognizedTextWordIndex);
+                Double endTime = recognizedFile.getEndTimeOfTokenAtPosition(recognizedTextWordIndex);
+
+                this.tokenizedBookText[fullTextWordIndex] =
+                        this.constructWordWithMarkInfo(this.tokenizedBookText[fullTextWordIndex], fileIndex, beginTime);
+            }
+            subsequenceCounter++;
+        }
+
+        return this.implodeTokensArray(this.tokenizedBookText);
+    }
+
+
 }

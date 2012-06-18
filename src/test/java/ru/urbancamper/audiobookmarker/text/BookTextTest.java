@@ -124,6 +124,6 @@ public class BookTextTest extends TestCase {
 
         String markedText = instance.buildTextWithAudioMarks();
 
-        BookTextTest.assertEquals(markedText, bookFullTextWithMarks);
+        BookTextTest.assertEquals(bookFullTextWithMarks, markedText);
     }
 }
