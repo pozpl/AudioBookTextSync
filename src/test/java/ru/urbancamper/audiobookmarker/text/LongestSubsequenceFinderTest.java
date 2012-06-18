@@ -64,6 +64,7 @@ public class LongestSubsequenceFinderTest extends TestCase {
             String wordToAdd = baseWord + String.valueOf(wordsCounter);
             testWordsArray.add(wordToAdd);
             testWordsArray.add(seedWord + String.valueOf(wordsCounter));
+            testWordsArray.add(seedWord + String.valueOf(wordsCounter));
         }
 
         Integer[] textInNumbers = this.wordsToNums.getNumbersFromWords(testWordsArray);
@@ -79,11 +80,14 @@ public class LongestSubsequenceFinderTest extends TestCase {
         LongestSubsequenceFinder instance = new LongestSubsequenceFinder();
         TreeMap<Integer, Integer> expResult = new TreeMap<Integer, Integer>();
         expResult.put(Integer.valueOf(0), Integer.valueOf(0));
-        expResult.put(Integer.valueOf(2), Integer.valueOf(2));
-        expResult.put(Integer.valueOf(4), Integer.valueOf(4));
-        expResult.put(Integer.valueOf(6), Integer.valueOf(6));
-        expResult.put(Integer.valueOf(8), Integer.valueOf(8));
+        expResult.put(Integer.valueOf(3), Integer.valueOf(2));
+        expResult.put(Integer.valueOf(6), Integer.valueOf(4));
+        expResult.put(Integer.valueOf(9), Integer.valueOf(6));
+        expResult.put(Integer.valueOf(12), Integer.valueOf(8));
         TreeMap<Integer, Integer> result = instance.findLogestSubsequence(this.fullText, this.partialText);
+        for(Integer wordsCounter = 0; wordsCounter < partialText.length; wordsCounter++){
+            assertEquals(wordsCounter * Integer.valueOf(3), result.get(wordsCounter).intValue());
+        }
         assertEquals(expResult, result);
     }
 }
