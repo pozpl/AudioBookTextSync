@@ -65,7 +65,7 @@ public class BookText {
         ArrayList<TreeMap<Integer, Integer>> recognizedTextLongestSubsequences = new ArrayList<TreeMap<Integer, Integer>>();
         for(RecognizedTextOfSingleAudiofile recognizedText: this.recognizedAudioFiles){
             String[] recognizedTextAsTokens = recognizedText.getTokens();
-            Integer[] recognizedTextAsNumbers = this.wordsToNumMapper.getNumbersFromWords(tokenizedBookText);
+            Integer[] recognizedTextAsNumbers = this.wordsToNumMapper.getNumbersFromWords(recognizedTextAsTokens);
             TreeMap<Integer, Integer> recTextLongestSubsequence = this.longestSubsequenceFinder.findLogestSubsequence(this.textInNumericForm, recognizedTextAsNumbers);
             recognizedTextLongestSubsequences.add(recTextLongestSubsequence);
         }

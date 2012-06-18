@@ -30,10 +30,10 @@ public class BookTextTest extends TestCase {
     private static String[]  audioFilesHashes = {"1", "2", "3", "4", "5"};
 
     private static String bookFullText = "word1 word2 word3 noword word4"
-            + "word1 word4 word3 noword noword word2 word1";
+            + " word1 word4 word3 noword noword word2 word1";
     private static String bookFullTextWithMarks =
-            "<1:0.1/>word1 <1:1.5/>word1 <1:2.1/>word1 noword <1:2.6/>word1"
-            + "<1:3.1/>word4 <1:4.1/>word3 noword noword <1:5.1/>word2 <1:6.1/>word1";
+            "<1:0.1/>word1 <1:1.5/>word2 <1:2.1/>word3 noword <1:2.6/>word4"
+            + " <2:3.1/>word4 <2:4.1/>word3 noword noword <2:5.1/>word2 <2:6.1/>word1";
 
     public BookTextTest(String testName) {
         super(testName);
@@ -123,7 +123,7 @@ public class BookTextTest extends TestCase {
 
 
         String markedText = instance.buildTextWithAudioMarks();
-
+        System.out.println(markedText);
         BookTextTest.assertEquals(bookFullTextWithMarks, markedText);
     }
 }
