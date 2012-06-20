@@ -100,7 +100,7 @@ public class BookText {
             for(Entry<Integer, Integer> fullTextToRecText: longestSubsequence.entrySet()){
                 Integer fullTextWordIndex = fullTextToRecText.getKey();
                 Integer recognizedTextWordIndex = fullTextToRecText.getValue();
-                System.out.println(recognizedTextWordIndex);
+                
                 Double beginTime = recognizedFile.getBeginTimeOfTokenAtPosition(recognizedTextWordIndex);
                 Double endTime = recognizedFile.getEndTimeOfTokenAtPosition(recognizedTextWordIndex);
 
