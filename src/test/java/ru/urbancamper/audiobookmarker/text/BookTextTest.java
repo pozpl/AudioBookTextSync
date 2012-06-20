@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import junit.framework.TestCase;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import ru.urbancamper.audiobookmarker.context.BeansAnnotations;
 import ru.urbancamper.audiobookmarker.context.BeansAnnotationsForTests;
 
 /**
