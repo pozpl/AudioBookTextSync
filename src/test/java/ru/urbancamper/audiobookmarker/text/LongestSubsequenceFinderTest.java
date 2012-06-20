@@ -4,7 +4,6 @@
  */
 package ru.urbancamper.audiobookmarker.text;
 
-import java.util.ArrayList;
 import java.util.TreeMap;
 import junit.framework.Test;
 import junit.framework.TestCase;
