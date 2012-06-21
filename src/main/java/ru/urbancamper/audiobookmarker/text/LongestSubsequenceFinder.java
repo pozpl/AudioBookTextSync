@@ -4,6 +4,8 @@
  */
 package ru.urbancamper.audiobookmarker.text;
 
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -49,5 +51,38 @@ public class LongestSubsequenceFinder {
         }
 
         return resultBuffer;
+    }
+
+    public TreeMap<Integer, Integer> getLongestSubsequenceWithMinDistance(
+            Integer[] fullArray,
+            Integer[] subArray){
+        TreeMap<Integer, Integer> longestSubsequence = this.findLogestSubsequence(fullArray, subArray);
+        Integer previousFullTextIndex = 0;
+        Integer previousSubTextIndex = 0;
+
+        Integer previousFullTextElement = -1;
+        Integer previousSubTextElement = -1;
+        ArrayList<Integer> fullTextBuffer = new ArrayList<Integer>();
+        ArrayList<Integer> subTextBuffer = new ArrayList<Integer>();
+        Integer entriesCounter = 0;
+        for(Map.Entry<Integer, Integer> fullTextToRecTextMapEntry: longestSubsequence.entrySet()){
+            Integer fullTextWordIndex = fullTextToRecTextMapEntry.getKey();
+            Integer subTextWordIndex = fullTextToRecTextMapEntry.getValue();
+
+            fullTextBuffer.add(fullTextWordIndex);
+            subTextBuffer.add(subTextWordIndex);
+
+            Integer currentFullTextElement = fullArray[fullTextWordIndex];
+            Integer currentSubTextElement = fullArray[subTextWordIndex];
+            for(Integer spanCounter = previousFullTextIndex; spanCounter < fullTextWordIndex; spanCounter++){
+                Integer elementlToCheck = fullArray[spanCounter];
+                if(elementlToCheck < previousFullTextElement){
+                    fullTextBuffer.set(entriesCounter, spanCounter);
+                }
+            }
+
+        }
+
+        return null;
     }
 }
