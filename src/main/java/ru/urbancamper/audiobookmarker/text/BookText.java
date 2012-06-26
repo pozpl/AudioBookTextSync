@@ -66,7 +66,7 @@ public class BookText {
         for(RecognizedTextOfSingleAudiofile recognizedText: this.recognizedAudioFiles){
             String[] recognizedTextAsTokens = recognizedText.getTokens();
             Integer[] recognizedTextAsNumbers = this.wordsToNumMapper.getNumbersFromWords(recognizedTextAsTokens);
-            TreeMap<Integer, Integer> recTextLongestSubsequence = this.longestSubsequenceFinder.findLogestSubsequence(this.textInNumericForm, recognizedTextAsNumbers);
+            TreeMap<Integer, Integer> recTextLongestSubsequence = this.longestSubsequenceFinder.getLongestSubsequenceWithMinDistance(this.textInNumericForm, recognizedTextAsNumbers);
             recognizedTextLongestSubsequences.add(recTextLongestSubsequence);
         }
 
@@ -100,7 +100,7 @@ public class BookText {
             for(Entry<Integer, Integer> fullTextToRecText: longestSubsequence.entrySet()){
                 Integer fullTextWordIndex = fullTextToRecText.getKey();
                 Integer recognizedTextWordIndex = fullTextToRecText.getValue();
-                
+
                 Double beginTime = recognizedFile.getBeginTimeOfTokenAtPosition(recognizedTextWordIndex);
                 Double endTime = recognizedFile.getEndTimeOfTokenAtPosition(recognizedTextWordIndex);
 
