@@ -83,8 +83,14 @@ public class BookText {
 
     private String implodeTokensArray(String[] tokensArray){
         String resultString = "";
-        for(String token: tokensArray){
+        for(Integer tokensCounter = 0;
+        tokensCounter < tokensArray.length; tokensCounter++){
+            String token = tokensArray[tokensCounter];
+            if(tokensCounter < tokensArray.length - 1){
             resultString += token + " ";
+            }else{
+                resultString += token;
+            }
         }
 
         return resultString;

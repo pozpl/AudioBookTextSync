@@ -91,7 +91,7 @@ public class LongestSubsequenceFinder {
         ArrayList<Integer> subTextBuffer){
 
         TreeMap<Integer, Integer> resultBuffer = new TreeMap<Integer, Integer>();
-        for(int elementCounter = 0; elementCounter < fullTextBuffer.size(); elementCounter++){
+        for(Integer elementCounter = 0; elementCounter < fullTextBuffer.size(); elementCounter++){
             resultBuffer.put(fullTextBuffer.get(elementCounter), subTextBuffer.get(elementCounter));
         }
         return resultBuffer;
