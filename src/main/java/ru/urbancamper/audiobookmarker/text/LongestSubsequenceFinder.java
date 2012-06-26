@@ -14,7 +14,7 @@ import java.util.TreeMap;
  */
 public class LongestSubsequenceFinder {
 
-    public TreeMap<Integer, Integer> findLogestSubsequence(Integer[] fullArray,
+    private TreeMap<Integer, Integer> findLogestSubsequence(Integer[] fullArray,
             Integer[] subArray) {
 
         int[][] lengths = new int[fullArray.length + 1][subArray.length + 1];
@@ -57,11 +57,10 @@ public class LongestSubsequenceFinder {
             Integer[] fullArray,
             Integer[] subArray){
         TreeMap<Integer, Integer> longestSubsequence = this.findLogestSubsequence(fullArray, subArray);
-        Integer previousFullTextIndex = 0;
-        Integer previousSubTextIndex = 0;
 
+        Integer previousFullTextIndex = 0;
         Integer previousFullTextElement = -1;
-        Integer previousSubTextElement = -1;
+
         ArrayList<Integer> fullTextBuffer = new ArrayList<Integer>();
         ArrayList<Integer> subTextBuffer = new ArrayList<Integer>();
         Integer entriesCounter = 0;
@@ -73,16 +72,28 @@ public class LongestSubsequenceFinder {
             subTextBuffer.add(subTextWordIndex);
 
             Integer currentFullTextElement = fullArray[fullTextWordIndex];
-            Integer currentSubTextElement = fullArray[subTextWordIndex];
-            for(Integer spanCounter = previousFullTextIndex; spanCounter < fullTextWordIndex; spanCounter++){
+
+            for(Integer spanCounter = previousFullTextIndex + 1; spanCounter < fullTextWordIndex; spanCounter++){
                 Integer elementlToCheck = fullArray[spanCounter];
-                if(elementlToCheck < previousFullTextElement){
-                    fullTextBuffer.set(entriesCounter, spanCounter);
+                if(elementlToCheck == previousFullTextElement){
+                    fullTextBuffer.set(previousFullTextIndex, spanCounter);
                 }
             }
-
+            previousFullTextElement = currentFullTextElement;
+            previousFullTextIndex = entriesCounter;
+            entriesCounter++;
         }
 
-        return null;
+        return this.getFullTextSubTextTreeMapFromLists(fullTextBuffer, subTextBuffer);
+    }
+
+    private TreeMap<Integer, Integer> getFullTextSubTextTreeMapFromLists(ArrayList<Integer> fullTextBuffer,
+        ArrayList<Integer> subTextBuffer){
+
+        TreeMap<Integer, Integer> resultBuffer = new TreeMap<Integer, Integer>();
+        for(int elementCounter = 0; elementCounter < fullTextBuffer.size(); elementCounter++){
+            resultBuffer.put(fullTextBuffer.get(elementCounter), subTextBuffer.get(elementCounter));
+        }
+        return resultBuffer;
     }
 }

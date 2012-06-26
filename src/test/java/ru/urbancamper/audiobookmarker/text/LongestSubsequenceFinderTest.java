@@ -54,10 +54,11 @@ public class LongestSubsequenceFinderTest extends TestCase {
         return textInNumbers;
     }
 
+    
     /**
      * Test of findLogestSubsequence method, of class LongestSubsequenceFinder.
      */
-    public void testFindLogestSubsequence() {
+    public void testGetLogestSubsequenceWithMinDistance() {
 
         LongestSubsequenceFinder instance = new LongestSubsequenceFinder();
         TreeMap<Integer, Integer> expResult = new TreeMap<Integer, Integer>();
@@ -66,10 +67,11 @@ public class LongestSubsequenceFinderTest extends TestCase {
         expResult.put(Integer.valueOf(4), Integer.valueOf(3));
         expResult.put(Integer.valueOf(5), Integer.valueOf(4));
 
-        TreeMap<Integer, Integer> result = instance.findLogestSubsequence(this.fullText, this.partialText);
+        TreeMap<Integer, Integer> result = instance.getLongestSubsequenceWithMinDistance(this.fullText, this.partialText);
 //        for(Integer wordsCounter = 0; wordsCounter < partialText.length; wordsCounter++){
 //            assertEquals(wordsCounter * Integer.valueOf(3), result.get(wordsCounter).intValue());
 //        }
         assertEquals(expResult, result);
     }
+
 }
