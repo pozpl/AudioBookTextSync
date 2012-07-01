@@ -20,16 +20,16 @@ import opennlp.tools.tokenize.TokenizerModel;
  *
  * @author pozpl
  */
-public class TextTokenizerTest extends TestCase {
+public class LanguageModelBasedTextTokenizezTest extends TestCase {
 
     private TokenizerModel tokenizerModel;
 
-    public TextTokenizerTest(String testName) {
+    public LanguageModelBasedTextTokenizezTest(String testName) {
         super(testName);
     }
 
     public static Test suite() {
-        TestSuite suite = new TestSuite(TextTokenizerTest.class);
+        TestSuite suite = new TestSuite(LanguageModelBasedTextTokenizezTest.class);
         return suite;
     }
 
@@ -44,12 +44,12 @@ public class TextTokenizerTest extends TestCase {
 
             this.tokenizerModel = new TokenizerModel(modelPathInputStream);
         } catch (IOException ex) {
-            Logger.getLogger(TextTokenizer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LanguageModelBasedTextTokenizez.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 modelPathInputStream.close();
             } catch (IOException ex) {
-                Logger.getLogger(TextTokenizer.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LanguageModelBasedTextTokenizez.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         super.setUp();
@@ -61,13 +61,13 @@ public class TextTokenizerTest extends TestCase {
     }
 
     /**
-     * Test of tokenize method, of class TextTokenizer.
+     * Test of tokenize method, of class LanguageModelBasedTextTokenizez.
      */
     public void testTokenize() {
         System.out.println("tokenize");
 
         String text = "test, token model.";
-        TextTokenizer instance = new TextTokenizer(this.tokenizerModel);
+        LanguageModelBasedTextTokenizez instance = new LanguageModelBasedTextTokenizez(this.tokenizerModel);
         String[] expResult = {"test", ",", "token", "model", "."};
         String[] result = instance.tokenize(text);
         assertEquals(expResult.length, result.length);

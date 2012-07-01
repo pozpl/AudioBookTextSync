@@ -3,12 +3,6 @@
  */
 package ru.urbancamper.audiobookmarker.text;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import opennlp.tools.tokenize.Tokenizer;
 import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
@@ -18,11 +12,11 @@ import opennlp.tools.tokenize.TokenizerModel;
  *
  * @author pozpl
  */
-public class TextTokenizer {
+public class LanguageModelBasedTextTokenizez {
 
     private TokenizerModel tokenizerModel;
 
-    public TextTokenizer(TokenizerModel tokenizrModel){
+    public LanguageModelBasedTextTokenizez(TokenizerModel tokenizrModel){
         this.tokenizerModel = tokenizrModel;
     }
 

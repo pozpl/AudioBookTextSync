@@ -26,7 +26,7 @@ public class BookText {
 
     private ArrayList<RecognizedTextOfSingleAudiofile> recognizedAudioFiles;
 
-    private TextTokenizer textTokenizer;
+    private LanguageModelBasedTextTokenizez textTokenizer;
 
     private WordsToNumsMap wordsToNumMapper;
 
@@ -34,7 +34,7 @@ public class BookText {
 
     private HashMap<String, Integer> registredFileMapper;
 
-    public BookText(TextTokenizer textTokenizer,
+    public BookText(LanguageModelBasedTextTokenizez textTokenizer,
             WordsToNumsMap wordsToNumMapper,
             LongestSubsequenceFinder subsequnceFinder
             ){

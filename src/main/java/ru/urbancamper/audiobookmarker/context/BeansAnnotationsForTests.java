@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Bean;
 import ru.urbancamper.audiobookmarker.text.BookText;
 import ru.urbancamper.audiobookmarker.text.LongestSubsequenceFinder;
 import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
-import ru.urbancamper.audiobookmarker.text.TextTokenizer;
+import ru.urbancamper.audiobookmarker.text.LanguageModelBasedTextTokenizez;
 import ru.urbancamper.audiobookmarker.text.WordsToNumsMap;
 
 /**
@@ -35,20 +35,20 @@ public class BeansAnnotationsForTests {
             modelPathInputStream = new FileInputStream(modelFile.getAbsolutePath());
             tokenizerModel = new TokenizerModel(modelPathInputStream);
         } catch (IOException ex) {
-            Logger.getLogger(TextTokenizer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LanguageModelBasedTextTokenizez.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 modelPathInputStream.close();
             } catch (IOException ex) {
-                Logger.getLogger(TextTokenizer.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LanguageModelBasedTextTokenizez.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return tokenizerModel;
     }
 
     @Bean
-    public TextTokenizer textTokenizer(){
-        return new TextTokenizer(tokenizerModel());
+    public LanguageModelBasedTextTokenizez textTokenizer(){
+        return new LanguageModelBasedTextTokenizez(tokenizerModel());
     }
 
     @Bean
