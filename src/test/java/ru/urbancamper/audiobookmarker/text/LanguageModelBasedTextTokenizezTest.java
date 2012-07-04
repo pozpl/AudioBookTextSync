@@ -23,6 +23,7 @@ import opennlp.tools.tokenize.TokenizerModel;
 public class LanguageModelBasedTextTokenizezTest extends TestCase {
 
     private TokenizerModel tokenizerModel;
+    private String DETOKENIZER_DICTONARY_PATH = "resources/tokenizer_models/en-detokenizer.xml";
 
     public LanguageModelBasedTextTokenizezTest(String testName) {
         super(testName);
@@ -67,7 +68,8 @@ public class LanguageModelBasedTextTokenizezTest extends TestCase {
         System.out.println("tokenize");
 
         String text = "test, token model.";
-        LanguageModelBasedTextTokenizez instance = new LanguageModelBasedTextTokenizez(this.tokenizerModel);
+        LanguageModelBasedTextTokenizez instance = new LanguageModelBasedTextTokenizez(this.tokenizerModel,
+                this.DETOKENIZER_DICTONARY_PATH);
         String[] expResult = {"test", ",", "token", "model", "."};
         String[] result = instance.tokenize(text);
         assertEquals(expResult.length, result.length);
@@ -75,4 +77,19 @@ public class LanguageModelBasedTextTokenizezTest extends TestCase {
             assertEquals(expResult[tokenIndex], result[tokenIndex]);
         }
     }
+
+    /**
+     * Test of deTokenize method, of class LanguageModelBasedTextTokenizez.
+     */
+    public void testDeTokenize() {
+        System.out.println("deTokenize");
+        String[] tokens = {"test", ",", "token", "model", "."};
+        LanguageModelBasedTextTokenizez instance = new LanguageModelBasedTextTokenizez(this.tokenizerModel,
+                this.DETOKENIZER_DICTONARY_PATH);
+        String expResult = "test, token model.";
+        String result = instance.deTokenize(tokens);
+        assertEquals(expResult, result);
+    }
+
+
 }
