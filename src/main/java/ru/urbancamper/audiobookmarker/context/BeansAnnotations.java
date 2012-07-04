@@ -21,14 +21,14 @@ import ru.urbancamper.audiobookmarker.text.LanguageModelBasedTextTokenizez;
 @Configuration
 public class BeansAnnotations {
 
-    private String modelPath = "resources/tokenizer_models/en-token.bin";
-
+    private String TOKENIZER_MODEL_PATH = "resources/tokenizer_models/en-token.bin";
+    private String DETOKENIZER_DICTONARY_PATH = "resources/tokenizer_models/en-detokenizer.xml";
     @Bean
     public TokenizerModel tokenizerModel(){
         InputStream modelPathInputStream = null;
         TokenizerModel tokenizerModel = null;
         try {
-            File modelFile = new File(modelPath);
+            File modelFile = new File(TOKENIZER_MODEL_PATH);
             modelPathInputStream = new FileInputStream(modelFile.getAbsolutePath());
             tokenizerModel = new TokenizerModel(modelPathInputStream);
         } catch (IOException ex) {
@@ -45,6 +45,6 @@ public class BeansAnnotations {
 
     @Bean
     public LanguageModelBasedTextTokenizez textTokenizer(){
-        return new LanguageModelBasedTextTokenizez(tokenizerModel());
+        return new LanguageModelBasedTextTokenizez(tokenizerModel(), this.DETOKENIZER_DICTONARY_PATH);
     }
 }
