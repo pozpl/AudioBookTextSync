@@ -81,6 +81,7 @@ public class BookText {
         return returnToken;
     }
 
+    @Deprecated
     private String implodeTokensArray(String[] tokensArray){
         String resultString = "";
         for(Integer tokensCounter = 0;
@@ -116,7 +117,7 @@ public class BookText {
             subsequenceCounter++;
         }
 
-        return this.implodeTokensArray(this.tokenizedBookText);
+        return this.textTokenizer.deTokenize(tokenizedBookText);//this.implodeTokensArray(this.tokenizedBookText);
     }
 
 
