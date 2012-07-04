@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import opennlp.tools.tokenize.TokenizerModel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.urbancamper.audiobookmarker.text.LanguageModelBasedTextTokenizez;
+import ru.urbancamper.audiobookmarker.text.LanguageModelBasedTextTokenizer;
 /**
  *
  * @author pozpl
@@ -32,19 +32,19 @@ public class BeansAnnotations {
             modelPathInputStream = new FileInputStream(modelFile.getAbsolutePath());
             tokenizerModel = new TokenizerModel(modelPathInputStream);
         } catch (IOException ex) {
-            Logger.getLogger(LanguageModelBasedTextTokenizez.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LanguageModelBasedTextTokenizer.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 modelPathInputStream.close();
             } catch (IOException ex) {
-                Logger.getLogger(LanguageModelBasedTextTokenizez.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LanguageModelBasedTextTokenizer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return tokenizerModel;
     }
 
     @Bean
-    public LanguageModelBasedTextTokenizez textTokenizer(){
-        return new LanguageModelBasedTextTokenizez(tokenizerModel(), this.DETOKENIZER_DICTONARY_PATH);
+    public LanguageModelBasedTextTokenizer textTokenizer(){
+        return new LanguageModelBasedTextTokenizer(tokenizerModel(), this.DETOKENIZER_DICTONARY_PATH);
     }
 }

@@ -3,6 +3,8 @@
  */
 package ru.urbancamper.audiobookmarker.text;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
@@ -16,12 +18,12 @@ import opennlp.tools.tokenize.*;
  *
  * @author pozpl
  */
-public class LanguageModelBasedTextTokenizez {
+public class LanguageModelBasedTextTokenizer {
 
     private TokenizerModel tokenizerModel;
     private String detokenizeDictionaryPath;
 
-    public LanguageModelBasedTextTokenizez(TokenizerModel tokenizrModel, String detokenizeDictionaryPath){
+    public LanguageModelBasedTextTokenizer(TokenizerModel tokenizrModel, String detokenizeDictionaryPath){
         this.tokenizerModel = tokenizrModel;
         this.detokenizeDictionaryPath = detokenizeDictionaryPath;
     }
@@ -37,11 +39,14 @@ public class LanguageModelBasedTextTokenizez {
     }
 
     public String deTokenize(String[] tokens) {
-
-        InputStream dictIn = LanguageModelBasedTextTokenizez.class.getResourceAsStream(
-                this.detokenizeDictionaryPath);
+        InputStream dictIn;
         String sentence = "";
         try {
+            dictIn = new FileInputStream(detokenizeDictionaryPath);
+//        InputStream dictIn = LanguageModelBasedTextTokenizer.class.getResourceAsStream(
+//                this.detokenizeDictionaryPath);
+
+
             DetokenizationDictionary dict = new DetokenizationDictionary(dictIn);
             dictIn.close();
             DictionaryDetokenizer detokenizer = new DictionaryDetokenizer(dict);
@@ -49,7 +54,7 @@ public class LanguageModelBasedTextTokenizez {
             DetokenizationOperation operations[] = detokenizer.detokenize(tokens);
             sentence = DictionaryDetokenizerTool.detokenize(tokens, operations);
         } catch (IOException ex) {
-            Logger.getLogger(LanguageModelBasedTextTokenizez.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LanguageModelBasedTextTokenizer.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 

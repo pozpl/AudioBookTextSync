@@ -20,17 +20,17 @@ import opennlp.tools.tokenize.TokenizerModel;
  *
  * @author pozpl
  */
-public class LanguageModelBasedTextTokenizezTest extends TestCase {
+public class LanguageModelBasedTextTokenizerTest extends TestCase {
 
     private TokenizerModel tokenizerModel;
     private String DETOKENIZER_DICTONARY_PATH = "resources/tokenizer_models/en-detokenizer.xml";
 
-    public LanguageModelBasedTextTokenizezTest(String testName) {
+    public LanguageModelBasedTextTokenizerTest(String testName) {
         super(testName);
     }
 
     public static Test suite() {
-        TestSuite suite = new TestSuite(LanguageModelBasedTextTokenizezTest.class);
+        TestSuite suite = new TestSuite(LanguageModelBasedTextTokenizerTest.class);
         return suite;
     }
 
@@ -45,12 +45,12 @@ public class LanguageModelBasedTextTokenizezTest extends TestCase {
 
             this.tokenizerModel = new TokenizerModel(modelPathInputStream);
         } catch (IOException ex) {
-            Logger.getLogger(LanguageModelBasedTextTokenizez.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LanguageModelBasedTextTokenizer.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 modelPathInputStream.close();
             } catch (IOException ex) {
-                Logger.getLogger(LanguageModelBasedTextTokenizez.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LanguageModelBasedTextTokenizer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         super.setUp();
@@ -62,13 +62,13 @@ public class LanguageModelBasedTextTokenizezTest extends TestCase {
     }
 
     /**
-     * Test of tokenize method, of class LanguageModelBasedTextTokenizez.
+     * Test of tokenize method, of class LanguageModelBasedTextTokenizer.
      */
     public void testTokenize() {
         System.out.println("tokenize");
 
         String text = "test, token model.";
-        LanguageModelBasedTextTokenizez instance = new LanguageModelBasedTextTokenizez(this.tokenizerModel,
+        LanguageModelBasedTextTokenizer instance = new LanguageModelBasedTextTokenizer(this.tokenizerModel,
                 this.DETOKENIZER_DICTONARY_PATH);
         String[] expResult = {"test", ",", "token", "model", "."};
         String[] result = instance.tokenize(text);
@@ -79,12 +79,12 @@ public class LanguageModelBasedTextTokenizezTest extends TestCase {
     }
 
     /**
-     * Test of deTokenize method, of class LanguageModelBasedTextTokenizez.
+     * Test of deTokenize method, of class LanguageModelBasedTextTokenizer.
      */
     public void testDeTokenize() {
         System.out.println("deTokenize");
         String[] tokens = {"test", ",", "token", "model", "."};
-        LanguageModelBasedTextTokenizez instance = new LanguageModelBasedTextTokenizez(this.tokenizerModel,
+        LanguageModelBasedTextTokenizer instance = new LanguageModelBasedTextTokenizer(this.tokenizerModel,
                 this.DETOKENIZER_DICTONARY_PATH);
         String expResult = "test, token model.";
         String result = instance.deTokenize(tokens);
