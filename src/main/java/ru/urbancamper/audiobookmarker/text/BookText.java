@@ -73,7 +73,7 @@ public class BookText {
         return recognizedTextLongestSubsequences;
     }
 
-    public String constructWordWithMarkInfo(String word, Integer fileIndex,Double startTime){
+    private String constructWordWithMarkInfo(String word, Integer fileIndex,Double startTime){
         String fileIndexStr = fileIndex.toString();
         String startTimeStr = startTime.toString();
 
