@@ -63,7 +63,7 @@ public class BookTextTest extends TestCase {
     }
 
     /**
-     * Test of registerRecognisedTextPeace method, of class BookText.
+     * Test of registerRecognizedTextPiece method, of class BookText.
      */
     public void testRegisterRecognisedTextPeace() {
         System.out.println("registerRecognisedTextPeace");
@@ -72,7 +72,7 @@ public class BookTextTest extends TestCase {
 
         BookText instance = ctxt.getBean(BookText.class);
         for(RecognizedTextOfSingleAudiofile recognizedFile: this.recognizedFiles){
-            instance.registerRecognisedTextPeace(recognizedFile);
+            instance.registerRecognizedTextPiece(recognizedFile);
         }
 
         RecognizedTextOfSingleAudiofile[] retunedRecFiles = instance.getListOfRegistredAudiofiles();
@@ -94,7 +94,7 @@ public class BookTextTest extends TestCase {
 
         BookText instance = ctxt.getBean(BookText.class);
         for(RecognizedTextOfSingleAudiofile recognizedFile: this.recognizedFiles){
-            instance.registerRecognisedTextPeace(recognizedFile);
+            instance.registerRecognizedTextPiece(recognizedFile);
         }
 
         RecognizedTextOfSingleAudiofile[] retunedRecFiles = instance.getListOfRegistredAudiofiles();
@@ -117,7 +117,7 @@ public class BookTextTest extends TestCase {
         BookText instance = ctxt.getBean(BookText.class);
         instance.setFullText( bookFullText);
         for(RecognizedTextOfSingleAudiofile recognizedFile: this.recognizedFiles){
-            instance.registerRecognisedTextPeace(recognizedFile);
+            instance.registerRecognizedTextPiece(recognizedFile);
         }
 
 

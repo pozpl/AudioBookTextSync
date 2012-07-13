@@ -51,7 +51,7 @@ public class BookText {
         this.textInNumericForm = this.wordsToNumMapper.getNumbersFromWords(tokenizedBookText);
     }
 
-    public void registerRecognisedTextPeace(RecognizedTextOfSingleAudiofile recognizedFileText){
+    public void registerRecognizedTextPiece(RecognizedTextOfSingleAudiofile recognizedFileText){
         this.recognizedAudioFiles.add(recognizedFileText);
         this.registredFileMapper.put(recognizedFileText.getAudioFileHash(), this.recognizedAudioFiles.size());
     }
