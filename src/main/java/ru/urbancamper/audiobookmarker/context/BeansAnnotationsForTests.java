@@ -13,9 +13,8 @@ import java.util.logging.Logger;
 import opennlp.tools.tokenize.TokenizerModel;
 import org.springframework.context.annotation.Bean;
 import ru.urbancamper.audiobookmarker.text.BookText;
-import ru.urbancamper.audiobookmarker.text.LongestSubsequenceFinder;
-import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
 import ru.urbancamper.audiobookmarker.text.LanguageModelBasedTextTokenizer;
+import ru.urbancamper.audiobookmarker.text.LongestSubsequenceFinder;
 import ru.urbancamper.audiobookmarker.text.WordsToNumsMap;
 
 /**
@@ -26,6 +25,9 @@ public class BeansAnnotationsForTests {
 
     private String TOKENIZER_MODEL_PATH = "resources/tokenizer_models/en-token.bin";
     private String DETOKENIZER_DICTONARY_PATH = "resources/tokenizer_models/en-detokenizer.xml";
+
+    //@PropertySource("");
+
 
     @Bean
     public TokenizerModel tokenizerModel(){
