@@ -83,6 +83,52 @@
             <version>3.0.2-incubating</version>
         </dependency>
 <!--OpenNLP-->
+
+
+        <dependency>
+            <groupId>cmu.sphinx</groupId>
+            <artifactId>sphinx4</artifactId>
+            <version>4.0</version>
+        </dependency>
+        <dependency>
+            <artifactId>js</artifactId>
+            <version>4.0</version>
+            <groupId>cmu.sphinx</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>jsapi</artifactId>
+            <version>4.0</version>
+            <groupId>cmu.sphinx</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>tags</artifactId>
+            <version>4.0</version>
+            <groupId>cmu.sphinx</groupId>
+        </dependency>
+
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>sphinx-repository</id>
+            <name>Nexus Repository</name>
+            <url>http://repository.opencastproject.org/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+<!--    Inproject repository For sphinx4 and other thungs -->
+<!--    <repositories>
+        <repository>
+            <id>lib</id>
+            <name>lib</name>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>file://${project.basedir}/lib</url>
+        </repository>
+    </repositories>-->
 
 </project>
