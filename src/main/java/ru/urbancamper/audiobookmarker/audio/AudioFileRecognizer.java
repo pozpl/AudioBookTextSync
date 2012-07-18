@@ -1,7 +1,7 @@
 /*
  * This class purpose is to recognize audiofile to text
  */
-package ru.urbancamper.audiobookmaker.audio;
+package ru.urbancamper.audiobookmarker.audio;
 
 import java.io.File;
 import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;

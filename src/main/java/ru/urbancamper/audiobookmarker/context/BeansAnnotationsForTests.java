@@ -11,10 +11,11 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import opennlp.tools.tokenize.TokenizerModel;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import ru.urbancamper.audiobookmarker.text.BookText;
 import ru.urbancamper.audiobookmarker.text.LanguageModelBasedTextTokenizer;
 import ru.urbancamper.audiobookmarker.text.LongestSubsequenceFinder;
@@ -24,23 +25,21 @@ import ru.urbancamper.audiobookmarker.text.WordsToNumsMap;
  *
  * @author pozpl
  */
-
 @Configuration
-@PropertySource("classpath:/ru/urbancamper/audiobookmarker/context/test.properties")
+@PropertySource("classpath:test.properties")
 public class BeansAnnotationsForTests {
-    @Value("${TOKENIZER_MODEL_PATH}")
-    private String TOKENIZER_MODEL_PATH;// = "resources/tokenizer_models/en-token.bin";
+    private String TOKENIZER_MODEL_PATH = "resources/tokenizer_models/en-token.bin";
     private String DETOKENIZER_DICTONARY_PATH = "resources/tokenizer_models/en-detokenizer.xml";
 
-
-
+    @Autowired
+    private Environment env;
 
     @Bean
-    public TokenizerModel tokenizerModel(){
+    public TokenizerModel tokenizerModel() {
         InputStream modelPathInputStream = null;
         TokenizerModel tokenizerModel = null;
         try {
-            File modelFile = new File(TOKENIZER_MODEL_PATH);
+            File modelFile = new File(env.getProperty("TOKENIZER_MODEL_PATH"));//TOKENIZER_MODEL_PATH);
             modelPathInputStream = new FileInputStream(modelFile.getAbsolutePath());
             tokenizerModel = new TokenizerModel(modelPathInputStream);
         } catch (IOException ex) {
@@ -56,25 +55,24 @@ public class BeansAnnotationsForTests {
     }
 
     @Bean
-    public LanguageModelBasedTextTokenizer textTokenizer(){
-        return new LanguageModelBasedTextTokenizer(tokenizerModel(), this.DETOKENIZER_DICTONARY_PATH);
+    public LanguageModelBasedTextTokenizer textTokenizer() {
+        return new LanguageModelBasedTextTokenizer(tokenizerModel(), env.getProperty("DETOKENIZER_DICTONARY_PATH"));
     }
 
     @Bean
-    public WordsToNumsMap wordsToNumMap(){
+    public WordsToNumsMap wordsToNumMap() {
         return new WordsToNumsMap();
     }
 
     @Bean
-    public LongestSubsequenceFinder longestSubsequenceFinder(){
+    public LongestSubsequenceFinder longestSubsequenceFinder() {
         return new LongestSubsequenceFinder();
     }
 
     @Bean
-    public BookText bookText(){
+    public BookText bookText() {
         return new BookText(this.textTokenizer(), this.wordsToNumMap(), this.longestSubsequenceFinder());
     }
-
 //    @Bean
 //    public RecognizedTextOfSingleAudiofile recognizedTextOfSingleAudiofile(){
 //        modelPath
