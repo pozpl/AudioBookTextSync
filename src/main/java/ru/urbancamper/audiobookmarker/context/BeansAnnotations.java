@@ -11,24 +11,28 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import opennlp.tools.tokenize.TokenizerModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import ru.urbancamper.audiobookmarker.text.LanguageModelBasedTextTokenizer;
 /**
  *
  * @author pozpl
  */
 @Configuration
+@PropertySource("classpath:production.properties")
 public class BeansAnnotations {
-
-    private String TOKENIZER_MODEL_PATH = "resources/tokenizer_models/en-token.bin";
-    private String DETOKENIZER_DICTONARY_PATH = "resources/tokenizer_models/en-detokenizer.xml";
+    @Autowired
+    private Environment env;
+    
     @Bean
     public TokenizerModel tokenizerModel(){
         InputStream modelPathInputStream = null;
         TokenizerModel tokenizerModel = null;
         try {
-            File modelFile = new File(TOKENIZER_MODEL_PATH);
+            File modelFile = new File(env.getProperty("TOKENIZER_MODEL_PATH"));
             modelPathInputStream = new FileInputStream(modelFile.getAbsolutePath());
             tokenizerModel = new TokenizerModel(modelPathInputStream);
         } catch (IOException ex) {
@@ -45,6 +49,6 @@ public class BeansAnnotations {
 
     @Bean
     public LanguageModelBasedTextTokenizer textTokenizer(){
-        return new LanguageModelBasedTextTokenizer(tokenizerModel(), this.DETOKENIZER_DICTONARY_PATH);
+        return new LanguageModelBasedTextTokenizer(tokenizerModel(), env.getProperty("DETOKENIZER_DICTONARY_PATH"));
     }
 }
