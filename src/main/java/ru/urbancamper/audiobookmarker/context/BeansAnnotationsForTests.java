@@ -4,10 +4,14 @@
  */
 package ru.urbancamper.audiobookmarker.context;
 
+import edu.cmu.sphinx.util.props.ConfigurationManager;
+import edu.cmu.sphinx.util.props.PropertyException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import opennlp.tools.tokenize.TokenizerModel;
@@ -70,10 +74,33 @@ public class BeansAnnotationsForTests {
     public BookText bookText() {
         return new BookText(this.textTokenizer(), this.wordsToNumMap(), this.longestSubsequenceFinder());
     }
-//    @Bean
+
+    @Bean
+    public ConfigurationManager configurationManager(){
+        try {
+            URL configURL = new URL(env.getProperty("SPHINX_CONFIG_PATH"));
+            try {
+                return new ConfigurationManager(configURL);
+            } catch (IOException ex) {
+                Logger.getLogger(BeansAnnotationsForTests.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (PropertyException ex) {
+                Logger.getLogger(BeansAnnotationsForTests.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(BeansAnnotationsForTests.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+
+  //    @Bean
 //    public RecognizedTextOfSingleAudiofile recognizedTextOfSingleAudiofile(){
 //        modelPath
 //        RecognizedTextOfSingleAudiofile recText = new RecognizedTextOfSingleAudiofile(modelPath, modelPath)
 //        return null;
 //    }
+
+
+
+
 }
