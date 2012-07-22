@@ -84,12 +84,16 @@
         </dependency>
 <!--OpenNLP-->
 
-
         <dependency>
+            <groupId>edu.cmu.sphinx</groupId>
+            <artifactId>sphinx4</artifactId>
+            <version>1.0-beta6</version>
+        </dependency>
+<!--        <dependency>
             <groupId>cmu.sphinx</groupId>
             <artifactId>sphinx4</artifactId>
             <version>4.0</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <artifactId>js</artifactId>
             <version>4.0</version>
@@ -112,11 +116,11 @@
         <repository>
             <id>sphinx-repository</id>
             <name>Nexus Repository</name>
-            <url>http://repository.opencastproject.org/nexus/content/groups/public/</url>
+            <url>http://repository.ow2.org/nexus/content/repositories/ow2-legacy/</url>
         </repository>
-    </repositories>
+<!--    </repositories>-->
 <!--    Inproject repository For sphinx4 and other thungs -->
-<!--    <repositories>
+<!--    <repositories>-->
         <repository>
             <id>lib</id>
             <name>lib</name>
@@ -129,6 +133,6 @@
             </snapshots>
             <url>file://${project.basedir}/lib</url>
         </repository>
-    </repositories>-->
+    </repositories>
 
 </project>
