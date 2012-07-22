@@ -28,9 +28,6 @@ import ru.urbancamper.audiobookmarker.text.WordsToNumsMap;
 @Configuration
 @PropertySource("classpath:test.properties")
 public class BeansAnnotationsForTests {
-    private String TOKENIZER_MODEL_PATH = "resources/tokenizer_models/en-token.bin";
-    private String DETOKENIZER_DICTONARY_PATH = "resources/tokenizer_models/en-detokenizer.xml";
-
     @Autowired
     private Environment env;
 
