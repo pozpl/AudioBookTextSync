@@ -81,8 +81,6 @@ public class BeansAnnotationsForTests {
             URL configURL = new URL(env.getProperty("SPHINX_CONFIG_PATH"));
             try {
                 return new ConfigurationManager(configURL);
-            } catch (IOException ex) {
-                Logger.getLogger(BeansAnnotationsForTests.class.getName()).log(Level.SEVERE, null, ex);
             } catch (PropertyException ex) {
                 Logger.getLogger(BeansAnnotationsForTests.class.getName()).log(Level.SEVERE, null, ex);
             }
