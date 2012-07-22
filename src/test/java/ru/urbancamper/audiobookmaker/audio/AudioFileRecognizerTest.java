@@ -4,6 +4,7 @@
  */
 package ru.urbancamper.audiobookmaker.audio;
 
+import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizer;
 import java.io.File;
 import junit.framework.TestCase;
 import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
@@ -39,7 +40,7 @@ public class AudioFileRecognizerTest extends TestCase {
         RecognizedTextOfSingleAudiofile result = instance.recognize(filePath);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -53,6 +54,6 @@ public class AudioFileRecognizerTest extends TestCase {
         RecognizedTextOfSingleAudiofile result = instance.recognize(file);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 }
