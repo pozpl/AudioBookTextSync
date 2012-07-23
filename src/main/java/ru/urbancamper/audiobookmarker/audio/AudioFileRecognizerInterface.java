@@ -1,0 +1,18 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ru.urbancamper.audiobookmarker.audio;
+
+import java.net.URL;
+import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
+
+/**
+ *
+ * @author pozpl
+ */
+public interface AudioFileRecognizerInterface {
+    public RecognizedTextOfSingleAudiofile recognize(URL fileURL, String fileUnicIdentifier);
+
+    public RecognizedTextOfSingleAudiofile recognize(String filePath, String unicFileIdentifier);
+}

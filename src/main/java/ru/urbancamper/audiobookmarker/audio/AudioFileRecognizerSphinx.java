@@ -9,7 +9,6 @@ import edu.cmu.sphinx.recognizer.Recognizer;
 import edu.cmu.sphinx.result.Result;
 import edu.cmu.sphinx.util.props.ConfigurationManager;
 import edu.cmu.sphinx.util.props.PropertyException;
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
@@ -20,7 +19,7 @@ import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
  *
  * @author pozpl
  */
-public class AudioFileRecognizerSphinx {
+public class AudioFileRecognizerSphinx implements AudioFileRecognizerInterface{
 
     private ConfigurationManager sphinxConfigurationManager;
 
