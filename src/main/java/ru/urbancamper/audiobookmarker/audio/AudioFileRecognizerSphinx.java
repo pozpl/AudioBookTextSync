@@ -23,6 +23,11 @@ public class AudioFileRecognizerSphinx implements AudioFileRecognizerInterface{
 
     private ConfigurationManager sphinxConfigurationManager;
 
+    public AudioFileRecognizerSphinx(String sphinxConfigPath) {
+        ConfigurationManager cm = new ConfigurationManager(sphinxConfigPath);
+        this.sphinxConfigurationManager = cm;
+    }
+
     public AudioFileRecognizerSphinx(ConfigurationManager sphinxConfigManager) {
         this.sphinxConfigurationManager = sphinxConfigManager;
 

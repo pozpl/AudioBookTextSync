@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerSphinx;
 import ru.urbancamper.audiobookmarker.text.BookText;
 import ru.urbancamper.audiobookmarker.text.LanguageModelBasedTextTokenizer;
 import ru.urbancamper.audiobookmarker.text.LongestSubsequenceFinder;
@@ -91,14 +92,10 @@ public class BeansAnnotationsForTests {
     }
 
 
-  //    @Bean
-//    public RecognizedTextOfSingleAudiofile recognizedTextOfSingleAudiofile(){
-//        modelPath
-//        RecognizedTextOfSingleAudiofile recText = new RecognizedTextOfSingleAudiofile(modelPath, modelPath)
-//        return null;
-//    }
-
-
-
+ @Bean
+ public AudioFileRecognizerSphinx audioFileRecognozerSphinx(){
+     AudioFileRecognizerSphinx sphin4Instance = new AudioFileRecognizerSphinx(configurationManager());
+     return sphin4Instance;
+ }
 
 }
