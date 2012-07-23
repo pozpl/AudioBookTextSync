@@ -20,11 +20,11 @@ import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
  *
  * @author pozpl
  */
-public class AudioFileRecognizer {
+public class AudioFileRecognizerSphinx {
 
     private ConfigurationManager sphinxConfigurationManager;
 
-    public AudioFileRecognizer(ConfigurationManager sphinxConfigManager) {
+    public AudioFileRecognizerSphinx(ConfigurationManager sphinxConfigManager) {
         this.sphinxConfigurationManager = sphinxConfigManager;
 
     }
@@ -54,7 +54,7 @@ public class AudioFileRecognizer {
                 String resultText = result.getTimedBestResult(false, true);
                 resultTextAggregated += resultText;
 
-                result = recognizer.recognize(); //get next chanc of text
+                result = recognizer.recognize(); //get next chunk of text
             }
 
             RecognizedTextOfSingleAudiofile recognizedTextObj = new RecognizedTextOfSingleAudiofile(resultTextAggregated, fileUnicIdentifier);
@@ -62,7 +62,7 @@ public class AudioFileRecognizer {
 
 
         } catch (PropertyException ex) {
-            Logger.getLogger(AudioFileRecognizer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AudioFileRecognizerSphinx.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -73,7 +73,7 @@ public class AudioFileRecognizer {
             fileURL = new URL(filePath);
             return this.recognize(fileURL, unicFileIdentifier);
         } catch (MalformedURLException ex) {
-            Logger.getLogger(AudioFileRecognizer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AudioFileRecognizerSphinx.class.getName()).log(Level.SEVERE, null, ex);
 
         }
 
