@@ -9,8 +9,7 @@ import edu.cmu.sphinx.recognizer.Recognizer;
 import edu.cmu.sphinx.result.Result;
 import edu.cmu.sphinx.util.props.ConfigurationManager;
 import edu.cmu.sphinx.util.props.PropertyException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
@@ -33,7 +32,7 @@ public class AudioFileRecognizerSphinx implements AudioFileRecognizerInterface{
 
     }
 
-    public RecognizedTextOfSingleAudiofile recognize(URL fileURL, String fileUnicIdentifier) {
+    public RecognizedTextOfSingleAudiofile recognize(String filePath, String fileUnicIdentifier) {
 
         try {
             Recognizer recognizer = (Recognizer) this.sphinxConfigurationManager.lookup("recognizer");
@@ -48,7 +47,7 @@ public class AudioFileRecognizerSphinx implements AudioFileRecognizerInterface{
             // configure the audio input for the recognizer
             AudioFileDataSource dataSource = (AudioFileDataSource) sphinxConfigurationManager.lookup("audioFileDataSource");
 
-            dataSource.setAudioFile(fileURL, null);
+            dataSource.setAudioFile(new File(filePath), filePath);//setAudioFile(filePath, null);
 
             Result result;
             String resultTextAggregated = "";
@@ -56,7 +55,7 @@ public class AudioFileRecognizerSphinx implements AudioFileRecognizerInterface{
             result = recognizer.recognize();
             while ((result) != null) {
                 String resultText = result.getTimedBestResult(false, true);
-                resultTextAggregated += resultText;
+                resultTextAggregated += resultText;System.out.println(resultText);
 
                 result = recognizer.recognize(); //get next chunk of text
             }
@@ -71,16 +70,16 @@ public class AudioFileRecognizerSphinx implements AudioFileRecognizerInterface{
         return null;
     }
 
-    public RecognizedTextOfSingleAudiofile recognize(String filePath, String unicFileIdentifier) {
-        URL fileURL;
-        try {
-            fileURL = new URL(filePath);
-            return this.recognize(fileURL, unicFileIdentifier);
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(AudioFileRecognizerSphinx.class.getName()).log(Level.SEVERE, null, ex);
-
-        }
-
-        return null;
-    }
+//    public RecognizedTextOfSingleAudiofile recognize(String filePath, String unicFileIdentifier) {
+//        URL fileURL;
+//        try {
+//            fileURL = new URL("file:" + filePath);
+//            return this.recognize(fileURL, unicFileIdentifier);
+//        } catch (MalformedURLException ex) {
+//            Logger.getLogger(AudioFileRecognizerSphinx.class.getName()).log(Level.SEVERE, null, ex);
+//
+//        }
+//
+//        return null;
+//    }
 }
