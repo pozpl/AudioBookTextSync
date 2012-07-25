@@ -70,16 +70,4 @@ public class AudioFileRecognizerSphinx implements AudioFileRecognizerInterface{
         return null;
     }
 
-//    public RecognizedTextOfSingleAudiofile recognize(String filePath, String unicFileIdentifier) {
-//        URL fileURL;
-//        try {
-//            fileURL = new URL("file:" + filePath);
-//            return this.recognize(fileURL, unicFileIdentifier);
-//        } catch (MalformedURLException ex) {
-//            Logger.getLogger(AudioFileRecognizerSphinx.class.getName()).log(Level.SEVERE, null, ex);
-//
-//        }
-//
-//        return null;
-//    }
 }
