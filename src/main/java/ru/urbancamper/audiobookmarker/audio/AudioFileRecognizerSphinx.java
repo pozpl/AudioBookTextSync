@@ -62,7 +62,7 @@ public class AudioFileRecognizerSphinx implements AudioFileRecognizerInterface{
 
             RecognizedTextOfSingleAudiofile recognizedTextObj = new RecognizedTextOfSingleAudiofile(resultTextAggregated, fileUnicIdentifier);
 
-
+            return recognizedTextObj;
 
         } catch (PropertyException ex) {
             Logger.getLogger(AudioFileRecognizerSphinx.class.getName()).log(Level.SEVERE, null, ex);
