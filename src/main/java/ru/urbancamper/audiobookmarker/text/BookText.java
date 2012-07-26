@@ -5,6 +5,7 @@ package ru.urbancamper.audiobookmarker.text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
@@ -63,7 +64,8 @@ public class BookText {
 
     private ArrayList<TreeMap<Integer, Integer>> getLongestSubsequenceMappingFromRecognizedTexts(){
         ArrayList<TreeMap<Integer, Integer>> recognizedTextLongestSubsequences = new ArrayList<TreeMap<Integer, Integer>>();
-        for(RecognizedTextOfSingleAudiofile recognizedText: this.recognizedAudioFiles){
+        for (Iterator<RecognizedTextOfSingleAudiofile> it = this.recognizedAudioFiles.iterator(); it.hasNext();) {
+            RecognizedTextOfSingleAudiofile recognizedText = it.next();
             String[] recognizedTextAsTokens = recognizedText.getTokens();
             Integer[] recognizedTextAsNumbers = this.wordsToNumMapper.getNumbersFromWords(recognizedTextAsTokens);
             TreeMap<Integer, Integer> recTextLongestSubsequence = this.longestSubsequenceFinder.getLongestSubsequenceWithMinDistance(this.textInNumericForm, recognizedTextAsNumbers);
