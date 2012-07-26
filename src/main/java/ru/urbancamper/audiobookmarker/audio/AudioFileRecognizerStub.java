@@ -12,14 +12,16 @@ import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
  */
 public class AudioFileRecognizerStub implements AudioFileRecognizerInterface{
     private String stubText;
+    private String stubFileIdentificator;
 
-    public AudioFileRecognizerStub(String stubText) {
+    public AudioFileRecognizerStub(String stubText, String stubFileIdentificator) {
         this.stubText = stubText;
+        this.stubFileIdentificator = stubFileIdentificator;
     }
 
 
     public RecognizedTextOfSingleAudiofile recognize(String filePath, String unicFileIdentifier) {
-        return stubText;
+        return new RecognizedTextOfSingleAudiofile(stubText, stubFileIdentificator);
     }
 
 }
