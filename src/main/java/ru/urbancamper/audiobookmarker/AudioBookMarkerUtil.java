@@ -7,6 +7,7 @@ package ru.urbancamper.audiobookmarker;
 import java.io.File;
 import java.util.HashMap;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerInterface;
+import ru.urbancamper.audiobookmarker.document.MarkedDocument;
 import ru.urbancamper.audiobookmarker.text.BookText;
 import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
 
@@ -20,22 +21,26 @@ public class AudioBookMarkerUtil {
 
     private AudioFileRecognizerInterface audioRecognizer;
 
-    private HashMap<String, String> audioFilesIdentificatorMap;
-
     public AudioBookMarkerUtil(BookText bookText, AudioFileRecognizerInterface audioRecognizer){
         this.bookTextAggregator = bookText;
         this.audioRecognizer = audioRecognizer;
     }
 
-    public String makeMarkers(String[] audioBookFilesPaths, String fullText){
+    private MarkedDocument makeMarkers(String[] audioBookFilesPaths, String fullText){
         this.bookTextAggregator.setFullText(fullText);
-        for(String audioFilePath: audioBookFilesPaths){
-
+        HashMap<String, String> audioFilesIdentificatorMap = new HashMap<String, String>();
+        String audioFilePath;
+        String fileName;
+        for(Integer fileCounter = 0; fileCounter < audioBookFilesPaths.length; fileCounter++){
+            audioFilePath = audioBookFilesPaths[fileCounter];
+            fileName = this.getAudioFileName(audioFilePath);
+            audioFilesIdentificatorMap.put(fileName, fileCounter.toString());
             RecognizedTextOfSingleAudiofile recognizedFile = this.audioRecognizer.recognize(audioFilePath, audioFilePath);
             this.bookTextAggregator.registerRecognizedTextPiece(recognizedFile);
         }
         String markedText = this.bookTextAggregator.buildTextWithAudioMarks();
-        return markedText;
+        MarkedDocument markedDokument = new MarkedDocument(markedText, audioFilesIdentificatorMap);
+        return markedDokument;
     }
 
     private String getAudioFileName(String audioFilePath){
