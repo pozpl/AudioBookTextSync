@@ -26,7 +26,7 @@ public class AudioBookMarkerUtil {
         this.audioRecognizer = audioRecognizer;
     }
 
-    private MarkedDocument makeMarkers(String[] audioBookFilesPaths, String fullText){
+    public MarkedDocument makeMarkers(String[] audioBookFilesPaths, String fullText){
         this.bookTextAggregator.setFullText(fullText);
         HashMap<String, String> audioFilesIdentificatorMap = new HashMap<String, String>();
         String audioFilePath;
