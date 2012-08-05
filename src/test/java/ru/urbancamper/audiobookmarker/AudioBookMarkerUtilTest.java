@@ -20,7 +20,7 @@ import ru.urbancamper.audiobookmarker.text.BookText;
 public class AudioBookMarkerUtilTest extends TestCase {
 
     private String RECOGNIZED_AND_ALIGNED_STUB_TEXT = "some(2.1, 2.7) kind(3.0, 4.0) of(4.5, 5.0)"
-            + " text(6.1, 7.0) here(9.0,10.0)";
+            + " text(6.1, 7.0) here(9.0, 10.0)";
     private String BOOK_TEXT = "there is some kind of magnificent pease of literature text here";
 
 
@@ -50,7 +50,8 @@ public class AudioBookMarkerUtilTest extends TestCase {
         String[] filePaths = {"/some/fictional/path"};
         MarkedDocument markedDocument = util.makeMarkers(filePaths, this.BOOK_TEXT);
         String markedText =  markedDocument.getMarkedText();
-        
-        assertEquals("there is <1:2.1/>some <1:3.0/>kind <1:4.5/>of magnificent pease of literature <1:6.1/>text <1:9.0/>here", markedText);
+
+        System.out.println("|" + markedText + "|");
+        assertEquals("there is <1:2.1/>some <1:3.0/>kind of magnificent pease <1:4.5/>of literature <1:6.1/>text <1:9.0/>here", markedText);
     }
 }
