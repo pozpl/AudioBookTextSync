@@ -50,8 +50,7 @@ public class AudioBookMarkerUtilTest extends TestCase {
         String[] filePaths = {"/some/fictional/path"};
         MarkedDocument markedDocument = util.makeMarkers(filePaths, this.BOOK_TEXT);
         String markedText =  markedDocument.getMarkedText();
-        "some(2.1, 2.7) kind(3.0, 4.0) of(4.5, 5.0)"
-            + " text(6.1, 7.0) here(9.0,10.0)";
+        
         assertEquals("there is <1:2.1/>some <1:3.0/>kind <1:4.5/>of magnificent pease of literature <1:6.1/>text <1:9.0/>here", markedText);
     }
 }
