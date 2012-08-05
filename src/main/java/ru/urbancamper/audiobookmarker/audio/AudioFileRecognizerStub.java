@@ -14,12 +14,15 @@ public class AudioFileRecognizerStub implements AudioFileRecognizerInterface{
     private String stubText;
 
 
-    public AudioFileRecognizerStub(String stubText, String stubFileIdentificator) {
+    public AudioFileRecognizerStub(String stubText) {
         this.stubText = stubText;
 
     }
 
-    
+    public void setStubText(String stubText){
+        this.stubText = stubText;
+    }
+
     public RecognizedTextOfSingleAudiofile recognize(String filePath, String unicFileIdentifier) {
         return new RecognizedTextOfSingleAudiofile(stubText, unicFileIdentifier);
     }

@@ -27,7 +27,6 @@ public class AudioBookMarkerUtilTest extends TestCase {
     }
 
     public void testMakeMarkers() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 }
