@@ -36,8 +36,7 @@ public class AudioFileRecognizerSphinx implements AudioFileRecognizerInterface{
 
     }
 
-    public RecognizedTextOfSingleAudiofile recognize(String filePath, String fileUnicIdentifier) {
-
+    protected String getTextFromAudioFile(String filePath, String fileUnicIdentifier){
         try {
             Recognizer recognizer = (Recognizer) this.sphinxConfigurationManager.lookup("recognizer");
             TextAlignerGrammar grammar = (TextAlignerGrammar) this.sphinxConfigurationManager.lookup("textAlignGrammar");
@@ -65,15 +64,22 @@ public class AudioFileRecognizerSphinx implements AudioFileRecognizerInterface{
                 result = recognizer.recognize(); //get next chunk of text
             }
             resultTextAggregated = resultTextAggregator.toString();
-
-            RecognizedTextOfSingleAudiofile recognizedTextObj = new RecognizedTextOfSingleAudiofile(resultTextAggregated, fileUnicIdentifier);
-
-            return recognizedTextObj;
-
+            return resultTextAggregated;
         } catch (PropertyException ex) {
-            Logger.getLogger(AudioFileRecognizerSphinx.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(AudioFileRecognizerSphinx.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("Excsption during file recognition: " + ex);
         }
-        return null;
+        return "";
+    }
+
+    public RecognizedTextOfSingleAudiofile recognize(String filePath, String fileUnicIdentifier) {
+        String resultTextAggregated = getTextFromAudioFile(filePath, fileUnicIdentifier);
+
+        RecognizedTextOfSingleAudiofile recognizedTextObj = new RecognizedTextOfSingleAudiofile(resultTextAggregated, fileUnicIdentifier);
+
+        return recognizedTextObj;
+
+
     }
 
 }
