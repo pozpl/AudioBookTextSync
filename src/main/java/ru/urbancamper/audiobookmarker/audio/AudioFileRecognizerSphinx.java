@@ -12,6 +12,8 @@ import edu.cmu.sphinx.util.props.PropertyException;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
 
 /**
@@ -19,6 +21,8 @@ import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
  * @author pozpl
  */
 public class AudioFileRecognizerSphinx implements AudioFileRecognizerInterface{
+
+    protected final Log logger = LogFactory.getLog(getClass());
 
     private ConfigurationManager sphinxConfigurationManager;
 
@@ -51,14 +55,16 @@ public class AudioFileRecognizerSphinx implements AudioFileRecognizerInterface{
 
             Result result;
             String resultTextAggregated = "";
-
+            StringBuilder resultTextAggregator = new StringBuilder();
             result = recognizer.recognize();
             while ((result) != null) {
                 String resultText = result.getTimedBestResult(false, true);
-                resultTextAggregated += resultText;System.out.println(resultText);
+                resultTextAggregator.append(resultText);
+                logger.info("Recognized text: " + resultText);
 
                 result = recognizer.recognize(); //get next chunk of text
             }
+            resultTextAggregated = resultTextAggregator.toString();
 
             RecognizedTextOfSingleAudiofile recognizedTextObj = new RecognizedTextOfSingleAudiofile(resultTextAggregated, fileUnicIdentifier);
 
