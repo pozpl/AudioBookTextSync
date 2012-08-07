@@ -35,7 +35,7 @@ public class AudioBookMarkerUtil {
             audioFilePath = audioBookFilesPaths[fileCounter];
             fileName = this.getAudioFileName(audioFilePath);
             audioFilesIdentificatorMap.put(fileName, fileCounter.toString());
-            RecognizedTextOfSingleAudiofile recognizedFile = this.audioRecognizer.recognize(audioFilePath, audioFilePath);
+            RecognizedTextOfSingleAudiofile recognizedFile = this.audioRecognizer.recognize(audioFilePath, fileCounter.toString());
             this.bookTextAggregator.registerRecognizedTextPiece(recognizedFile);
         }
         String markedText = this.bookTextAggregator.buildTextWithAudioMarks();
