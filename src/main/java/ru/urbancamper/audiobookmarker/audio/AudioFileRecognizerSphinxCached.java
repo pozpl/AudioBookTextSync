@@ -11,6 +11,9 @@ package ru.urbancamper.audiobookmarker.audio;
 
 import edu.cmu.sphinx.util.props.ConfigurationManager;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
 
 /**
@@ -43,9 +46,37 @@ public class AudioFileRecognizerSphinxCached extends AudioFileRecognizerSphinx{
         }
     }
 
-    private String readRecognizedTextFromCache(){
-        
-        return null;
+    /**Convert file to string
+     * @param filePath
+     * @return
+     */
+    public String fileToString(String filePath){
+        StringBuilder strBuffer = new StringBuilder();
+        int BLOC_SIZE = 512;
+        char[] b = new char[BLOC_SIZE];
+        Reader fileReader = null;
+        try {
+            fileReader = new FileReader(filePath);
+            int n;
+            while((n = fileReader.read(b))>0){
+                strBuffer.append(b, 0, n);
+            }
+        } catch (IOException ex) {
+            this.logger.error("Excsption during file read " + filePath + ": " + ex);
+        }
+        String retStr = strBuffer.toString();
+        return retStr;
+    }
+
+    /**
+     * Get a aligned text from cache file
+     * @param filePath
+     * @return
+     */
+    private String readRecognizedTextFromCache(String filePath){
+        String cacheFilePath = filePath + AudioFileRecognizerSphinxCached.CACHE_FILR_EXTENSION;
+        String textFromCachedFile = this.fileToString(cacheFilePath);
+        return textFromCachedFile;
     }
 
     @Override
