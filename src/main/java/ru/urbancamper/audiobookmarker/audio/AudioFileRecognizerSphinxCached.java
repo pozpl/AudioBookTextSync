@@ -10,12 +10,20 @@
 package ru.urbancamper.audiobookmarker.audio;
 
 import edu.cmu.sphinx.util.props.ConfigurationManager;
+import java.io.File;
+import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
 
 /**
  *
  * @author pozpl
  */
 public class AudioFileRecognizerSphinxCached extends AudioFileRecognizerSphinx{
+    /**
+     *Extension for cached files. This files resides in the same directory with
+     * original audio files and contained aligned recognized text.
+     */
+    public static final  String CACHE_FILR_EXTENSION = ".cached";
+
     public AudioFileRecognizerSphinxCached(String sphinxConfigPath) {
         super(sphinxConfigPath);
         ConfigurationManager cm = new ConfigurationManager(sphinxConfigPath);
@@ -24,5 +32,29 @@ public class AudioFileRecognizerSphinxCached extends AudioFileRecognizerSphinx{
     public AudioFileRecognizerSphinxCached(ConfigurationManager sphinxConfigManager) {
         super(sphinxConfigManager);
     }
-    
+
+    private Boolean isCacheExists(String filePath){
+        String cacheFilePath = filePath + AudioFileRecognizerSphinxCached.CACHE_FILR_EXTENSION;
+        File cachedFile = new File(cacheFilePath);
+        if(cachedFile.exists()){
+            return Boolean.TRUE;
+        }else{
+            return Boolean.FALSE;
+        }
+    }
+
+    private String readRecognizedTextFromCache(){
+        
+        return null;
+    }
+
+    @Override
+    public RecognizedTextOfSingleAudiofile recognize(String filePath, String fileUnicIdentifier) {
+        String resultTextAggregated = getTextFromAudioFile(filePath, fileUnicIdentifier);
+
+        RecognizedTextOfSingleAudiofile recognizedTextObj = new RecognizedTextOfSingleAudiofile(resultTextAggregated, fileUnicIdentifier);
+
+        return recognizedTextObj;
+    }
+
 }
