@@ -4,6 +4,7 @@
  */
 package ru.urbancamper.audiobookmarker.audio;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -28,11 +29,27 @@ public class AudioFileRecognizerSphinxCachedTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
+        Properties prop = new Properties();
+        prop.load(new FileInputStream("src/main/resources/test.properties"));
+        String pathOfFileToRecognize = prop.getProperty("TEST_SPHINX_AUDIO_NUMBERS");
+        String cachedFilePath = pathOfFileToRecognize + AudioFileRecognizerSphinxCached.CACHE_FILR_EXTENSION;
+        File cachedFIle = new File(cachedFilePath);
+        if(cachedFIle.exists()){
+            boolean success = cachedFIle.delete();
+        }
     }
 
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
+        Properties prop = new Properties();
+        prop.load(new FileInputStream("src/main/resources/test.properties"));
+        String pathOfFileToRecognize = prop.getProperty("TEST_SPHINX_AUDIO_NUMBERS");
+        String cachedFilePath = pathOfFileToRecognize + AudioFileRecognizerSphinxCached.CACHE_FILR_EXTENSION;
+        File cachedFIle = new File(cachedFilePath);
+        if(cachedFIle.exists()){
+            boolean success = cachedFIle.delete();
+        }
     }
 
     /**
@@ -45,11 +62,9 @@ public class AudioFileRecognizerSphinxCachedTest extends TestCase {
         Properties prop = new Properties();
         try {
             prop.load(new FileInputStream("src/main/resources/test.properties"));
-            RecognizedTextOfSingleAudiofile numbersText = recognizer.recognize(prop.getProperty("TEST_SPHINX_AUDIO_NUMBERS"), "numbers");
-            String[] tokens = numbersText.getTokens();
-            for(String token : tokens){
-                System.out.println(token);
-            }
+            RecognizedTextOfSingleAudiofile recognizedAudioFile = recognizer.recognize(prop.getProperty("TEST_SPHINX_AUDIO_NUMBERS"), "numbers");
+            RecognizedTextOfSingleAudiofile recognizedFromCache = recognizer.recognize(prop.getProperty("TEST_SPHINX_AUDIO_NUMBERS"), "numbers");
+            assertEquals(recognizedAudioFile, recognizedFromCache);
         } catch (IOException ex) {
             Logger.getLogger(AudioFileRecognizerSphinx.class.getName()).log(Level.SEVERE, null, ex);
         }
