@@ -68,6 +68,5 @@ public class AudioFileRecognizerSphinxCachedTest extends TestCase {
         } catch (IOException ex) {
             Logger.getLogger(AudioFileRecognizerSphinx.class.getName()).log(Level.SEVERE, null, ex);
         }
-//
     }
 }
