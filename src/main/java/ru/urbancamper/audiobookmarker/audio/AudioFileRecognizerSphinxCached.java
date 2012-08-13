@@ -10,10 +10,14 @@
 package ru.urbancamper.audiobookmarker.audio;
 
 import edu.cmu.sphinx.util.props.ConfigurationManager;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
 
 /**
@@ -27,11 +31,19 @@ public class AudioFileRecognizerSphinxCached extends AudioFileRecognizerSphinx{
      */
     public static final  String CACHE_FILR_EXTENSION = ".cached";
 
+    /**
+     *
+     * @param sphinxConfigPath
+     */
     public AudioFileRecognizerSphinxCached(String sphinxConfigPath) {
         super(sphinxConfigPath);
         ConfigurationManager cm = new ConfigurationManager(sphinxConfigPath);
     }
 
+    /**
+     *
+     * @param sphinxConfigManager
+     */
     public AudioFileRecognizerSphinxCached(ConfigurationManager sphinxConfigManager) {
         super(sphinxConfigManager);
     }
@@ -79,9 +91,39 @@ public class AudioFileRecognizerSphinxCached extends AudioFileRecognizerSphinx{
         return textFromCachedFile;
     }
 
+    private Boolean writeResultToCache(String cacheFilePath, String textToCache){
+        BufferedWriter bWriter = null;
+        try {
+            File cacheFile = new File(cacheFilePath);
+            bWriter = new BufferedWriter(new FileWriter(cacheFile));
+            bWriter.write(textToCache);
+        } catch (IOException ex) {
+            Logger.getLogger(AudioFileRecognizerSphinxCached.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                bWriter.close();
+            } catch (IOException ex) {
+                Logger.getLogger(AudioFileRecognizerSphinxCached.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return Boolean.TRUE;
+    }
+
+    /**
+     *
+     * @param filePath
+     * @param fileUnicIdentifier
+     * @return
+     */
     @Override
     public RecognizedTextOfSingleAudiofile recognize(String filePath, String fileUnicIdentifier) {
-        String resultTextAggregated = getTextFromAudioFile(filePath, fileUnicIdentifier);
+        String resultTextAggregated = "";
+        if(this.isCacheExists(filePath)){
+            resultTextAggregated = this.readRecognizedTextFromCache(filePath);
+        }else{
+            resultTextAggregated = getTextFromAudioFile(filePath, fileUnicIdentifier);
+            this.writeResultToCache(filePath, resultTextAggregated);
+        }
 
         RecognizedTextOfSingleAudiofile recognizedTextObj = new RecognizedTextOfSingleAudiofile(resultTextAggregated, fileUnicIdentifier);
 
