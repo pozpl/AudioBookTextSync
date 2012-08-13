@@ -57,7 +57,7 @@ public class AudioFileRecognizerSphinxCachedTest extends TestCase {
      */
     public void testRecognize() {
         ApplicationContext ctxt = new AnnotationConfigApplicationContext(BeansAnnotationsForTests.class);
-        AudioFileRecognizerSphinx recognizer = ctxt.getBean(AudioFileRecognizerSphinx.class);
+        AudioFileRecognizerSphinxCached recognizer = ctxt.getBean(AudioFileRecognizerSphinxCached.class);
 
         Properties prop = new Properties();
         try {
