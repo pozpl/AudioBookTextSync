@@ -9,24 +9,23 @@
  */
 package ru.urbancamper.audiobookmarker.audio;
 
-import edu.cmu.sphinx.util.props.ConfigurationManager;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
 
 /**
  *
  * @author pozpl
  */
-public class AudioFileRecognizerSphinxCached extends AudioFileRecognizerSphinx{
+public class AudioFileRecognizerSphinxCached implements AudioFileRecognizerInterface{
     /**
      *Extension for cached files. This files resides in the same directory with
      * original audio files and contained aligned recognized text.
@@ -34,20 +33,22 @@ public class AudioFileRecognizerSphinxCached extends AudioFileRecognizerSphinx{
     public static final  String CACHE_FILR_EXTENSION = ".cached";
 
     /**
-     *
-     * @param sphinxConfigPath
+     *  Logging facility
      */
-    public AudioFileRecognizerSphinxCached(String sphinxConfigPath) {
-        super(sphinxConfigPath);
-        ConfigurationManager cm = new ConfigurationManager(sphinxConfigPath);
-    }
+    protected final Log logger = LogFactory.getLog(getClass());
+
+
+    /**
+     * Instance of recognizer
+     */
+    private AudioFileRecognizerInterface audioFileRecognizer;
 
     /**
      *
-     * @param sphinxConfigManager
+     * @param recognizer
      */
-    public AudioFileRecognizerSphinxCached(ConfigurationManager sphinxConfigManager) {
-        super(sphinxConfigManager);
+    public AudioFileRecognizerSphinxCached(AudioFileRecognizerInterface recognizer){
+        this.audioFileRecognizer = recognizer;
     }
 
     private Boolean isCacheExists(String filePath){
@@ -119,19 +120,23 @@ public class AudioFileRecognizerSphinxCached extends AudioFileRecognizerSphinx{
      */
     @Override
     public RecognizedTextOfSingleAudiofile recognize(String filePath, String fileUnicIdentifier) {
-        String resultTextAggregated = "";
+        String resultTextAggregated;
         if(this.isCacheExists(filePath)){
             this.logger.info("Get allocation information from cache");
             resultTextAggregated = this.readRecognizedTextFromCache(filePath);
         }else{
             this.logger.info("No cache presented, try to recognize");
-            resultTextAggregated = getTextFromAudioFile(filePath, fileUnicIdentifier);
+            resultTextAggregated = this.audioFileRecognizer.getTextFromAudioFile(filePath, fileUnicIdentifier);
             this.writeResultToCache(filePath, resultTextAggregated);
         }
 
         RecognizedTextOfSingleAudiofile recognizedTextObj = new RecognizedTextOfSingleAudiofile(resultTextAggregated, fileUnicIdentifier);
 
         return recognizedTextObj;
+    }
+
+    public String getTextFromAudioFile(String audioFilePath, String fileIdentification) {
+        return "";
     }
 
 }
