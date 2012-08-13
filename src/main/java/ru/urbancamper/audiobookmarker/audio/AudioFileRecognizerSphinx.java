@@ -34,7 +34,7 @@ public class AudioFileRecognizerSphinx implements AudioFileRecognizerInterface{
 
     }
 
-    protected String getTextFromAudioFile(String filePath, String fileUnicIdentifier){
+    public String getTextFromAudioFile(String filePath, String fileUnicIdentifier){
         try {
             Recognizer recognizer = (Recognizer) this.sphinxConfigurationManager.lookup("recognizer");
             TextAlignerGrammar grammar = (TextAlignerGrammar) this.sphinxConfigurationManager.lookup("textAlignGrammar");
