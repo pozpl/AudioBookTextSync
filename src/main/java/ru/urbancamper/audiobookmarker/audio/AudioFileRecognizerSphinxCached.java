@@ -12,6 +12,8 @@ package ru.urbancamper.audiobookmarker.audio;
 import edu.cmu.sphinx.util.props.ConfigurationManager;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -119,8 +121,10 @@ public class AudioFileRecognizerSphinxCached extends AudioFileRecognizerSphinx{
     public RecognizedTextOfSingleAudiofile recognize(String filePath, String fileUnicIdentifier) {
         String resultTextAggregated = "";
         if(this.isCacheExists(filePath)){
+            this.logger.info("Get allocation information from cache");
             resultTextAggregated = this.readRecognizedTextFromCache(filePath);
         }else{
+            this.logger.info("No cache presented, try to recognize");
             resultTextAggregated = getTextFromAudioFile(filePath, fileUnicIdentifier);
             this.writeResultToCache(filePath, resultTextAggregated);
         }
