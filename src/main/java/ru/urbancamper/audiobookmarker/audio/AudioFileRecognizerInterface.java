@@ -13,4 +13,10 @@ import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
 public interface AudioFileRecognizerInterface {
 
     public RecognizedTextOfSingleAudiofile recognize(String filePath, String unicFileIdentifier);
+    /**
+     *
+     * @param audioFilePath
+     * @return
+     */
+    public String getTextFromAudioFile(String audioFilePath);
 }
