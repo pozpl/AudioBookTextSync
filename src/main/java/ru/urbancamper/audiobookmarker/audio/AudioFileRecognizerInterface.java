@@ -16,7 +16,8 @@ public interface AudioFileRecognizerInterface {
     /**
      *
      * @param audioFilePath
+     * @param fileIdentification 
      * @return
      */
-    public String getTextFromAudioFile(String audioFilePath);
+    public String getTextFromAudioFile(String audioFilePath, String fileIdentification);
 }
