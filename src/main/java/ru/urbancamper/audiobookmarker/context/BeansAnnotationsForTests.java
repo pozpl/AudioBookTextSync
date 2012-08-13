@@ -102,7 +102,7 @@ public class BeansAnnotationsForTests {
 
  @Bean
  public AudioFileRecognizerSphinxCached audioFileRecognozerSphinxCached(){
-     AudioFileRecognizerSphinxCached sphin4Instance = new AudioFileRecognizerSphinxCached(configurationManager());
+     AudioFileRecognizerSphinxCached sphin4Instance = new AudioFileRecognizerSphinxCached(audioFileRecognizerStub());
      return sphin4Instance;
  }
 
