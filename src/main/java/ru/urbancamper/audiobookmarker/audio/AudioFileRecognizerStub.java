@@ -27,4 +27,10 @@ public class AudioFileRecognizerStub implements AudioFileRecognizerInterface{
         return new RecognizedTextOfSingleAudiofile(stubText, unicFileIdentifier);
     }
 
+    public String getTextFromAudioFile(String audioFilePath, String fileIdentification) {
+        return this.stubText;
+    }
+
+
+
 }
