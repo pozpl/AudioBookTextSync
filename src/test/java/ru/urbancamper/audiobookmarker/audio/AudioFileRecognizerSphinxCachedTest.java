@@ -21,6 +21,10 @@ import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
  * @author pozpl
  */
 public class AudioFileRecognizerSphinxCachedTest extends TestCase {
+    private String RECOGNIZED_AND_ALIGNED_STUB_TEXT = "some(2.1, 2.7) kind(3.0, 4.0) of(4.5, 5.0)"
+            + " text(6.1, 7.0) here(9.0, 10.0)";
+
+
 
     public AudioFileRecognizerSphinxCachedTest(String testName) {
         super(testName);
@@ -57,6 +61,8 @@ public class AudioFileRecognizerSphinxCachedTest extends TestCase {
      */
     public void testRecognize() {
         ApplicationContext ctxt = new AnnotationConfigApplicationContext(BeansAnnotationsForTests.class);
+        AudioFileRecognizerStub recognizerStub = (AudioFileRecognizerStub) ctxt.getBean("audioFileRecognizerStub");
+        recognizerStub.setStubText(RECOGNIZED_AND_ALIGNED_STUB_TEXT);
         AudioFileRecognizerSphinxCached recognizer = ctxt.getBean(AudioFileRecognizerSphinxCached.class);
 
         Properties prop = new Properties();
