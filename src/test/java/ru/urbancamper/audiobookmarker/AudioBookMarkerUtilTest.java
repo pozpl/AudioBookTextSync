@@ -8,7 +8,6 @@ import java.util.HashMap;
 import junit.framework.TestCase;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerInterface;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerStub;
 import ru.urbancamper.audiobookmarker.context.BeansAnnotationsForTests;
 import ru.urbancamper.audiobookmarker.document.MarkedDocument;
