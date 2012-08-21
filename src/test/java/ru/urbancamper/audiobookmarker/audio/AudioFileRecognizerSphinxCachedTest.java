@@ -70,7 +70,16 @@ public class AudioFileRecognizerSphinxCachedTest extends TestCase {
             prop.load(new FileInputStream("src/main/resources/test.properties"));
             RecognizedTextOfSingleAudiofile recognizedAudioFile = recognizer.recognize(prop.getProperty("TEST_SPHINX_AUDIO_NUMBERS"), "numbers");
             RecognizedTextOfSingleAudiofile recognizedFromCache = recognizer.recognize(prop.getProperty("TEST_SPHINX_AUDIO_NUMBERS"), "numbers");
-            assertEquals(recognizedAudioFile, recognizedFromCache);
+
+            assertEquals(recognizedAudioFile.getAudioFileHash(), recognizedFromCache.getAudioFileHash());
+            String[] tokensFromFile = recognizedAudioFile.getTokens();
+            String[] tokensFromCache = recognizedFromCache.getTokens();
+            assertEquals(tokensFromFile.length, tokensFromCache.length);
+            for(Integer tokenIterator = 0; tokenIterator < tokensFromFile.length; tokenIterator++){
+                assertEquals(tokensFromFile[tokenIterator], tokensFromCache[tokenIterator]);
+            }
+            
+
         } catch (IOException ex) {
             Logger.getLogger(AudioFileRecognizerSphinx.class.getName()).log(Level.SEVERE, null, ex);
         }
