@@ -77,8 +77,12 @@ public class AudioFileRecognizerSphinxCachedTest extends TestCase {
             assertEquals(tokensFromFile.length, tokensFromCache.length);
             for(Integer tokenIterator = 0; tokenIterator < tokensFromFile.length; tokenIterator++){
                 assertEquals(tokensFromFile[tokenIterator], tokensFromCache[tokenIterator]);
+                assertEquals(recognizedAudioFile.getBeginTimeOfTokenAtPosition(tokenIterator),
+                        recognizedFromCache.getBeginTimeOfTokenAtPosition(tokenIterator));
+                assertEquals(recognizedAudioFile.getEndTimeOfTokenAtPosition(tokenIterator),
+                        recognizedFromCache.getEndTimeOfTokenAtPosition(tokenIterator));
             }
-            
+
 
         } catch (IOException ex) {
             Logger.getLogger(AudioFileRecognizerSphinx.class.getName()).log(Level.SEVERE, null, ex);
