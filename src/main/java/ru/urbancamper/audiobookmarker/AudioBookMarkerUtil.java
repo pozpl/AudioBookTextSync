@@ -21,11 +21,23 @@ public class AudioBookMarkerUtil {
 
     private AudioFileRecognizerInterface audioRecognizer;
 
+    /**
+     *
+     * @param bookText
+     * @param audioRecognizer
+     */
     public AudioBookMarkerUtil(BookText bookText, AudioFileRecognizerInterface audioRecognizer){
         this.bookTextAggregator = bookText;
         this.audioRecognizer = audioRecognizer;
     }
 
+    /**
+     * This function gets an array of file paths and returns market dokument
+     *
+     * @param audioBookFilesPaths
+     * @param fullText
+     * @return
+     */
     public MarkedDocument makeMarkers(String[] audioBookFilesPaths, String fullText){
         this.bookTextAggregator.setFullText(fullText);
         HashMap<String, String> audioFilesIdentificatorMap = new HashMap<String, String>();
