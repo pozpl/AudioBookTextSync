@@ -66,7 +66,7 @@ public class AudioBookMarkerUtil {
         return retText;
     }
 
-    public MarkedDocument buildMarkedText(String audioBookDir, String bookFilePath){
+    public MarkedDocument makeMarkers(String audioBookDir, String bookFilePath){
 
         String[] audioFilePaths = this.getAudioFilesPaths(audioBookDir);
         String bookFullText = this.getBookFullText(bookFilePath);
