@@ -21,6 +21,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerSphinx;
+import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerSphinxCached;
 import ru.urbancamper.audiobookmarker.text.LanguageModelBasedTextTokenizer;
 
 /**
@@ -77,6 +78,12 @@ public class BeansAnnotations {
     @Bean
     public AudioFileRecognizerSphinx audioFileRecognozerSphinx() {
         AudioFileRecognizerSphinx sphin4Instance = new AudioFileRecognizerSphinx(configurationManager());
+        return sphin4Instance;
+    }
+
+    @Bean
+    public AudioFileRecognizerSphinxCached audioFileRecognozerSphinxCached() {
+        AudioFileRecognizerSphinxCached sphin4Instance = new AudioFileRecognizerSphinxCached(audioFileRecognozerSphinx());
         return sphin4Instance;
     }
 }
