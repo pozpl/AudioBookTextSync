@@ -104,12 +104,13 @@ public class BeansAnnotations {
     }
 
     @Bean
+    @Scope("prototype")
     public BookText bookText() {
         return new BookText(this.textTokenizer(), this.wordsToNumMap(), this.longestSubsequenceFinder());
     }
 
     @Bean
-    @Scope
+    @Scope("prototype")
     public AudioBookMarkerUtil audioBookMakerUtil(){
         AudioBookMarkerUtil bookMakerUtil = new AudioBookMarkerUtil(bookText(),
                 audioFileRecognozerSphinxCached());
