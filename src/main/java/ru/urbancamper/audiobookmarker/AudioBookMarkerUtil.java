@@ -5,8 +5,16 @@
 package ru.urbancamper.audiobookmarker;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.util.HashMap;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerInterface;
+import ru.urbancamper.audiobookmarker.context.BeansAnnotations;
 import ru.urbancamper.audiobookmarker.document.MarkedDocument;
 import ru.urbancamper.audiobookmarker.text.BookText;
 import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
@@ -30,6 +38,44 @@ public class AudioBookMarkerUtil {
         this.bookTextAggregator = bookText;
         this.audioRecognizer = audioRecognizer;
     }
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+
+    private String[] getAudioFilesPaths(String directoryPath){
+        File directory = new File(directoryPath);
+        String[] filePathsList = directory.list();
+        return filePathsList;
+    }
+
+    private String getBookFullText(String txtFilePath){
+        StringBuilder strBuffer = new StringBuilder();
+        int BLOC_SIZE = 512;
+        char[] b = new char[BLOC_SIZE];
+        Reader fileReader;
+        try {
+            fileReader = new FileReader(txtFilePath);
+            int n;
+            while((n = fileReader.read(b))>0){
+                strBuffer.append(b, 0, n);
+            }
+        } catch (IOException ex) {
+            this.logger.error("Excsption during file read " + txtFilePath + ": " + ex);
+        }
+        String retText = strBuffer.toString();
+        return retText;
+    }
+
+    public MarkedDocument buildMarkedText(String audioBookDir, String bookFilePath){
+
+        String[] audioFilePaths = this.getAudioFilesPaths(audioBookDir);
+        String bookFullText = this.getBookFullText(bookFilePath);
+
+        MarkedDocument markedDocument = this.makeMarkers(audioFilePaths, bookFullText);
+
+        return markedDocument;
+    }
+
 
     /**
      * This function gets an array of file paths and returns market dokument
