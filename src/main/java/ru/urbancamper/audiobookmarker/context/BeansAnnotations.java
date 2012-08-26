@@ -19,10 +19,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
+import ru.urbancamper.audiobookmarker.AudioBookMarkerUtil;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerSphinx;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerSphinxCached;
+import ru.urbancamper.audiobookmarker.text.BookText;
 import ru.urbancamper.audiobookmarker.text.LanguageModelBasedTextTokenizer;
+import ru.urbancamper.audiobookmarker.text.LongestSubsequenceFinder;
+import ru.urbancamper.audiobookmarker.text.WordsToNumsMap;
 
 /**
  *
@@ -61,6 +66,17 @@ public class BeansAnnotations {
     }
 
     @Bean
+    public WordsToNumsMap wordsToNumMap() {
+        return new WordsToNumsMap();
+    }
+
+    @Bean
+    public LongestSubsequenceFinder longestSubsequenceFinder() {
+        return new LongestSubsequenceFinder();
+    }
+
+
+    @Bean
     public ConfigurationManager configurationManager() {
         try {
             URL configURL = new URL(env.getProperty("SPHINX_CONFIG_PATH"));
@@ -85,5 +101,18 @@ public class BeansAnnotations {
     public AudioFileRecognizerSphinxCached audioFileRecognozerSphinxCached() {
         AudioFileRecognizerSphinxCached sphin4Instance = new AudioFileRecognizerSphinxCached(audioFileRecognozerSphinx());
         return sphin4Instance;
+    }
+
+    @Bean
+    public BookText bookText() {
+        return new BookText(this.textTokenizer(), this.wordsToNumMap(), this.longestSubsequenceFinder());
+    }
+
+    @Bean
+    @Scope
+    public AudioBookMarkerUtil audioBookMakerUtil(){
+        AudioBookMarkerUtil bookMakerUtil = new AudioBookMarkerUtil(bookText(),
+                audioFileRecognozerSphinxCached());
+        return bookMakerUtil;
     }
 }
