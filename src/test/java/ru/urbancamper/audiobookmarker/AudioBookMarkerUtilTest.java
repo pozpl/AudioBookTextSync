@@ -59,4 +59,8 @@ public class AudioBookMarkerUtilTest extends TestCase {
         assertEquals(filesNamesToUidMapExpected, filesNamesToUidMap);
 
     }
+
+    public void testMakeMarkersDirVersion(){
+        
+    }
 }
