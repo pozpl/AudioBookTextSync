@@ -53,5 +53,6 @@ public class App {
         String bookFilePath = cmd.getOptionValue("b");
 
         MarkedDocument markedDoc = audioBookMarkerUtil.makeMarkers(audioBookDirPath, bookFilePath);
+        String markedText = markedDoc.getMarkedText();
     }
 }
