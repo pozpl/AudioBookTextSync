@@ -34,7 +34,7 @@ import ru.urbancamper.audiobookmarker.text.WordsToNumsMap;
  * @author pozpl
  */
 @Configuration
-@PropertySource("classpath:production.properties")
+@PropertySource("classpath:porduction.properties")
 public class BeansAnnotations {
 
     @Autowired
