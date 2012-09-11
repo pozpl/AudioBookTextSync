@@ -51,7 +51,8 @@ public class App {
         CommandLine cmd = app.getCliOptions(args);
         String audioBookDirPath = cmd.getOptionValue("a");
         String bookFilePath = cmd.getOptionValue("b");
-
+        app.logger.info("Run with audio book path " + audioBookDirPath);
+        app.logger.info("Run with book file path " + bookFilePath);
         MarkedDocument markedDoc = audioBookMarkerUtil.makeMarkers(audioBookDirPath, bookFilePath);
         String markedText = markedDoc.getMarkedText();
     }
