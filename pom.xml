@@ -23,9 +23,22 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass> ru.urbancamper.audiobookmarker.App</mainClass>
+                            <mainClass>ru.urbancamper.audiobookmarker.App</mainClass>
                         </manifest>
                     </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appassembler-maven-plugin</artifactId>
+                <version>1.2.2</version>
+                <configuration>
+                    <programs>
+                        <program>
+                            <mainClass>ru.urbancamper.audiobookmarker.App</mainClass>
+                            <name>app</name>
+                        </program>
+                    </programs>
                 </configuration>
             </plugin>
         </plugins>
@@ -44,7 +57,7 @@
             <version>2.2.2</version>
         </dependency>
 
-<!--SPRING -->
+        <!--SPRING -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -62,9 +75,9 @@
             <artifactId>spring-context</artifactId>
             <version>3.1.1.RELEASE</version>
         </dependency>
-<!--SPRING-->
+        <!--SPRING-->
 
-<!--OpenNLP-->
+        <!--OpenNLP-->
         <dependency>
             <groupId>org.apache.opennlp</groupId>
             <artifactId>opennlp-tools</artifactId>
@@ -82,14 +95,14 @@
             <artifactId>opennlp-maxent</artifactId>
             <version>3.0.2-incubating</version>
         </dependency>
-<!--OpenNLP-->
+        <!--OpenNLP-->
 
         <dependency>
             <groupId>edu.cmu.sphinx</groupId>
             <artifactId>sphinx4</artifactId>
             <version>1.0-beta6</version>
         </dependency>
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>cmu.sphinx</groupId>
             <artifactId>sphinx4</artifactId>
             <version>4.0</version>
@@ -114,7 +127,6 @@
             <artifactId>commons-cli</artifactId>
             <version>1.2</version>
         </dependency>
-
     </dependencies>
 
     <repositories>
@@ -123,9 +135,9 @@
             <name>Nexus Repository</name>
             <url>http://repository.ow2.org/nexus/content/repositories/ow2-legacy/</url>
         </repository>
-<!--    </repositories>-->
-<!--    Inproject repository For sphinx4 and other thungs -->
-<!--    <repositories>-->
+        <!--    </repositories>-->
+        <!--    Inproject repository For sphinx4 and other thungs -->
+        <!--    <repositories>-->
         <repository>
             <id>lib</id>
             <name>lib</name>
