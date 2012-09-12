@@ -2,3 +2,5 @@ Audio Book Marker README
 The aim of this project is to build system that will automaticly recognize an
 audiobook text and mark a real text with time markers of recognized words.
 In future this information can be used for synchronizing listening and reading.
+
+Copyright (C) 2010-2012 Pozdniak Pavel <pozdpl@gmail.com>
