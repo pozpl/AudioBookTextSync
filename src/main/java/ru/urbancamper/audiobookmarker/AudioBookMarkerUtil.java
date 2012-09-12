@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,8 +42,13 @@ public class AudioBookMarkerUtil {
 
     private String[] getAudioFilesPaths(String directoryPath){
         File directory = new File(directoryPath);
-        String[] filePathsList = directory.list();
-        return filePathsList;
+        File[] filesInDir = directory.listFiles();
+        ArrayList<String> filePathsList = new ArrayList<String>();
+        for(File file: filesInDir){
+            filePathsList.add(file.getAbsolutePath());
+        }
+        String[] filePathsArray = filePathsList.toArray(new String[filePathsList.size()]);
+        return filePathsArray;
     }
 
     private String getBookFullText(String txtFilePath){
