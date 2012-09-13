@@ -118,7 +118,7 @@ public class AudioFileRecognizerSphinxCached implements AudioFileRecognizerInter
     }
 
     private Boolean isThisFileIsCacheFile(String filePath){
-        String cacheRegexp = "^\\.cached$";
+        String cacheRegexp = "\\.cached$";
         Pattern regexp = Pattern.compile(cacheRegexp);
         Matcher matcher = regexp.matcher(filePath);
         if(matcher.find()){
