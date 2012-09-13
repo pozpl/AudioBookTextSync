@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
@@ -113,6 +115,17 @@ public class AudioFileRecognizerSphinxCached implements AudioFileRecognizerInter
             }
         }
         return Boolean.TRUE;
+    }
+
+    private Boolean isThisFileIsCacheFile(String filePath){
+        String cacheRegexp = "^\\.cached$";
+        Pattern regexp = Pattern.compile(cacheRegexp);
+        Matcher matcher = regexp.matcher(filePath);
+        if(matcher.find()){
+            return Boolean.TRUE;
+        }
+
+        return Boolean.FALSE;
     }
 
     /**
