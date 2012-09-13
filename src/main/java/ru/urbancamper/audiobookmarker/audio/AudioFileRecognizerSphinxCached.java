@@ -137,14 +137,18 @@ public class AudioFileRecognizerSphinxCached implements AudioFileRecognizerInter
     @Override
     public RecognizedTextOfSingleAudiofile recognize(String filePath, String fileUnicIdentifier) {
         String resultTextAggregated;
-        String cacheFilePath = this.getCacheFilePath(filePath);
-        if(this.isCacheExists(cacheFilePath)){
-            this.logger.info("Get allocation information from cache");
-            resultTextAggregated = this.readRecognizedTextFromCache(cacheFilePath);
-        }else{
-            this.logger.info("No cache presented, try to recognize");
-            resultTextAggregated = this.audioFileRecognizer.getTextFromAudioFile(filePath, fileUnicIdentifier);
-            this.writeResultToCache(cacheFilePath, resultTextAggregated);
+        if (!this.isThisFileIsCacheFile(filePath)) {
+            String cacheFilePath = this.getCacheFilePath(filePath);
+            if (this.isCacheExists(cacheFilePath)) {
+                this.logger.info("Get allocation information from cache");
+                resultTextAggregated = this.readRecognizedTextFromCache(cacheFilePath);
+            } else {
+                this.logger.info("No cache presented, try to recognize");
+                resultTextAggregated = this.audioFileRecognizer.getTextFromAudioFile(filePath, fileUnicIdentifier);
+                this.writeResultToCache(cacheFilePath, resultTextAggregated);
+            }
+        } else {
+            resultTextAggregated = "";
         }
 
         RecognizedTextOfSingleAudiofile recognizedTextObj = new RecognizedTextOfSingleAudiofile(resultTextAggregated, fileUnicIdentifier);
