@@ -51,8 +51,7 @@ public class AudioFileRecognizerSphinxCached implements AudioFileRecognizerInter
         this.audioFileRecognizer = recognizer;
     }
 
-    private Boolean isCacheExists(String filePath){
-        String cacheFilePath = filePath + AudioFileRecognizerSphinxCached.CACHE_FILR_EXTENSION;
+    private Boolean isCacheExists(String cacheFilePath){
         File cachedFile = new File(cacheFilePath);
         if(cachedFile.exists()){
             return Boolean.TRUE;
@@ -83,13 +82,17 @@ public class AudioFileRecognizerSphinxCached implements AudioFileRecognizerInter
         return retStr;
     }
 
+    private String getCacheFilePath(String audioFilePath){
+        String cacheFilePath = audioFilePath + AudioFileRecognizerSphinxCached.CACHE_FILR_EXTENSION;
+        return cacheFilePath;
+    }
+
     /**
      * Get a aligned text from cache file
      * @param filePath
      * @return
      */
-    private String readRecognizedTextFromCache(String filePath){
-        String cacheFilePath = filePath + AudioFileRecognizerSphinxCached.CACHE_FILR_EXTENSION;
+    private String readRecognizedTextFromCache(String cacheFilePath){
         String textFromCachedFile = this.fileToString(cacheFilePath);
         return textFromCachedFile;
     }
@@ -121,13 +124,14 @@ public class AudioFileRecognizerSphinxCached implements AudioFileRecognizerInter
     @Override
     public RecognizedTextOfSingleAudiofile recognize(String filePath, String fileUnicIdentifier) {
         String resultTextAggregated;
-        if(this.isCacheExists(filePath)){
+        String cacheFilePath = this.getCacheFilePath(filePath);
+        if(this.isCacheExists(cacheFilePath)){
             this.logger.info("Get allocation information from cache");
-            resultTextAggregated = this.readRecognizedTextFromCache(filePath);
+            resultTextAggregated = this.readRecognizedTextFromCache(cacheFilePath);
         }else{
             this.logger.info("No cache presented, try to recognize");
             resultTextAggregated = this.audioFileRecognizer.getTextFromAudioFile(filePath, fileUnicIdentifier);
-            this.writeResultToCache(filePath, resultTextAggregated);
+            this.writeResultToCache(cacheFilePath, resultTextAggregated);
         }
 
         RecognizedTextOfSingleAudiofile recognizedTextObj = new RecognizedTextOfSingleAudiofile(resultTextAggregated, fileUnicIdentifier);
