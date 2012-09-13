@@ -4,7 +4,12 @@
  */
 package ru.urbancamper.audiobookmarker;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import junit.framework.TestCase;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -23,7 +28,6 @@ public class AudioBookMarkerUtilTest extends TestCase {
             + " text(6.1, 7.0) here(9.0, 10.0)";
     private String BOOK_TEXT = "there is some kind of magnificent pease of literature text here";
 
-
     public AudioBookMarkerUtilTest(String testName) {
         super(testName);
     }
@@ -38,7 +42,6 @@ public class AudioBookMarkerUtilTest extends TestCase {
         super.tearDown();
     }
 
-
     public void testMakeMarkers() {
 
         ApplicationContext ctxt = new AnnotationConfigApplicationContext(BeansAnnotationsForTests.class);
@@ -49,7 +52,7 @@ public class AudioBookMarkerUtilTest extends TestCase {
         AudioBookMarkerUtil util = new AudioBookMarkerUtil(bookText, recognizer);
         String[] filePaths = {"/some/fictional/path"};
         MarkedDocument markedDocument = util.makeMarkers(filePaths, this.BOOK_TEXT);
-        String markedText =  markedDocument.getMarkedText();
+        String markedText = markedDocument.getMarkedText();
 
         assertEquals("there is <1:2.1/>some <1:3.0/>kind of magnificent pease <1:4.5/>of literature <1:6.1/>text <1:9.0/>here", markedText);
 
@@ -60,7 +63,31 @@ public class AudioBookMarkerUtilTest extends TestCase {
 
     }
 
-    public void testMakeMarkersDirVersion(){
-        
+    public void testMakeMarkersDirVersion() {
+
+        ApplicationContext ctxt = new AnnotationConfigApplicationContext(BeansAnnotationsForTests.class);
+        AudioFileRecognizerStub recognizer = (AudioFileRecognizerStub) ctxt.getBean("audioFileRecognizerStub");
+        recognizer.setStubText(RECOGNIZED_AND_ALIGNED_STUB_TEXT);
+        BookText bookText = ctxt.getBean(BookText.class);
+
+        AudioBookMarkerUtil util = new AudioBookMarkerUtil(bookText, recognizer);
+        Properties prop = new Properties();
+        try {
+            prop.load(new FileInputStream("src/main/resources/test.properties"));
+
+            String fileDir = prop.getProperty("TEST_AUDIO_DIR");
+
+            MarkedDocument markedDocument = util.makeMarkers(fileDir, this.BOOK_TEXT);
+            String markedText = markedDocument.getMarkedText();
+
+            assertEquals("there is <1:2.1/>some <1:3.0/>kind of magnificent pease <1:4.5/>of literature <1:6.1/>text <1:9.0/>here", markedText);
+
+            HashMap<String, String> filesNamesToUidMap = markedDocument.getFileNamesToUidsMap();
+            HashMap<String, String> filesNamesToUidMapExpected = new HashMap<String, String>();
+            filesNamesToUidMapExpected.put("path", String.valueOf(0));
+            assertEquals(filesNamesToUidMapExpected, filesNamesToUidMap);
+        } catch (IOException ex) {
+            Logger.getLogger(AudioBookMarkerUtilTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
