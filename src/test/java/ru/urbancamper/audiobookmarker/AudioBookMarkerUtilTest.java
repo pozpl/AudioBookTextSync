@@ -76,8 +76,8 @@ public class AudioBookMarkerUtilTest extends TestCase {
             prop.load(new FileInputStream("src/main/resources/test.properties"));
 
             String fileDir = prop.getProperty("TEST_AUDIO_DIR");
-
-            MarkedDocument markedDocument = util.makeMarkers(fileDir, this.BOOK_TEXT);
+            String bookFileDir = prop.getProperty("TEST_BOOK_PATH");
+            MarkedDocument markedDocument = util.makeMarkers(fileDir, bookFileDir);
             String markedText = markedDocument.getMarkedText();
 
             assertEquals("there is <1:2.1/>some <1:3.0/>kind of magnificent pease <1:4.5/>of literature <1:6.1/>text <1:9.0/>here", markedText);
