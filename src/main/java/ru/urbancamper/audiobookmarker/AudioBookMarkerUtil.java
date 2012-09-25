@@ -4,15 +4,20 @@
  */
 package ru.urbancamper.audiobookmarker;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerInterface;
+import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerSphinxCached;
 import ru.urbancamper.audiobookmarker.document.MarkedDocument;
 import ru.urbancamper.audiobookmarker.text.BookText;
 import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
@@ -108,6 +113,33 @@ public class AudioBookMarkerUtil {
         String fileName;
         fileName = new File(audioFilePath).getName();
         return fileName;
+    }
+
+    private Boolean isMarkedTextFileExists(String filePath){
+        File cachedFile = new File(filePath);
+        if(cachedFile.exists()){
+            return Boolean.TRUE;
+        }else{
+            return Boolean.FALSE;
+        }
+    }
+
+    private Boolean writeMarkedTextToFIle(String filePath, String textToWrite){
+        BufferedWriter bWriter = null;
+        try {
+            File cacheFile = new File(filePath);
+            bWriter = new BufferedWriter(new FileWriter(cacheFile));
+            bWriter.write(textToWrite);
+        } catch (IOException ex) {
+            this.logger.error("Error during writing process to file " + filePath);
+        } finally {
+            try {
+                bWriter.close();
+            } catch (IOException ex) {
+                this.logger.error("Can not close file " + filePath);
+            }
+        }
+        return Boolean.TRUE;
     }
 
 }
