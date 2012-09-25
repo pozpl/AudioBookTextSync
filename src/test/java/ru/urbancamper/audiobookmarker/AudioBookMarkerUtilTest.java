@@ -84,7 +84,7 @@ public class AudioBookMarkerUtilTest extends TestCase {
 
             HashMap<String, String> filesNamesToUidMap = markedDocument.getFileNamesToUidsMap();
             HashMap<String, String> filesNamesToUidMapExpected = new HashMap<String, String>();
-            filesNamesToUidMapExpected.put("path", String.valueOf(0));
+            filesNamesToUidMapExpected.put("single_file", String.valueOf(0));
             assertEquals(filesNamesToUidMapExpected, filesNamesToUidMap);
         } catch (IOException ex) {
             Logger.getLogger(AudioBookMarkerUtilTest.class.getName()).log(Level.SEVERE, null, ex);
