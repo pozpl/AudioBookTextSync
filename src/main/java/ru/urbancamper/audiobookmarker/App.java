@@ -31,7 +31,7 @@ public class App {
             Options options = new Options();
             options.addOption("a", "audio", true, "Path to a directory contaning audiobook files");
             options.addOption("b", "book", true, "A txt File that contains book text.");
-            options.addOption("m", "marked_text", false, "File path to put marked text in.");
+            options.addOption("m", "marked_text", true, "File path to put marked text in.");
 
             CommandLineParser parser = new PosixParser();
             cmd = parser.parse(options, args);
@@ -56,7 +56,13 @@ public class App {
         app.logger.info("Run with a book file path " + bookFilePath);
         MarkedDocument markedDoc = audioBookMarkerUtil.makeMarkers(audioBookDirPath, bookFilePath);
         String markedText = markedDoc.getMarkedText();
-        app.logger.info("A marked text obtained " + bookFilePath);
+        app.logger.info("A marked text obtained ");
+        String markedTextFilePath = cmd.getOptionValue("m");
+        app.logger.info("A marked text file path " + markedTextFilePath);
+        if(markedTextFilePath != null){
+            audioBookMarkerUtil.writeMarkedTextToFile(markedTextFilePath, markedText);
+            app.logger.info("Write marked text into file " + markedTextFilePath);
+        }
 
     }
 }
