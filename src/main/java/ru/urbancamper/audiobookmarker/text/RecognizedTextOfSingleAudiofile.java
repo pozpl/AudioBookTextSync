@@ -59,7 +59,7 @@ public class RecognizedTextOfSingleAudiofile {
     }
 
     private void splitTextToTokens(){
-        String tokenRegex = "(?<word>\\w+)\\((?<beginTime>\\d+\\.\\d+),\\s+(?<endTime>\\d+\\.\\d+)\\)";
+        String tokenRegex = "(?<word>\\w+)\\((?<beginTime>\\d+\\.\\d+),\\s*(?<endTime>\\d+\\.\\d+)\\)";
 
         Pattern tokenPattern = Pattern.compile(tokenRegex);
         Matcher tokensMatcher = tokenPattern.matcher(this.alignedTextSting);
