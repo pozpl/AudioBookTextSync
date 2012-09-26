@@ -124,7 +124,7 @@ public class AudioBookMarkerUtil {
         }
     }
 
-    private Boolean writeMarkedTextToFIle(String filePath, String textToWrite){
+    public Boolean writeMarkedTextToFile(String filePath, String textToWrite){
         BufferedWriter bWriter = null;
         try {
             File cacheFile = new File(filePath);
