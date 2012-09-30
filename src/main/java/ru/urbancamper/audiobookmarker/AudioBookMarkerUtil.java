@@ -62,10 +62,15 @@ public class AudioBookMarkerUtil {
         char[] b = new char[BLOC_SIZE];
         Reader fileReader;
         try {
-            fileReader = new FileReader(txtFilePath);
-            int n;
-            while((n = fileReader.read(b))>0){
-                strBuffer.append(b, 0, n);
+            File txtFile = new File(txtFilePath);
+            if(txtFile.exists()){
+                fileReader = new FileReader(txtFile);
+                int n;
+                while((n = fileReader.read(b))>0){
+                    strBuffer.append(b, 0, n);
+                }
+            }else{
+                this.logger.error("File is not exists" + txtFilePath);
             }
         } catch (IOException ex) {
             this.logger.error("Excsption during file read " + txtFilePath + ": " + ex);
