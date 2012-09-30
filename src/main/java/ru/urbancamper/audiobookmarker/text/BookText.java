@@ -113,8 +113,10 @@ public class BookText {
                 Double beginTime = recognizedFile.getBeginTimeOfTokenAtPosition(recognizedTextWordIndex);
                 Double endTime = recognizedFile.getEndTimeOfTokenAtPosition(recognizedTextWordIndex);
 
-                this.tokenizedBookText[fullTextWordIndex] =
-                        this.constructWordWithMarkInfo(this.tokenizedBookText[fullTextWordIndex], fileIndex, beginTime);
+                String wordWithMarkerInfo = this.constructWordWithMarkInfo(
+                        this.tokenizedBookText[fullTextWordIndex], fileIndex, beginTime);
+                this.tokenizedBookText[fullTextWordIndex] = wordWithMarkerInfo;
+
             }
             subsequenceCounter++;
         }
