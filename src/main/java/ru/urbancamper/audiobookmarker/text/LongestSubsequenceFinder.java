@@ -27,7 +27,7 @@ public class LongestSubsequenceFinder {
         for (int i = 0; i < fullArray.length; i++) {
             for (int j = 0; j < subArray.length; j++) {
                 if (fullArray[i] == subArray[j] &&
-                        this.isWodsBelongToInterval(fullArrayIndexesOfSameWords, j, i)) {
+                        this.isWodsBelongToInterval(fullArrayIndexesOfSameWords, i, j)) {
                     lengths[i + 1][j + 1] = lengths[i][j] + 1;
                     fullArrayIndexesOfSameWords[j] = i;
                 } else {
