@@ -14,6 +14,8 @@ import java.util.TreeMap;
  */
 public class LongestSubsequenceFinder {
 
+    private static final Integer WORDS_INTERVAL_THRESHHOLD = 3;
+
     private TreeMap<Integer, Integer> findLogestSubsequence(Integer[] fullArray,
             Integer[] subArray) {
 
@@ -51,6 +53,28 @@ public class LongestSubsequenceFinder {
         }
 
         return resultBuffer;
+    }
+
+    /**
+     * function to decide if words is close enough to be in same sequence
+     * @param  longestSequenceWordsOffsets array of word offsets tat matched
+     * @param  fullArrayIndex
+     * @param  subArrayIndex
+     * @return decigion if words is close enough
+     */
+    private Boolean isWodsBelongToInterval(int[] longestSequenceWordsOffsets, int fullArrayIndex, int subArrayIndex){
+        if(subArrayIndex == 0){
+            return true;
+        }
+        Integer subArrayWordsCounter = 0;
+        for(Integer wordsLengthsIndex = subArrayIndex -1; wordsLengthsIndex >= 0; wordsLengthsIndex--){
+            int subArrayWordOffset = longestSequenceWordsOffsets[wordsLengthsIndex];
+            int wordsDistance = fullArrayIndex - subArrayWordOffset;
+            if(wordsDistance > 0 && wordsDistance - subArrayWordsCounter < WORDS_INTERVAL_THRESHHOLD){
+                return true;
+            }
+        }
+        return false;
     }
 
     public TreeMap<Integer, Integer> getLongestSubsequenceWithMinDistance(
