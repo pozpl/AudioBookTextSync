@@ -96,4 +96,21 @@ public class LongestSubsequenceFinder {
         }
         return resultBuffer;
     }
+
+
+    public Integer longestSubsequenceLengthWithDistanceCorrection(Integer[] fullArray,
+            Integer[] subArray) {
+
+        Integer[][] subsequenceLengths = new Integer[fullArray.length + 1][subArray.length + 1];
+
+        // initialyse subsequncw length to -1; -1 is a flag of not processed subarray
+        for (Integer i = 0; i < fullArray.length; i++) {
+            for (Integer j = 0; j < subArray.length; j++) {
+                subsequenceLengths[i][j] = -1;
+            }
+        }
+
+        return 0;
+    }
+    
 }
