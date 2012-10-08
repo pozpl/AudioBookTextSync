@@ -120,8 +120,20 @@ public class LongestSubsequenceFinder {
             Integer subArrayBeginIndex,
             Integer[][] subsequenceLengths) {
 
-
-        return 0;
+        if (subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex] < 0) {
+            if (fullArrayBeginIndex < fullArray.length && subArrayBeginIndex < subArray.length) {
+                if (fullArray[fullArrayBeginIndex] == subArray[subArrayBeginIndex]) {
+                    Integer subproblemLengths = subproblemLongestSubsequenceWithDistanceCorrection(fullArray,
+                            subArray, fullArrayBeginIndex + 1, subArrayBeginIndex + 1, subsequenceLengths);
+                    subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex] = subproblemLengths;
+                    return 1 + subproblemLengths;
+                }
+            } else {
+                return 0;
+            }
+        } else {
+            return subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex];
+        }
     }
 
 }
