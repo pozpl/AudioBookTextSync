@@ -20,16 +20,13 @@ public class LongestSubsequenceFinder {
             Integer[] subArray) {
 
         int[][] lengths = new int[fullArray.length + 1][subArray.length + 1];
-        int[] fullArrayIndexesOfSameWords = new int[subArray.length + 1];
 
         // row 0 and column 0 are initialized to 0 already
 
         for (int i = 0; i < fullArray.length; i++) {
             for (int j = 0; j < subArray.length; j++) {
-                if (fullArray[i] == subArray[j] &&
-                        this.isWodsBelongToInterval(fullArrayIndexesOfSameWords, j, i)) {
+                if (fullArray[i] == subArray[j]) {
                     lengths[i + 1][j + 1] = lengths[i][j] + 1;
-                    fullArrayIndexesOfSameWords[j] = i;
                 } else {
                     lengths[i + 1][j + 1] =
                             Math.max(lengths[i + 1][j], lengths[i][j + 1]);
