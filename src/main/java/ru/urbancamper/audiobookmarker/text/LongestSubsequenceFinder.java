@@ -112,5 +112,16 @@ public class LongestSubsequenceFinder {
 
         return 0;
     }
-    
+
+    private Integer subproblemLongestSubsequenceWithDistanceCorrection(
+            Integer[] fullArray,
+            Integer[] subArray,
+            Integer fullArrayBeginIndex,
+            Integer subArrayBeginIndex,
+            Integer[][] subsequenceLengths) {
+
+
+        return 0;
+    }
+
 }
