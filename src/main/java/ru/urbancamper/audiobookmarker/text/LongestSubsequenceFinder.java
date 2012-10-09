@@ -168,6 +168,7 @@ public class LongestSubsequenceFinder {
                 return subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex];
             }
         } else {
+            subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex] = 0;
             return 0;
         }
     }
