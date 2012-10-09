@@ -98,7 +98,7 @@ public class LongestSubsequenceFinder {
     }
 
 
-    public Integer longestSubsequenceLengthWithDistanceCorrection(Integer[] fullArray,
+    public TreeMap<Integer, Integer> longestSubsequenceLengthWithDistanceCorrection(Integer[] fullArray,
             Integer[] subArray) {
 
         Integer[][] subsequenceLengths = new Integer[fullArray.length + 1][subArray.length + 1];
@@ -109,8 +109,29 @@ public class LongestSubsequenceFinder {
                 subsequenceLengths[i][j] = -1;
             }
         }
+        Integer longestSubsequenceLength = this.subproblemLongestSubsequenceWithDistanceCorrection(
+                fullArray, subArray, 0, 0, subsequenceLengths);
 
-        return 0;
+        // read the substring out from the matrix
+//        StringBuffer sb = new StringBuffer();
+        TreeMap<Integer, Integer> resultBuffer = new TreeMap<Integer, Integer>();
+        for (int x = fullArray.length, y = subArray.length;
+                x != 0 && y != 0;) {
+            if (subsequenceLengths[x][y] == subsequenceLengths[x - 1][y]) {
+                x--;
+            } else if (subsequenceLengths[x][y] == subsequenceLengths[x][y - 1]) {
+                y--;
+            } else {
+                assert fullArray[x - 1] == subArray[y - 1];
+//                sb.append(a.get(x - 1));
+                resultBuffer.put(x-1, y-1);
+                x--;
+                y--;
+            }
+        }
+
+        return resultBuffer;
+
     }
 
     private Integer subproblemLongestSubsequenceWithDistanceCorrection(
