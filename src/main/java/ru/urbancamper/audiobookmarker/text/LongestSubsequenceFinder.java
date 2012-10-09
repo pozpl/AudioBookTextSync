@@ -44,7 +44,7 @@ public class LongestSubsequenceFinder {
             } else {
                 assert fullArray[x - 1] == subArray[y - 1];
 //                sb.append(a.get(x - 1));
-                resultBuffer.put(x-1, y-1);
+                resultBuffer.put(x - 1, y - 1);
                 x--;
                 y--;
             }
@@ -55,7 +55,7 @@ public class LongestSubsequenceFinder {
 
     public TreeMap<Integer, Integer> getLongestSubsequenceWithMinDistance(
             Integer[] fullArray,
-            Integer[] subArray){
+            Integer[] subArray) {
         TreeMap<Integer, Integer> longestSubsequence = this.findLogestSubsequence(fullArray, subArray);
 
         Integer previousFullTextIndex = 0;
@@ -64,7 +64,7 @@ public class LongestSubsequenceFinder {
         ArrayList<Integer> fullTextBuffer = new ArrayList<Integer>();
         ArrayList<Integer> subTextBuffer = new ArrayList<Integer>();
         Integer entriesCounter = 0;
-        for(Map.Entry<Integer, Integer> fullTextToRecTextMapEntry: longestSubsequence.entrySet()){
+        for (Map.Entry<Integer, Integer> fullTextToRecTextMapEntry : longestSubsequence.entrySet()) {
             Integer fullTextWordIndex = fullTextToRecTextMapEntry.getKey();
             Integer subTextWordIndex = fullTextToRecTextMapEntry.getValue();
 
@@ -73,9 +73,9 @@ public class LongestSubsequenceFinder {
 
             Integer currentFullTextElement = fullArray[fullTextWordIndex];
 
-            for(Integer spanCounter = previousFullTextIndex + 1; spanCounter < fullTextWordIndex; spanCounter++){
+            for (Integer spanCounter = previousFullTextIndex + 1; spanCounter < fullTextWordIndex; spanCounter++) {
                 Integer elementlToCheck = fullArray[spanCounter];
-                if(elementlToCheck == previousFullTextElement){
+                if (elementlToCheck == previousFullTextElement) {
                     fullTextBuffer.set(previousFullTextIndex, spanCounter);
                 }
             }
@@ -88,15 +88,14 @@ public class LongestSubsequenceFinder {
     }
 
     private TreeMap<Integer, Integer> getFullTextSubTextTreeMapFromLists(ArrayList<Integer> fullTextBuffer,
-        ArrayList<Integer> subTextBuffer){
+            ArrayList<Integer> subTextBuffer) {
 
         TreeMap<Integer, Integer> resultBuffer = new TreeMap<Integer, Integer>();
-        for(Integer elementCounter = 0; elementCounter < fullTextBuffer.size(); elementCounter++){
+        for (Integer elementCounter = 0; elementCounter < fullTextBuffer.size(); elementCounter++) {
             resultBuffer.put(fullTextBuffer.get(elementCounter), subTextBuffer.get(elementCounter));
         }
         return resultBuffer;
     }
-
 
     public TreeMap<Integer, Integer> longestSubsequenceLengthWithDistanceCorrection(Integer[] fullArray,
             Integer[] subArray) {
@@ -111,7 +110,7 @@ public class LongestSubsequenceFinder {
         }
         Integer longestSubsequenceLength = this.subproblemLongestSubsequenceWithDistanceCorrection(
                 fullArray, subArray, 0, 0, subsequenceLengths);
-
+        subsequenceLengths[0][0] = longestSubsequenceLength;
         // read the substring out from the matrix
 //        StringBuffer sb = new StringBuffer();
         TreeMap<Integer, Integer> resultBuffer = new TreeMap<Integer, Integer>();
@@ -124,7 +123,7 @@ public class LongestSubsequenceFinder {
             } else {
                 assert fullArray[x - 1] == subArray[y - 1];
 //                sb.append(a.get(x - 1));
-                resultBuffer.put(x-1, y-1);
+                resultBuffer.put(x - 1, y - 1);
                 x--;
                 y--;
             }
@@ -140,30 +139,32 @@ public class LongestSubsequenceFinder {
             Integer fullArrayBeginIndex,
             Integer subArrayBeginIndex,
             Integer[][] subsequenceLengths) {
+        if (fullArrayBeginIndex < fullArray.length && subArrayBeginIndex < subArray.length) {
+            if (subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex] < 0) {
 
-        if (subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex] < 0) {
-            if (fullArrayBeginIndex < fullArray.length && subArrayBeginIndex < subArray.length) {
                 if (fullArray[fullArrayBeginIndex] == subArray[subArrayBeginIndex]) {
                     Integer subproblemLength = subproblemLongestSubsequenceWithDistanceCorrection(fullArray,
                             subArray, fullArrayBeginIndex + 1, subArrayBeginIndex + 1, subsequenceLengths);
+
                     subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex] = subproblemLength;
                     return 1 + subproblemLength;
-                }else{
-                    Integer subproblemLengthWithShortenedSubArray =  subproblemLongestSubsequenceWithDistanceCorrection(fullArray,
+                } else {
+                    Integer subproblemLengthWithShortenedSubArray = subproblemLongestSubsequenceWithDistanceCorrection(fullArray,
                             subArray, fullArrayBeginIndex, subArrayBeginIndex + 1, subsequenceLengths);
-                    Integer subproblemLengthWithShortenedFullArray =  subproblemLongestSubsequenceWithDistanceCorrection(fullArray,
+                    Integer subproblemLengthWithShortenedFullArray = subproblemLongestSubsequenceWithDistanceCorrection(fullArray,
                             subArray, fullArrayBeginIndex + 1, subArrayBeginIndex, subsequenceLengths);
                     Integer subproblemLength = Math.max(subproblemLengthWithShortenedSubArray,
-                                                        subproblemLengthWithShortenedFullArray);
-                   subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex] = subproblemLength;
-                   return  subproblemLength;
+                            subproblemLengthWithShortenedFullArray);
+
+                    subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex] = subproblemLength;
+                    return subproblemLength;
                 }
+
             } else {
-                return 0;
+                return subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex];
             }
         } else {
-            return subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex];
+            return 0;
         }
     }
-
 }
