@@ -54,11 +54,11 @@ public class LongestSubsequenceFinderTest extends TestCase {
         return textInNumbers;
     }
 
-    
+
     /**
      * Test of findLogestSubsequence method, of class LongestSubsequenceFinder.
      */
-    public void testGetLogestSubsequenceWithMinDistance() {
+    public void testGetLongestSubsequenceWithMinDistance() {
 
         LongestSubsequenceFinder instance = new LongestSubsequenceFinder();
         TreeMap<Integer, Integer> expResult = new TreeMap<Integer, Integer>();
@@ -72,6 +72,22 @@ public class LongestSubsequenceFinderTest extends TestCase {
 //            assertEquals(wordsCounter * Integer.valueOf(3), result.get(wordsCounter).intValue());
 //        }
         assertEquals(expResult, result);
+    }
+
+   
+    /**
+     * Test of longestSubsequenceLengthWithDistanceCorrection method, of class LongestSubsequenceFinder.
+     */
+    public void testLongestSubsequenceLengthWithDistanceCorrection() {
+        System.out.println("longestSubsequenceLengthWithDistanceCorrection");
+        Integer[] fullArray = null;
+        Integer[] subArray = null;
+        LongestSubsequenceFinder instance = new LongestSubsequenceFinder();
+        TreeMap expResult = null;
+        TreeMap result = instance.longestSubsequenceLengthWithDistanceCorrection(fullArray, subArray);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
 }
