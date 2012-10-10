@@ -103,8 +103,8 @@ public class LongestSubsequenceFinder {
         Integer[][] subsequenceLengths = new Integer[fullArray.length + 1][subArray.length + 1];
 
         // initialyse subsequncw length to -1; -1 is a flag of not processed subarray
-        for (Integer i = 0; i < fullArray.length; i++) {
-            for (Integer j = 0; j < subArray.length; j++) {
+        for (Integer i = 0; i <= fullArray.length; i++) {
+            for (Integer j = 0; j <= subArray.length; j++) {
                 subsequenceLengths[i][j] = -1;
             }
         }
@@ -121,6 +121,7 @@ public class LongestSubsequenceFinder {
             } else if (subsequenceLengths[x][y] == subsequenceLengths[x][y - 1]) {
                 y--;
             } else {
+                x=x;
                 assert fullArray[x - 1] == subArray[y - 1];
 //                sb.append(a.get(x - 1));
                 resultBuffer.put(x - 1, y - 1);
@@ -142,13 +143,14 @@ public class LongestSubsequenceFinder {
         if (fullArrayBeginIndex < fullArray.length && subArrayBeginIndex < subArray.length) {
             if (subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex] < 0) {
 
-                if (fullArray[fullArrayBeginIndex] == subArray[subArrayBeginIndex]) {
-                    Integer subproblemLength = subproblemLongestSubsequenceWithDistanceCorrection(fullArray,
+
+                    Integer subproblemLengthBothShortened = subproblemLongestSubsequenceWithDistanceCorrection(fullArray,
                             subArray, fullArrayBeginIndex + 1, subArrayBeginIndex + 1, subsequenceLengths);
 
-                    subsequenceLengths[fullArrayBeginIndex + 1][subArrayBeginIndex + 1] = subproblemLength;
-                    return 1 + subproblemLength;
-                } else {
+                    subsequenceLengths[fullArrayBeginIndex + 1][subArrayBeginIndex + 1] = subproblemLengthBothShortened;
+                    if (fullArray[fullArrayBeginIndex] == subArray[subArrayBeginIndex]) {
+                        subproblemLengthBothShortened++;//                    return 1 + subproblemLength;
+                    }
                     Integer subproblemLengthWithShortenedSubArray = subproblemLongestSubsequenceWithDistanceCorrection(fullArray,
                             subArray, fullArrayBeginIndex, subArrayBeginIndex + 1, subsequenceLengths);
                     subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex + 1] = subproblemLengthWithShortenedSubArray;
@@ -161,8 +163,8 @@ public class LongestSubsequenceFinder {
                             subproblemLengthWithShortenedFullArray);
 
 
-                    return subproblemLength;
-                }
+                    return Math.max(subproblemLength, subproblemLengthBothShortened);
+//                }
 
             } else {
                 return subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex];
