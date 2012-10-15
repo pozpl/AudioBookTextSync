@@ -114,21 +114,31 @@ public class LongestSubsequenceFinder {
         // read the substring out from the matrix
 //        StringBuffer sb = new StringBuffer();
         TreeMap<Integer, Integer> resultBuffer = new TreeMap<Integer, Integer>();
-        for (int x = fullArray.length, y = subArray.length;
-                x != 0 && y != 0;) {
-            if (subsequenceLengths[x][y] == subsequenceLengths[x - 1][y]) {
-                x--;
-            } else if (subsequenceLengths[x][y] == subsequenceLengths[x][y - 1]) {
-                y--;
-            } else {
-                x=x;
-                assert fullArray[x - 1] == subArray[y - 1];
-//                sb.append(a.get(x - 1));
-                resultBuffer.put(x - 1, y - 1);
-                x--;
-                y--;
+        for (int x = 0; x < fullArray.length; x++) {
+            for (int y = 0; y < fullArray.length; y++) {
+                if(subsequenceLengths[x][y] != subsequenceLengths[x+1][y]
+                   && subsequenceLengths[x][y] != subsequenceLengths[x][y+1]){
+                    assert fullArray[x - 1] == subArray[y - 1];
+                    resultBuffer.put(x, y);
+                    break;
+                }
             }
         }
+//        for (int x = fullArray.length, y = subArray.length;
+//                x != 0 && y != 0;) {
+//            if (subsequenceLengths[x][y] == subsequenceLengths[x - 1][y]) {
+//                x--;
+//            } else if (subsequenceLengths[x][y] == subsequenceLengths[x][y - 1]) {
+//                y--;
+//            } else {
+//                x=x;
+//                assert fullArray[x - 1] == subArray[y - 1];
+////                sb.append(a.get(x - 1));
+//                resultBuffer.put(x - 1, y - 1);
+//                x--;
+//                y--;
+//            }
+//        }
 
         return resultBuffer;
 
