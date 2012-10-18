@@ -114,11 +114,14 @@ public class LongestSubsequenceFinder {
         // read the substring out from the matrix
 //        StringBuffer sb = new StringBuffer();
         TreeMap<Integer, Integer> resultBuffer = new TreeMap<Integer, Integer>();
+        Integer currentLength = subsequenceLengths[0][0];
         for (int x = 0; x < fullArray.length; x++) {
             for (int y = 0; y < fullArray.length; y++) {
                 if(subsequenceLengths[x][y] != subsequenceLengths[x+1][y]
-                   && subsequenceLengths[x][y] != subsequenceLengths[x][y+1]){
-                    assert fullArray[x - 1] == subArray[y - 1];
+                   && subsequenceLengths[x][y] != subsequenceLengths[x][y+1]
+                   && subsequenceLengths[x][y] < currentLength){
+                    assert fullArray[x] == subArray[y];
+                    currentLength = subsequenceLengths[x][y];
                     resultBuffer.put(x, y);
                     break;
                 }
