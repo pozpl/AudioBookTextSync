@@ -111,8 +111,22 @@ public class LongestSubsequenceFinder {
         Integer longestSubsequenceLength = this.subproblemLongestSubsequenceWithDistanceCorrection(
                 fullArray, subArray, 0, 0, subsequenceLengths);
         subsequenceLengths[0][0] = longestSubsequenceLength;
-        // read the substring out from the matrix
 
+        TreeMap<Integer, Integer> resultBuffer =
+                this.extractLongestSubsequenceFromLengthMatrix(fullArray, subArray, subsequenceLengths);
+
+        return resultBuffer;
+    }
+
+    /**
+     * read the substring out from the matrix
+     * @param subsequenceLengths
+     * @return
+     */
+    private TreeMap<Integer, Integer> extractLongestSubsequenceFromLengthMatrix(
+            Integer[] fullArray,
+            Integer[] subArray,
+            Integer[][] subsequenceLengths){
         TreeMap<Integer, Integer> resultBuffer = new TreeMap<Integer, Integer>();
         //currentLength is bigger on 1 for first element addition to longest subsequencs
         Integer currentLength = subsequenceLengths[0][0] + 1;
@@ -128,24 +142,8 @@ public class LongestSubsequenceFinder {
                 }
             }
         }
-//        for (int x = fullArray.length, y = subArray.length;
-//                x != 0 && y != 0;) {
-//            if (subsequenceLengths[x][y] == subsequenceLengths[x - 1][y]) {
-//                x--;
-//            } else if (subsequenceLengths[x][y] == subsequenceLengths[x][y - 1]) {
-//                y--;
-//            } else {
-//                x=x;
-//                assert fullArray[x - 1] == subArray[y - 1];
-////                sb.append(a.get(x - 1));
-//                resultBuffer.put(x - 1, y - 1);
-//                x--;
-//                y--;
-//            }
-//        }
 
         return resultBuffer;
-
     }
 
     private Integer subproblemLongestSubsequenceWithDistanceCorrection(
