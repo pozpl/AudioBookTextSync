@@ -156,8 +156,8 @@ public class LongestSubsequenceFinder {
         //currentLength is bigger on 1 for first element addition to longest subsequencs
         Integer currentLength = subsequenceLengths[0][0] + 1;
 
-        for (int x = 0; x < fullArray.length; x++) {
-            for (int y = 0; y < fullArray.length; y++) {
+        for (int x = submatrixX; x < fullArray.length; x++) {
+            for (int y = submatrixY; y < fullArray.length; y++) {
                 if(subsequenceLengths[x][y] != subsequenceLengths[x+1][y]
                    && subsequenceLengths[x][y] != subsequenceLengths[x][y+1]
                    && subsequenceLengths[x][y] < currentLength){
