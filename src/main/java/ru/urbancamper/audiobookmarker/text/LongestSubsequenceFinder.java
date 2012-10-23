@@ -127,9 +127,35 @@ public class LongestSubsequenceFinder {
             Integer[] fullArray,
             Integer[] subArray,
             Integer[][] subsequenceLengths){
+            Integer biggestSubsequenceLength = subsequenceLengths[0][0];
+            Integer biggestSubsequenceElementStartX = 0;
+            Integer biggestSubsequenceElementStartY = 0;
+            for (int x = 0; x < fullArray.length; x++) {
+                for (int y = 0; y < fullArray.length; y++) {
+                    if(subsequenceLengths[x][y] > biggestSubsequenceLength){
+                        biggestSubsequenceLength = subsequenceLengths[x][y];
+                        biggestSubsequenceElementStartX = x;
+                        biggestSubsequenceElementStartY = y;
+                    }
+                }
+            }
+
+           return this.extractLongestSubsequenceFromLengthsSubmatrix(
+                   fullArray, subArray, subsequenceLengths,
+                   biggestSubsequenceElementStartX, biggestSubsequenceElementStartY);
+
+    }
+
+    private TreeMap<Integer, Integer> extractLongestSubsequenceFromLengthsSubmatrix(
+            Integer[] fullArray,
+            Integer[] subArray,
+            Integer[][] subsequenceLengths,
+            Integer submatrixX,
+            Integer submatrixY){
         TreeMap<Integer, Integer> resultBuffer = new TreeMap<Integer, Integer>();
         //currentLength is bigger on 1 for first element addition to longest subsequencs
         Integer currentLength = subsequenceLengths[0][0] + 1;
+
         for (int x = 0; x < fullArray.length; x++) {
             for (int y = 0; y < fullArray.length; y++) {
                 if(subsequenceLengths[x][y] != subsequenceLengths[x+1][y]
