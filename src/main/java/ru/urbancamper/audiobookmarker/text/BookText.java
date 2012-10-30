@@ -68,7 +68,7 @@ public class BookText {
             RecognizedTextOfSingleAudiofile recognizedText = it.next();
             String[] recognizedTextAsTokens = recognizedText.getTokens();
             Integer[] recognizedTextAsNumbers = this.wordsToNumMapper.getNumbersFromWords(recognizedTextAsTokens);
-            TreeMap<Integer, Integer> recTextLongestSubsequence = this.longestSubsequenceFinder.getLongestSubsequenceWithMinDistance(this.textInNumericForm, recognizedTextAsNumbers);
+            TreeMap<Integer, Integer> recTextLongestSubsequence = this.longestSubsequenceFinder.longestSubsequenceLengthWithDistanceCorrection(this.textInNumericForm, recognizedTextAsNumbers);
             recognizedTextLongestSubsequences.add(recTextLongestSubsequence);
         }
 
