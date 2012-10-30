@@ -53,6 +53,13 @@ public class LongestSubsequenceFinder {
         return resultBuffer;
     }
 
+    /**
+     * Naive longest subsequence algorithm, which do not keep in mind distance betwin
+     * words.
+     * @param fullArray
+     * @param subArray
+     * @return
+     */
     public TreeMap<Integer, Integer> getLongestSubsequenceWithMinDistance(
             Integer[] fullArray,
             Integer[] subArray) {
@@ -97,6 +104,13 @@ public class LongestSubsequenceFinder {
         return resultBuffer;
     }
 
+    /**
+     * Improved version of longest subsequence algorithm with filtration according to
+     * distance betwin words.
+     * @param  fullArray Integer[]
+     * @param  subArray Integer[]
+     * @return TreeMap
+     */
     public TreeMap<Integer, Integer> longestSubsequenceLengthWithDistanceCorrection(Integer[] fullArray,
             Integer[] subArray) {
 
