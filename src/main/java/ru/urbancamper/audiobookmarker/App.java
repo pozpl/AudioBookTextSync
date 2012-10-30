@@ -15,7 +15,7 @@ import ru.urbancamper.audiobookmarker.context.BeansAnnotations;
 import ru.urbancamper.audiobookmarker.document.MarkedDocument;
 
 /**
- * Hello world!
+ * Main application
  *
  */
 public class App {
@@ -32,7 +32,7 @@ public class App {
             options.addOption("a", "audio", true, "Path to a directory contaning audiobook files");
             options.addOption("b", "book", true, "A txt File that contains book text.");
             options.addOption("m", "marked_text", true, "File path to put marked text in.");
-
+            options.addOption("h", false, "Print help and exit");
             CommandLineParser parser = new PosixParser();
             cmd = parser.parse(options, args);
         } catch (ParseException ex) {
@@ -41,7 +41,11 @@ public class App {
         return cmd;
     }
 
-
+    private static void printHelp(){
+        System.out.println("a - audio dir path\n"
+                + "b - book file path \n"
+                + "m - path to marked text\n");
+    }
 
     public static void main(String[] args) {
         App app = new App();
@@ -50,6 +54,11 @@ public class App {
         audioBookMarkerUtil = applicationContext.getBean(AudioBookMarkerUtil.class);
 
         CommandLine cmd = app.getCliOptions(args);
+        if(cmd.hasOption("h")){
+            App.printHelp();
+            return;
+        }
+
         String audioBookDirPath = cmd.getOptionValue("a");
         String bookFilePath = cmd.getOptionValue("b");
         app.logger.info("Run with a audio book path " + audioBookDirPath);
