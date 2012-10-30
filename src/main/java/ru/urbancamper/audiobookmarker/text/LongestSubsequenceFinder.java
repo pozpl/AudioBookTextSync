@@ -145,7 +145,7 @@ public class LongestSubsequenceFinder {
             Integer biggestSubsequenceElementStartX = 0;
             Integer biggestSubsequenceElementStartY = 0;
             for (int x = 0; x < fullArray.length; x++) {
-                for (int y = 0; y < fullArray.length; y++) {
+                for (int y = 0; y < subArray.length; y++) {
                     if(subsequenceLengths[x][y] > biggestSubsequenceLength){
                         biggestSubsequenceLength = subsequenceLengths[x][y];
                         biggestSubsequenceElementStartX = x;
