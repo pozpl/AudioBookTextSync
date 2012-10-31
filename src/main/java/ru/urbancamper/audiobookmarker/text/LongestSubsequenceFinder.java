@@ -181,6 +181,9 @@ public class LongestSubsequenceFinder {
                     resultBuffer.put(x, y);
                     break;
                 }
+                if(subsequenceLengths[x][y] != subsequenceLengths[x][y+1]){
+                    break;
+                }
             }
         }
 
