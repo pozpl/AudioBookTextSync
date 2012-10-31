@@ -60,6 +60,7 @@ public class LongestSubsequenceFinder {
      * @param subArray
      * @return
      */
+    @Deprecated
     public TreeMap<Integer, Integer> getLongestSubsequenceWithMinDistance(
             Integer[] fullArray,
             Integer[] subArray) {
