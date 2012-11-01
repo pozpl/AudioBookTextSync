@@ -116,11 +116,12 @@ public class LongestSubsequenceFinder {
             Integer[] subArray) {
 
         Integer[][] subsequenceLengths = new Integer[fullArray.length + 1][subArray.length + 1];
-
+        Boolean[][] newBornSubsequenceFlag = new Boolean[fullArray.length + 1][subArray.length + 1];
         // initialyse subsequncw length to -1; -1 is a flag of not processed subarray
         for (Integer i = 0; i <= fullArray.length; i++) {
             for (Integer j = 0; j <= subArray.length; j++) {
                 subsequenceLengths[i][j] = -1;
+                newBornSubsequenceFlag[i][j]  = false;
             }
         }
         Integer longestSubsequenceLength = this.subproblemLongestSubsequenceWithDistanceCorrection(
@@ -203,14 +204,19 @@ public class LongestSubsequenceFinder {
                     Integer subProblemLengthAdd = 0;
                     Integer fullArrayLastEqualsIndexActive = fullArrayLastEqualsIndex;
                     Integer subArrayLastEqualsIndexActive = subArrayLastEqualsIndex;
+                    Integer newBornSubsequenceLength = -1;
                     if (fullArray[fullArrayBeginIndex] == subArray[subArrayBeginIndex]) {
+                        fullArrayLastEqualsIndexActive = fullArrayBeginIndex;
+                        subArrayLastEqualsIndexActive = subArrayBeginIndex;
                         if(fullArrayLastEqualsIndex != -1 && subArrayLastEqualsIndex != -1){
                             Integer fullArrayDistance = fullArrayBeginIndex - fullArrayLastEqualsIndex;
                             Integer subArrayDistance = subArrayBeginIndex - subArrayLastEqualsIndex;
-                            if(Math.abs(fullArrayDistance - subArrayDistance) < 3){
+                            if(Math.abs(fullArrayDistance - subArrayDistance) < 3
+                               && fullArrayBeginIndex != fullArrayLastEqualsIndex
+                               && subArrayBeginIndex != subArrayLastEqualsIndex ){
                                 subProblemLengthAdd = 1;
-                                fullArrayLastEqualsIndexActive = fullArrayBeginIndex;
-                                subArrayLastEqualsIndexActive = subArrayBeginIndex;
+                            }else{
+                                newBornSubsequenceLength = 1;
                             }
                         }else{
                             subProblemLengthAdd = 1;
@@ -236,9 +242,11 @@ public class LongestSubsequenceFinder {
                     Integer subproblemLength = Math.max(subproblemLengthWithShortenedSubArray,
                             subproblemLengthWithShortenedFullArray);
 
-
-                    return Math.max(subproblemLength, subproblemLengthBothShortened) + subProblemLengthAdd;
-//                }
+                    if(newBornSubsequenceLength == 1){
+                        return newBornSubsequenceLength;
+                    }else{
+                        return Math.max(subproblemLength, subproblemLengthBothShortened) + subProblemLengthAdd;
+                    }
 
             } else {
                 return subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex];
