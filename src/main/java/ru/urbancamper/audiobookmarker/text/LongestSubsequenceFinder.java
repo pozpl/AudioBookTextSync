@@ -219,8 +219,10 @@ public class LongestSubsequenceFinder {
                                 subProblemLengthAdd = 1;
                             }else{
                                 newBornSubsequenceLength = 1;
+                                newBornSubsequenceFlags[fullArrayBeginIndex][subArrayBeginIndex] = true;
                             }
                         }else{
+                            newBornSubsequenceFlags[fullArrayBeginIndex][subArrayBeginIndex] = true;
                             subProblemLengthAdd = 1;
                         }
                     }
