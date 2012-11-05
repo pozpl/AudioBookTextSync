@@ -210,6 +210,7 @@ public class LongestSubsequenceFinder {
                     if (fullArray[fullArrayBeginIndex] == subArray[subArrayBeginIndex]) {
                         fullArrayLastEqualsIndexActive = fullArrayBeginIndex;
                         subArrayLastEqualsIndexActive = subArrayBeginIndex;
+                        equalsElementsFlag[fullArrayBeginIndex][subArrayBeginIndex] = true;
                         if(fullArrayLastEqualsIndex != -1 && subArrayLastEqualsIndex != -1){
                             Integer fullArrayDistance = fullArrayBeginIndex - fullArrayLastEqualsIndex;
                             Integer subArrayDistance = subArrayBeginIndex - subArrayLastEqualsIndex;
