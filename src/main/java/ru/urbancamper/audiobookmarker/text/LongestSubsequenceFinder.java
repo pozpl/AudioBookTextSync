@@ -116,16 +116,15 @@ public class LongestSubsequenceFinder {
             Integer[] subArray) {
 
         Integer[][] subsequenceLengths = new Integer[fullArray.length + 1][subArray.length + 1];
-        Boolean[][] newBornSubsequenceFlags = new Boolean[fullArray.length + 1][subArray.length + 1];
+
         // initialyse subsequncw length to -1; -1 is a flag of not processed subarray
         for (Integer i = 0; i <= fullArray.length; i++) {
             for (Integer j = 0; j <= subArray.length; j++) {
                 subsequenceLengths[i][j] = -1;
-                newBornSubsequenceFlags[i][j]  = false;
             }
         }
         Integer longestSubsequenceLength = this.subproblemLongestSubsequenceWithDistanceCorrection(
-                fullArray, subArray, 0, 0, subsequenceLengths,newBornSubsequenceFlags, -1, -1);
+                fullArray, subArray, 0, 0, subsequenceLengths, -1, -1);
         subsequenceLengths[0][0] = longestSubsequenceLength;
 
         TreeMap<Integer, Integer> resultBuffer =
@@ -198,7 +197,6 @@ public class LongestSubsequenceFinder {
             Integer fullArrayBeginIndex,
             Integer subArrayBeginIndex,
             Integer[][] subsequenceLengths,
-            Boolean[][] newBornSubsequenceFlags,
             Integer fullArrayLastEqualsIndex,
             Integer subArrayLastEqualsIndex) {
         if (fullArrayBeginIndex < fullArray.length && subArrayBeginIndex < subArray.length) {
@@ -206,7 +204,6 @@ public class LongestSubsequenceFinder {
                     Integer subProblemLengthAdd = 0;
                     Integer fullArrayLastEqualsIndexActive = fullArrayLastEqualsIndex;
                     Integer subArrayLastEqualsIndexActive = subArrayLastEqualsIndex;
-                    Integer newBornSubsequenceLength = -1;
                     if (fullArray[fullArrayBeginIndex] == subArray[subArrayBeginIndex]) {
                         fullArrayLastEqualsIndexActive = fullArrayBeginIndex;
                         subArrayLastEqualsIndexActive = subArrayBeginIndex;
@@ -217,40 +214,29 @@ public class LongestSubsequenceFinder {
                                && fullArrayBeginIndex != fullArrayLastEqualsIndex
                                && subArrayBeginIndex != subArrayLastEqualsIndex ){
                                 subProblemLengthAdd = 1;
-                            }else{
-                                newBornSubsequenceLength = 1;
-                                newBornSubsequenceFlags[fullArrayBeginIndex][subArrayBeginIndex] = true;
                             }
                         }else{
-                            newBornSubsequenceFlags[fullArrayBeginIndex][subArrayBeginIndex] = true;
                             subProblemLengthAdd = 1;
                         }
                     }
 
                     Integer subproblemLengthBothShortened = subproblemLongestSubsequenceWithDistanceCorrection(fullArray,
-                            subArray, fullArrayBeginIndex + 1, subArrayBeginIndex + 1, subsequenceLengths, newBornSubsequenceFlags,
+                            subArray, fullArrayBeginIndex + 1, subArrayBeginIndex + 1, subsequenceLengths,
                             fullArrayLastEqualsIndexActive, subArrayLastEqualsIndexActive);
-
-                    subsequenceLengths[fullArrayBeginIndex + 1][subArrayBeginIndex + 1] = subproblemLengthBothShortened;
 
                     Integer subproblemLengthWithShortenedSubArray = subproblemLongestSubsequenceWithDistanceCorrection(fullArray,
-                            subArray, fullArrayBeginIndex, subArrayBeginIndex + 1, subsequenceLengths, newBornSubsequenceFlags,
+                            subArray, fullArrayBeginIndex, subArrayBeginIndex + 1, subsequenceLengths,
                             fullArrayLastEqualsIndexActive, subArrayLastEqualsIndexActive);
-                    subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex + 1] = subproblemLengthWithShortenedSubArray;
 
                     Integer subproblemLengthWithShortenedFullArray = subproblemLongestSubsequenceWithDistanceCorrection(fullArray,
-                            subArray, fullArrayBeginIndex + 1, subArrayBeginIndex, subsequenceLengths, newBornSubsequenceFlags,
+                            subArray, fullArrayBeginIndex + 1, subArrayBeginIndex, subsequenceLengths,
                             fullArrayLastEqualsIndexActive, subArrayLastEqualsIndexActive);
-                    subsequenceLengths[fullArrayBeginIndex + 1][subArrayBeginIndex] = subproblemLengthWithShortenedFullArray;
 
                     Integer subproblemLength = Math.max(subproblemLengthWithShortenedSubArray,
                             subproblemLengthWithShortenedFullArray);
-
-                    if(newBornSubsequenceLength == 1){
-                        return newBornSubsequenceLength;
-                    }else{
-                        return Math.max(subproblemLength, subproblemLengthBothShortened) + subProblemLengthAdd;
-                    }
+                    subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex ] =
+                    Math.max(subproblemLength, subproblemLengthBothShortened) + subProblemLengthAdd;
+                    return subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex];
 
             } else {
                 return subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex];
