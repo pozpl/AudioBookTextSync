@@ -210,9 +210,7 @@ public class LongestSubsequenceFinder {
                         if(fullArrayLastEqualsIndex != -1 && subArrayLastEqualsIndex != -1){
                             Integer fullArrayDistance = fullArrayBeginIndex - fullArrayLastEqualsIndex;
                             Integer subArrayDistance = subArrayBeginIndex - subArrayLastEqualsIndex;
-                            if(Math.abs(fullArrayDistance - subArrayDistance) < 3
-                               && fullArrayBeginIndex != fullArrayLastEqualsIndex
-                               && subArrayBeginIndex != subArrayLastEqualsIndex ){
+                            if(Math.abs(fullArrayDistance - subArrayDistance) < 3){
                                 subProblemLengthAdd = 1;
                             }
                         }else{
