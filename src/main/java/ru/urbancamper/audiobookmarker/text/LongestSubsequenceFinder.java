@@ -211,8 +211,8 @@ public class LongestSubsequenceFinder {
             Integer subArrayLastEqualsIndex) {
         if (fullArrayBeginIndex < fullArray.length && subArrayBeginIndex < subArray.length) {
             if (subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex] < 0
-                && (fullArrayLastEqualsIndexes[fullArrayBeginIndex][subArrayBeginIndex] != fullArrayLastEqualsIndex
-                    || subArrayLastEqualsIndexes[fullArrayBeginIndex][subArrayBeginIndex] != subArrayLastEqualsIndex)) {
+                || fullArrayLastEqualsIndexes[fullArrayBeginIndex][subArrayBeginIndex] != fullArrayLastEqualsIndex
+                || subArrayLastEqualsIndexes[fullArrayBeginIndex][subArrayBeginIndex] != subArrayLastEqualsIndex) {
                     Integer subProblemLengthAdd = 0;
                     Integer fullArrayLastEqualsIndexActive = fullArrayLastEqualsIndex;
                     Integer subArrayLastEqualsIndexActive = subArrayLastEqualsIndex;
