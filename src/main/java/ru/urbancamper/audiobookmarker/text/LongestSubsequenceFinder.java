@@ -216,11 +216,12 @@ public class LongestSubsequenceFinder {
                     Integer subProblemLengthAdd = 0;
                     Integer fullArrayLastEqualsIndexActive = fullArrayLastEqualsIndex;
                     Integer subArrayLastEqualsIndexActive = subArrayLastEqualsIndex;
+                    fullArrayLastEqualsIndexes[fullArrayBeginIndex][subArrayBeginIndex] = fullArrayLastEqualsIndex;
+                    subArrayLastEqualsIndexes[fullArrayBeginIndex][subArrayBeginIndex] = subArrayLastEqualsIndex;
+                    
                     if (fullArray[fullArrayBeginIndex] == subArray[subArrayBeginIndex]) {
                         fullArrayLastEqualsIndexActive = fullArrayBeginIndex;
                         subArrayLastEqualsIndexActive = subArrayBeginIndex;
-                        fullArrayLastEqualsIndexes[fullArrayBeginIndex][subArrayBeginIndex] = fullArrayLastEqualsIndex;
-                        subArrayLastEqualsIndexes[fullArrayBeginIndex][subArrayBeginIndex] = subArrayLastEqualsIndex;
                         equalsElementsFlag[fullArrayBeginIndex][subArrayBeginIndex] = true;
                         if(fullArrayLastEqualsIndex != -1 && subArrayLastEqualsIndex != -1){
                             Integer fullArrayDistance = fullArrayBeginIndex - fullArrayLastEqualsIndex;
