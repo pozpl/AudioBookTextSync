@@ -136,7 +136,7 @@ public class LongestSubsequenceFinder {
 
         TreeMap<Integer, Integer> resultBuffer =
                 this.extractLongestSubsequenceFromLengthMatrix(fullArray,
-                subArray, subsequenceLengths);
+                subArray, subsequenceLengths, equalsElementsFlag);
 
         return resultBuffer;
     }
@@ -149,7 +149,8 @@ public class LongestSubsequenceFinder {
     private TreeMap<Integer, Integer> extractLongestSubsequenceFromLengthMatrix(
             Integer[] fullArray,
             Integer[] subArray,
-            Integer[][] subsequenceLengths){
+            Integer[][] subsequenceLengths,
+            Boolean[][] equalsElementsFlags){
             Integer biggestSubsequenceLength = subsequenceLengths[0][0];
             Integer biggestSubsequenceElementStartX = 0;
             Integer biggestSubsequenceElementStartY = 0;
@@ -164,7 +165,7 @@ public class LongestSubsequenceFinder {
             }
 
            return this.extractLongestSubsequenceFromLengthsSubmatrix(
-                   fullArray, subArray, subsequenceLengths,
+                   fullArray, subArray, subsequenceLengths, equalsElementsFlags,
                    biggestSubsequenceElementStartX, biggestSubsequenceElementStartY);
 
     }
@@ -173,6 +174,7 @@ public class LongestSubsequenceFinder {
             Integer[] fullArray,
             Integer[] subArray,
             Integer[][] subsequenceLengths,
+            Boolean[][] equlasElementsFlag,
             Integer submatrixX,
             Integer submatrixY){
         TreeMap<Integer, Integer> resultBuffer = new TreeMap<Integer, Integer>();
@@ -183,7 +185,8 @@ public class LongestSubsequenceFinder {
             for (int y = submatrixY; y < subArray.length; y++) {
                 if(subsequenceLengths[x][y] != subsequenceLengths[x+1][y]
                    && subsequenceLengths[x][y] != subsequenceLengths[x][y+1]
-                   && subsequenceLengths[x][y] < currentLength){
+                   && subsequenceLengths[x][y] < currentLength
+                   && equlasElementsFlag[x][y]){
                     assert fullArray[x] == subArray[y];
                     currentLength = subsequenceLengths[x][y];
                     resultBuffer.put(x, y);
@@ -218,7 +221,7 @@ public class LongestSubsequenceFinder {
                     Integer subArrayLastEqualsIndexActive = subArrayLastEqualsIndex;
                     fullArrayLastEqualsIndexes[fullArrayBeginIndex][subArrayBeginIndex] = fullArrayLastEqualsIndex;
                     subArrayLastEqualsIndexes[fullArrayBeginIndex][subArrayBeginIndex] = subArrayLastEqualsIndex;
-                    
+
                     if (fullArray[fullArrayBeginIndex] == subArray[subArrayBeginIndex]) {
                         fullArrayLastEqualsIndexActive = fullArrayBeginIndex;
                         subArrayLastEqualsIndexActive = subArrayBeginIndex;
