@@ -222,9 +222,15 @@ public class LongestSubsequenceFinder {
                     Integer subProblemLengthAdd = 0;
                     Integer fullArrayLastEqualsIndexActive = fullArrayLastEqualsIndex;
                     Integer subArrayLastEqualsIndexActive = subArrayLastEqualsIndex;
-                    fullArrayLastEqualsIndexes[fullArrayBeginIndex][subArrayBeginIndex] = fullArrayLastEqualsIndex;
-                    subArrayLastEqualsIndexes[fullArrayBeginIndex][subArrayBeginIndex] = subArrayLastEqualsIndex;
 
+                    if(fullArrayLastEqualsIndexes[fullArrayBeginIndex][subArrayBeginIndex] > fullArrayLastEqualsIndex
+                           || subArrayLastEqualsIndexes[fullArrayBeginIndex][subArrayBeginIndex] > subArrayLastEqualsIndex){
+
+                        sequenceStartFlag[fullArrayBeginIndex][subArrayBeginIndex] = true;
+                    }else{
+                        fullArrayLastEqualsIndexes[fullArrayBeginIndex][subArrayBeginIndex] = fullArrayLastEqualsIndex;
+                        subArrayLastEqualsIndexes[fullArrayBeginIndex][subArrayBeginIndex] = subArrayLastEqualsIndex;
+                    }
                     if (fullArray[fullArrayBeginIndex] == subArray[subArrayBeginIndex]) {
                         fullArrayLastEqualsIndexActive = fullArrayBeginIndex;
                         subArrayLastEqualsIndexActive = subArrayBeginIndex;
@@ -239,11 +245,6 @@ public class LongestSubsequenceFinder {
                             }
                         }else{
                             subProblemLengthAdd = 1;
-                        }
-                        if(fullArrayLastEqualsIndexes[fullArrayBeginIndex][subArrayBeginIndex] != fullArrayLastEqualsIndex
-                           || subArrayLastEqualsIndexes[fullArrayBeginIndex][subArrayBeginIndex] != subArrayLastEqualsIndex){
-
-                            sequenceStartFlag[fullArrayBeginIndex][subArrayBeginIndex] = true;
                         }
                     }
 
