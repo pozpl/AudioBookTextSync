@@ -22,7 +22,10 @@ public class RecognizedTextSnippetInterval {
      */
     public Integer[] calculateFullTextBoundsForRecognizedSnippet(
             Integer[] fullText, Integer[] subText){
-
+        Integer allClustersNumber = this.getClustersNumber(fullText.length, subText.length);
+        for(int clusterCounter = 0; clusterCounter < allClustersNumber; clusterCounter++){
+            TreeMap<Integer, Integer> 
+        }
         return null;
     }
 
