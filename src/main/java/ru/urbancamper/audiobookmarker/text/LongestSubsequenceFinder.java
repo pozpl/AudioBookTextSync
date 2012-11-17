@@ -111,6 +111,7 @@ public class LongestSubsequenceFinder {
      * @param  subArray Integer[]
      * @return TreeMap
      */
+    @Deprecated
     public TreeMap<Integer, Integer> longestSubsequenceLengthWithDistanceCorrection(Integer[] fullArray,
             Integer[] subArray) {
 
