@@ -60,7 +60,6 @@ public class LongestSubsequenceFinder {
      * @param subArray
      * @return
      */
-    @Deprecated
     public TreeMap<Integer, Integer> getLongestSubsequenceWithMinDistance(
             Integer[] fullArray,
             Integer[] subArray) {
@@ -185,6 +184,9 @@ public class LongestSubsequenceFinder {
 
         for (int x = submatrixX; x < fullArray.length; x++) {
             for (int y = submatrixY; y < subArray.length; y++) {
+//                if(x == 4 && y == 3){
+//                    System.out.println("");
+//                }
                 if(subsequenceLengths[x][y] != subsequenceLengths[x+1][y]
                    && subsequenceLengths[x][y] != subsequenceLengths[x][y+1]
                    && subsequenceLengths[x][y] < currentLength
@@ -194,9 +196,9 @@ public class LongestSubsequenceFinder {
                     resultBuffer.put(x, y);
                     break;
                 }
-                if(subsequenceLengths[x][y] != subsequenceLengths[x][y+1]){
-                    break;
-                }
+//                if(subsequenceLengths[x][y] != subsequenceLengths[x][y+1]){
+//                    break;
+//                }
             }
         }
 
@@ -277,7 +279,6 @@ public class LongestSubsequenceFinder {
                     if(subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex ] < newSubProblem){
                         subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex ] = newSubProblem;
                     }
-
                     return subsequenceLengths[fullArrayBeginIndex][subArrayBeginIndex];
 
             } else {
