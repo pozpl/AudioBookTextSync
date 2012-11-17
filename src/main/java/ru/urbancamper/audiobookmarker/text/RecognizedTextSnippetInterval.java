@@ -22,12 +22,14 @@ public class RecognizedTextSnippetInterval {
      */
     public Integer[] calculateFullTextBoundsForRecognizedSnippet(
             Integer[] fullText, Integer[] subText){
+
         return null;
     }
 
-    private TreeMap<Integer, Integer> wordsFrequencesForTextSnippet(Integer[] textArray){
+    private TreeMap<Integer, Integer> wordsFrequencesForTextSnippet(Integer[] textArray,
+            Integer firstElementIndex, Integer lastElementIndex){
         TreeMap<Integer, Integer> wordsFrequences = new TreeMap<Integer, Integer>();
-        for(Integer wordsCounter = 0; wordsCounter < textArray.length; wordsCounter++){
+        for(Integer wordsCounter = firstElementIndex; wordsCounter < lastElementIndex; wordsCounter++){
             if(wordsFrequences.containsKey(textArray[wordsCounter])){
                 Integer oldFrequence = wordsFrequences.get(textArray[wordsCounter]);
                 wordsFrequences.put(textArray[wordsCounter], oldFrequence + 1);
