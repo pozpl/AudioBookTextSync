@@ -37,6 +37,11 @@
                         <program>
                             <mainClass>ru.urbancamper.audiobookmarker.App</mainClass>
                             <name>app</name>
+                            <jvmSettings>
+                                <initialMemorySize>100m</initialMemorySize>
+                                <maxMemorySize>1256m</maxMemorySize>
+                                <maxStackSize>256m</maxStackSize>
+                            </jvmSettings>
                         </program>
                     </programs>
                 </configuration>
