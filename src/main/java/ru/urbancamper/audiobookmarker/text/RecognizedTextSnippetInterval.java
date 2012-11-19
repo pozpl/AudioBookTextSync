@@ -22,11 +22,19 @@ public class RecognizedTextSnippetInterval {
      */
     public Integer[] calculateFullTextBoundsForRecognizedSnippet(
             Integer[] fullText, Integer[] subText){
-        Integer allClustersNumber = fullText.length - subText.length;
+
         TreeMap<Integer, Integer> subTextWordsFrequences =
                 this.wordsFrequencesForTextSnippet(subText, 0, subText.length);
-        for(int clusterCounter = 0; clusterCounter < allClustersNumber; clusterCounter++){
-            //TreeMap<Integer, Integer>
+
+        TreeMap<Integer, Integer> fullTextSnippetWordsFrequences =
+                this.wordsFrequencesForTextSnippet(fullText, 0, subText.length);
+
+        Integer allClustersNumber = fullText.length - subText.length;
+        Integer previowsWord = fullText[0];
+        for(int clusterCounter = 1; clusterCounter < allClustersNumber; clusterCounter++){
+            Integer addedWord = fullText[clusterCounter + subText.length - 1];
+            fullTextSnippetWordsFrequences =
+                    this.wordsFrequencesForTextSnippet(fullText, clusterCounter, subText.length);
         }
         return null;
     }
