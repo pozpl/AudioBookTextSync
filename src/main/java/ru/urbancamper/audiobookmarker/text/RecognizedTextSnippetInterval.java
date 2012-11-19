@@ -56,18 +56,24 @@ public class RecognizedTextSnippetInterval {
 
         Set<Integer> keysUnion = this.union(subTextkeysSet, fullTextkeysSet);
         Iterator<Integer> keysIterator = keysUnion.iterator();
+        Integer aggregatedSumm = 0;
         while(keysIterator.hasNext()){
             Integer key = keysIterator.next();
             Boolean fullTextContainsKey = fullTestSnippetFreqs.containsKey(key);
             Boolean subTextContainsKey =  subTestSnippetFreqs.containsKey(key);
             if(fullTextContainsKey && subTextContainsKey){
-
+                Integer subWordFreq = subTestSnippetFreqs.get(key);
+                Integer fullWordFreq = fullTestSnippetFreqs.get(key);
+                aggregatedSumm += (fullWordFreq - subWordFreq) * (fullWordFreq - subWordFreq);
             }else if(fullTextContainsKey){
-
+                Integer fullWordFreq = fullTestSnippetFreqs.get(key);
+                aggregatedSumm += fullWordFreq * fullWordFreq;
             }else if(subTextContainsKey){
-
+                Integer subWordFreq = subTestSnippetFreqs.get(key);
+                aggregatedSumm += subWordFreq * subWordFreq;
             }
         }
+        
         return 0.0;
     }
 
