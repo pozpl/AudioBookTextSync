@@ -4,7 +4,10 @@
  */
 package ru.urbancamper.audiobookmarker.text;
 
+import java.util.Iterator;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  *
@@ -37,6 +40,66 @@ public class RecognizedTextSnippetInterval {
                     this.wordsFrequencesForTextSnippet(fullText, clusterCounter, subText.length);
         }
         return null;
+    }
+
+    /**
+     * Calculate equlidian norm for two frequencies vectors
+     * @param fullTestSnippetFreqs
+     * @param subTestSnippetFreqs
+     * @return
+     */
+    private Double equlidianDistanceBetwinWorsFrequencoesVectors(
+            TreeMap<Integer, Integer> fullTestSnippetFreqs,
+            TreeMap<Integer, Integer> subTestSnippetFreqs){
+        Set<Integer> subTextkeysSet = subTestSnippetFreqs.keySet();
+        Set<Integer> fullTextkeysSet = fullTestSnippetFreqs.keySet();
+
+        Set<Integer> keysUnion = this.union(subTextkeysSet, fullTextkeysSet);
+        Iterator<Integer> keysIterator = keysUnion.iterator();
+        while(keysIterator.hasNext()){
+            Integer key = keysIterator.next();
+            Boolean fullTextContainsKey = fullTestSnippetFreqs.containsKey(key);
+            Boolean subTextContainsKey =  subTestSnippetFreqs.containsKey(key);
+            if(fullTextContainsKey && subTextContainsKey){
+
+            }else if(fullTextContainsKey){
+
+            }else if(subTextContainsKey){
+
+            }
+        }
+        return 0.0;
+    }
+
+    public static <T> Set<T> union(Set<T> setA, Set<T> setB) {
+        Set<T> tmp = new TreeSet<T>(setA);
+        tmp.addAll(setB);
+        return tmp;
+    }
+
+    public static <T> Set<T> intersection(Set<T> setA, Set<T> setB) {
+        Set<T> tmp = new TreeSet<T>();
+        for (T x : setA) {
+            if (setB.contains(x)) {
+                tmp.add(x);
+            }
+        }
+        return tmp;
+    }
+
+    public static <T> Set<T> difference(Set<T> setA, Set<T> setB) {
+        Set<T> tmp = new TreeSet<T>(setA);
+        tmp.removeAll(setB);
+        return tmp;
+    }
+
+    public static <T> Set<T> symDifference(Set<T> setA, Set<T> setB) {
+        Set<T> tmpA;
+        Set<T> tmpB;
+
+        tmpA = union(setA, setB);
+        tmpB = intersection(setA, setB);
+        return difference(tmpA, tmpB);
     }
 
     /**
