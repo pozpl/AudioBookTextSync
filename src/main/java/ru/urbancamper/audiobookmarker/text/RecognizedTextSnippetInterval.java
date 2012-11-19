@@ -22,9 +22,9 @@ public class RecognizedTextSnippetInterval {
      */
     public Integer[] calculateFullTextBoundsForRecognizedSnippet(
             Integer[] fullText, Integer[] subText){
-        Integer allClustersNumber = this.getClustersNumber(fullText.length, subText.length);
+        Integer allClustersNumber = fullText.length - subText.length;
         for(int clusterCounter = 0; clusterCounter < allClustersNumber; clusterCounter++){
-            TreeMap<Integer, Integer> 
+            TreeMap<Integer, Integer>
         }
         return null;
     }
@@ -40,14 +40,6 @@ public class RecognizedTextSnippetInterval {
         }
 
         return wordsFrequences;
-    }
-
-    private Integer getClustersNumber(Integer fullLength, Integer subLength){
-        Integer fullClusters = fullLength / subLength;
-        if(fullLength % subLength > 0){
-            fullClusters++;
-        }
-        return fullClusters;
     }
 
 }
