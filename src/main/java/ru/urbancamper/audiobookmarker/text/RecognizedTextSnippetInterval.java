@@ -23,16 +23,26 @@ public class RecognizedTextSnippetInterval {
     public Integer[] calculateFullTextBoundsForRecognizedSnippet(
             Integer[] fullText, Integer[] subText){
         Integer allClustersNumber = fullText.length - subText.length;
+        TreeMap<Integer, Integer> subTextWordsFrequences =
+                this.wordsFrequencesForTextSnippet(subText, 0, subText.length);
         for(int clusterCounter = 0; clusterCounter < allClustersNumber; clusterCounter++){
-            TreeMap<Integer, Integer>
+            //TreeMap<Integer, Integer>
         }
         return null;
     }
 
+    /**
+     * Function to calculate for text snippet an array where key will be an word
+     * and value will be a count of this word in text snippet
+     * @param textArray
+     * @param offset - offset in array
+     * @param limit - max number of elements in array
+     * @return
+     */
     private TreeMap<Integer, Integer> wordsFrequencesForTextSnippet(Integer[] textArray,
-            Integer firstElementIndex, Integer lastElementIndex){
+            Integer offset, Integer limit){
         TreeMap<Integer, Integer> wordsFrequences = new TreeMap<Integer, Integer>();
-        for(Integer wordsCounter = firstElementIndex; wordsCounter < lastElementIndex; wordsCounter++){
+        for(Integer wordsCounter = offset; wordsCounter <= offset + limit; wordsCounter++){
             if(wordsFrequences.containsKey(textArray[wordsCounter])){
                 Integer oldFrequence = wordsFrequences.get(textArray[wordsCounter]);
                 wordsFrequences.put(textArray[wordsCounter], oldFrequence + 1);
