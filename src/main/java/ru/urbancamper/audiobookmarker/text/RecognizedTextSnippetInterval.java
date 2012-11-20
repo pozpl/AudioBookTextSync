@@ -40,6 +40,10 @@ public class RecognizedTextSnippetInterval {
         for(int clusterCounter = 1; clusterCounter < allClustersNumber; clusterCounter++){
             Integer addedWord = fullText[clusterCounter + subText.length - 1];
             this.updateFullTextSnippetFrequencies(fullTextSnippetWordsFrequences, previowsWord, addedWord);
+            aggregatedSummForSnipetsDistance =
+                    this.updateAggregatedSum(fullTextSnippetWordsFrequences,
+                    subTextWordsFrequences, previowsWord, addedWord, aggregatedSummForSnipetsDistance);
+
             previowsWord = fullText[clusterCounter];
 
         }
