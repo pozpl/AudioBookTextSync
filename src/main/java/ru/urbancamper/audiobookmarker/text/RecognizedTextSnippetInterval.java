@@ -72,6 +72,49 @@ public class RecognizedTextSnippetInterval {
         }
     }
 
+    private Integer updateAggregatedSum(
+            TreeMap<Integer, Integer> fullTextSnippetFreqs,
+            TreeMap<Integer, Integer> subTextSnippetFreqs,
+            Integer wordToRemove,
+            Integer wordToAdd,
+            Integer aggregatedSum){
+
+        Boolean fullTextContainsKey = fullTextSnippetFreqs.containsKey(wordToRemove);
+        Boolean subTextContainsKey = subTextSnippetFreqs.containsKey(wordToRemove);
+        Integer aggregatedRemove = 0;
+        if (fullTextContainsKey && subTextContainsKey) {
+            Integer subWordFreq = subTextSnippetFreqs.get(wordToRemove);
+            Integer fullWordFreq = fullTextSnippetFreqs.get(wordToRemove);
+            aggregatedRemove += (fullWordFreq - subWordFreq) * (fullWordFreq - subWordFreq);
+        } else if (fullTextContainsKey) {
+            Integer fullWordFreq = fullTextSnippetFreqs.get(wordToRemove);
+            aggregatedRemove += fullWordFreq * fullWordFreq;
+        } else if (subTextContainsKey) {
+            Integer subWordFreq = subTextSnippetFreqs.get(wordToRemove);
+            aggregatedRemove += subWordFreq * subWordFreq;
+        }
+
+        Integer updatedAggregatedSum = aggregatedSum - aggregatedRemove;
+
+        Boolean fullTextContainsAddKey = fullTextSnippetFreqs.containsKey(wordToAdd);
+        Boolean subTextContainsAddKey = subTextSnippetFreqs.containsKey(wordToAdd);
+        Integer aggregatedAdd = 0;
+        if (fullTextContainsAddKey && subTextContainsAddKey) {
+            Integer subWordFreq = subTextSnippetFreqs.get(wordToAdd);
+            Integer fullWordFreq = fullTextSnippetFreqs.get(wordToAdd);
+            aggregatedAdd += (fullWordFreq - subWordFreq) * (fullWordFreq - subWordFreq);
+        } else if (fullTextContainsAddKey) {
+            Integer fullWordFreq = fullTextSnippetFreqs.get(wordToAdd);
+            aggregatedAdd += fullWordFreq * fullWordFreq;
+        } else if (subTextContainsAddKey) {
+            Integer subWordFreq = subTextSnippetFreqs.get(wordToAdd);
+            aggregatedAdd += subWordFreq * subWordFreq;
+        }
+
+        updatedAggregatedSum += aggregatedAdd;
+        return updatedAggregatedSum;
+    }
+
     /**
      * Calculate equlidian norm for two frequencies vectors
      * @param fullTestSnippetFreqs
