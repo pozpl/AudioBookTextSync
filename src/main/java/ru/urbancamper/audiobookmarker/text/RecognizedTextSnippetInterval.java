@@ -48,7 +48,7 @@ public class RecognizedTextSnippetInterval {
      * @param subTestSnippetFreqs
      * @return
      */
-    private Double equlidianDistanceBetwinWorsFrequencoesVectors(
+    private Integer aggregatedSummForWorsFrequenciesVectors(
             TreeMap<Integer, Integer> fullTestSnippetFreqs,
             TreeMap<Integer, Integer> subTestSnippetFreqs){
         Set<Integer> subTextkeysSet = subTestSnippetFreqs.keySet();
@@ -73,11 +73,11 @@ public class RecognizedTextSnippetInterval {
                 aggregatedSumm += subWordFreq * subWordFreq;
             }
         }
-        
-        return 0.0;
+
+        return aggregatedSumm;
     }
 
-    public static <T> Set<T> union(Set<T> setA, Set<T> setB) {
+    public <T> Set<T> union(Set<T> setA, Set<T> setB) {
         Set<T> tmp = new TreeSet<T>(setA);
         tmp.addAll(setB);
         return tmp;
@@ -99,7 +99,7 @@ public class RecognizedTextSnippetInterval {
         return tmp;
     }
 
-    public static <T> Set<T> symDifference(Set<T> setA, Set<T> setB) {
+    public <T> Set<T> symDifference(Set<T> setA, Set<T> setB) {
         Set<T> tmpA;
         Set<T> tmpB;
 
