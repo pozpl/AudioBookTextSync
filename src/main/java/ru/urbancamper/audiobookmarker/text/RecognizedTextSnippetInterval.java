@@ -31,15 +31,45 @@ public class RecognizedTextSnippetInterval {
 
         TreeMap<Integer, Integer> fullTextSnippetWordsFrequences =
                 this.wordsFrequencesForTextSnippet(fullText, 0, subText.length);
+        Integer aggregatedSummForSnipetsDistance =
+                this.aggregatedSummForWorsFrequenciesVectors(
+                fullTextSnippetWordsFrequences, subTextWordsFrequences);
 
         Integer allClustersNumber = fullText.length - subText.length;
         Integer previowsWord = fullText[0];
         for(int clusterCounter = 1; clusterCounter < allClustersNumber; clusterCounter++){
             Integer addedWord = fullText[clusterCounter + subText.length - 1];
-            fullTextSnippetWordsFrequences =
-                    this.wordsFrequencesForTextSnippet(fullText, clusterCounter, subText.length);
+            this.updateFullTextSnippetFrequencies(fullTextSnippetWordsFrequences, previowsWord, addedWord);
+            previowsWord = fullText[clusterCounter];
+
         }
         return null;
+    }
+
+    /**
+     * Update frequencies of words during scanning process. Word to add frequence
+     * is reduced to one and frequence of a word to add is increased by 1
+     * @param fullTextSnippetFreq Tree map of words frequencies
+     * @param wordToRemove word to reduce frequence
+     * @param wordToAdd word to increase frequence
+     */
+    private void updateFullTextSnippetFrequencies(
+            TreeMap<Integer, Integer> fullTextSnippetFreq, Integer wordToRemove,
+            Integer wordToAdd){
+        Integer wordToRemoveFreq = fullTextSnippetFreq.get(wordToRemove);
+        wordToRemoveFreq--;
+        if(wordToRemoveFreq <= 0){
+            fullTextSnippetFreq.remove(wordToRemove);
+        }else{
+            fullTextSnippetFreq.put(wordToRemove, wordToRemoveFreq);
+        }
+        if(fullTextSnippetFreq.containsKey(wordToAdd)){
+            Integer wordToAddFreq = fullTextSnippetFreq.get(wordToAdd);
+            wordToAddFreq++;
+            fullTextSnippetFreq.put(wordToAdd, wordToAddFreq);
+        }else{
+            fullTextSnippetFreq.put(wordToAdd, Integer.valueOf(1));
+        }
     }
 
     /**
