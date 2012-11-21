@@ -190,13 +190,15 @@ public class RecognizedTextSnippetInterval {
      * @param limit - max number of elements in array
      * @return
      */
-    private TreeMap<Integer, Integer> wordsFrequencesForTextSnippet(Integer[] textArray,
+    public TreeMap<Integer, Integer> wordsFrequencesForTextSnippet(Integer[] textArray,
             Integer offset, Integer limit){
         TreeMap<Integer, Integer> wordsFrequences = new TreeMap<Integer, Integer>();
-        for(Integer wordsCounter = offset; wordsCounter <= offset + limit; wordsCounter++){
+        for(Integer wordsCounter = offset; wordsCounter < offset + limit; wordsCounter++){
             if(wordsFrequences.containsKey(textArray[wordsCounter])){
                 Integer oldFrequence = wordsFrequences.get(textArray[wordsCounter]);
                 wordsFrequences.put(textArray[wordsCounter], oldFrequence + 1);
+            }else{
+                wordsFrequences.put(textArray[wordsCounter], 1);
             }
         }
 
