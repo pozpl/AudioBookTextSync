@@ -4,7 +4,10 @@
  */
 package ru.urbancamper.audiobookmarker.text;
 
-import java.util.Set;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.TreeMap;
+import junit.framework.Test;
 import junit.framework.TestCase;
 
 /**
@@ -13,6 +16,8 @@ import junit.framework.TestCase;
  */
 public class RecognizedTextSnippetIntervalTest extends TestCase {
 
+    private RecognizedTextSnippetInterval recognizedTextSnippetInterval;
+
     public RecognizedTextSnippetIntervalTest(String testName) {
         super(testName);
     }
@@ -20,6 +25,7 @@ public class RecognizedTextSnippetIntervalTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
+        this.recognizedTextSnippetInterval = new RecognizedTextSnippetInterval();
     }
 
     @Override
@@ -42,5 +48,19 @@ public class RecognizedTextSnippetIntervalTest extends TestCase {
         fail("The test case is a prototype.");
     }
 
-    
+    public void testWordsFrequencesForTextSnippet() throws NoSuchMethodException,
+            InvocationTargetException, IllegalAccessException {
+
+        Integer[] snippetWords = {1, 2, 3, 1, 3};
+
+        Method method = RecognizedTextSnippetInterval.class.getDeclaredMethod("wordsFrequencesForTextSnippet",
+                Integer[].class, Integer.class, Integer.class);
+        method.setAccessible(true);
+        TreeMap<Integer, Integer> output = (TreeMap<Integer, Integer>) method.invoke(recognizedTextSnippetInterval, snippetWords, 0, 5);
+
+        assertEquals(3, output.size());
+//        assertEquals(2, output.get(1));
+//        assertEquals(1, output.get(2));
+//        assertEquals(2, output.get(3));
+    }
 }
