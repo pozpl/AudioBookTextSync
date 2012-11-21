@@ -36,17 +36,17 @@ public class RecognizedTextSnippetIntervalTest extends TestCase {
     /**
      * Test of calculateFullTextBoundsForRecognizedSnippet method, of class RecognizedTextSnippetInterval.
      */
-    public void testCalculateFullTextBoundsForRecognizedSnippet() {
-        System.out.println("calculateFullTextBoundsForRecognizedSnippet");
-        Integer[] fullText = null;
-        Integer[] subText = null;
-        RecognizedTextSnippetInterval instance = new RecognizedTextSnippetInterval();
-        Integer[] expResult = null;
-        Integer[] result = instance.calculateFullTextBoundsForRecognizedSnippet(fullText, subText);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    public void testCalculateFullTextBoundsForRecognizedSnippet() {
+//        System.out.println("calculateFullTextBoundsForRecognizedSnippet");
+//        Integer[] fullText = {1, 2, 3};
+//        Integer[] subText = {1, 2, 3};
+//        RecognizedTextSnippetInterval instance = new RecognizedTextSnippetInterval();
+//        Integer[] expResult = null;
+//        Integer[] result = instance.calculateFullTextBoundsForRecognizedSnippet(fullText, subText);
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
 
     public void testWordsFrequencesForTextSnippet() throws NoSuchMethodException,
             InvocationTargetException, IllegalAccessException {
@@ -56,7 +56,9 @@ public class RecognizedTextSnippetIntervalTest extends TestCase {
         Method method = RecognizedTextSnippetInterval.class.getDeclaredMethod("wordsFrequencesForTextSnippet",
                 Integer[].class, Integer.class, Integer.class);
         method.setAccessible(true);
-        TreeMap<Integer, Integer> output = (TreeMap<Integer, Integer>) method.invoke(recognizedTextSnippetInterval, snippetWords, 0, 5);
+        TreeMap<Integer, Integer> output =
+                (TreeMap<Integer, Integer>) method.invoke(recognizedTextSnippetInterval,
+                snippetWords,Integer.valueOf(0), Integer.valueOf(5));
 
         assertEquals(3, output.size());
 //        assertEquals(2, output.get(1));
