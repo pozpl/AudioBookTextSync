@@ -48,6 +48,7 @@ public class RecognizedTextSnippetIntervalTest extends TestCase {
 //        fail("The test case is a prototype.");
 //    }
 
+    @SuppressWarnings("unchecked")
     public void testWordsFrequencesForTextSnippet() throws NoSuchMethodException,
             InvocationTargetException, IllegalAccessException {
 
@@ -56,13 +57,13 @@ public class RecognizedTextSnippetIntervalTest extends TestCase {
         Method method = RecognizedTextSnippetInterval.class.getDeclaredMethod("wordsFrequencesForTextSnippet",
                 Integer[].class, Integer.class, Integer.class);
         method.setAccessible(true);
-        TreeMap<Integer, Integer> output =
-                (TreeMap<Integer, Integer>) method.invoke(recognizedTextSnippetInterval,
-                snippetWords,Integer.valueOf(0), Integer.valueOf(5));
+        TreeMap<Integer, Integer> output;
+        output = (TreeMap<Integer, Integer>) method.invoke(recognizedTextSnippetInterval,
+                 snippetWords, Integer.valueOf(0), Integer.valueOf(5));
 
         assertEquals(3, output.size());
-//        assertEquals(2, output.get(1));
-//        assertEquals(1, output.get(2));
-//        assertEquals(2, output.get(3));
+        assertEquals(Integer.valueOf(2), output.get(1));
+        assertEquals(Integer.valueOf(1), output.get(2));
+        assertEquals(Integer.valueOf(2), output.get(3));
     }
 }
