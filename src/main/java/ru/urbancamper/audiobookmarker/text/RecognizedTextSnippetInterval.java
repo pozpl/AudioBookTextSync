@@ -36,18 +36,40 @@ public class RecognizedTextSnippetInterval {
                 fullTextSnippetWordsFrequences, subTextWordsFrequences);
 
         Integer allClustersNumber = fullText.length - subText.length;
+        Integer[] snippetsAggregatedSums = new Integer[allClustersNumber];
+        snippetsAggregatedSums[0] = aggregatedSummForSnipetsDistance;
         Integer previowsWord = fullText[0];
         for(int clusterCounter = 1; clusterCounter < allClustersNumber; clusterCounter++){
             Integer addedWord = fullText[clusterCounter + subText.length - 1];
             this.updateFullTextSnippetFrequencies(fullTextSnippetWordsFrequences, previowsWord, addedWord);
+
             aggregatedSummForSnipetsDistance =
                     this.updateAggregatedSum(fullTextSnippetWordsFrequences,
                     subTextWordsFrequences, previowsWord, addedWord, aggregatedSummForSnipetsDistance);
-
+            snippetsAggregatedSums[clusterCounter] = aggregatedSummForSnipetsDistance;
             previowsWord = fullText[clusterCounter];
 
         }
         return null;
+    }
+
+    /**
+     * Function returns intex of the cluster with minimal equlidian distance
+     * @param snippetsAggregatedSums
+     * @return
+     */
+    private Integer findSnippetWithMinDistance(Integer[] snippetsAggregatedSums){
+        Double  minDistance = Math.sqrt(snippetsAggregatedSums[0]);
+        Integer minDistanceIndex = 0;
+        for(Integer snippetCounter = 0; snippetCounter < snippetsAggregatedSums.length; snippetCounter++){
+            Double currentDistance = Math.sqrt(snippetsAggregatedSums[snippetCounter]);
+            if(currentDistance < minDistance){
+                minDistance = currentDistance;
+                minDistanceIndex = snippetCounter;
+            }
+        }
+
+        return minDistanceIndex;
     }
 
     /**
