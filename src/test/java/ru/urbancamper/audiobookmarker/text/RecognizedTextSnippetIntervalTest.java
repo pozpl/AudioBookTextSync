@@ -92,4 +92,31 @@ public class RecognizedTextSnippetIntervalTest extends TestCase {
 
         assertEquals(Integer.valueOf(26), output);
     }
+    public void testupdateAggregatedSum() throws NoSuchMethodException,
+            InvocationTargetException, IllegalAccessException {
+
+
+        TreeMap<Integer, Integer> fullTestSnippetFreqs  = new TreeMap<Integer, Integer>();
+        TreeMap<Integer, Integer> subTestSnippetFreqs =  new TreeMap<Integer, Integer>();
+
+        fullTestSnippetFreqs.put(1, 1);
+        fullTestSnippetFreqs.put(2, 2);
+        fullTestSnippetFreqs.put(3, 3);
+        fullTestSnippetFreqs.put(4, 4);
+
+        subTestSnippetFreqs.put(2, 2);
+        subTestSnippetFreqs.put(3, 3);
+        subTestSnippetFreqs.put(4, 4);
+        subTestSnippetFreqs.put(5, 5);
+        subTestSnippetFreqs.put(6, 6);
+
+        Method method = RecognizedTextSnippetInterval.class.getDeclaredMethod("updateAggregatedSum",
+                TreeMap.class, TreeMap.class, Integer.class, Integer.class, Integer.class);
+        method.setAccessible(true);
+        Integer output;
+        output = (Integer) method.invoke(recognizedTextSnippetInterval,
+                 fullTestSnippetFreqs, subTestSnippetFreqs, 1, 6, 26);
+
+        assertEquals(Integer.valueOf(61), output);
+    }
 }
