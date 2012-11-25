@@ -66,4 +66,30 @@ public class RecognizedTextSnippetIntervalTest extends TestCase {
         assertEquals(Integer.valueOf(1), output.get(2));
         assertEquals(Integer.valueOf(2), output.get(3));
     }
+    public void testAggregatedSummForWorsFrequenciesVectors() throws NoSuchMethodException,
+            InvocationTargetException, IllegalAccessException {
+
+
+        TreeMap<Integer, Integer> fullTestSnippetFreqs  = new TreeMap<Integer, Integer>();
+        TreeMap<Integer, Integer> subTestSnippetFreqs =  new TreeMap<Integer, Integer>();
+
+        fullTestSnippetFreqs.put(1, 1);
+        fullTestSnippetFreqs.put(2, 2);
+        fullTestSnippetFreqs.put(3, 3);
+        fullTestSnippetFreqs.put(4, 4);
+
+        subTestSnippetFreqs.put(2, 2);
+        subTestSnippetFreqs.put(3, 3);
+        subTestSnippetFreqs.put(4, 4);
+        subTestSnippetFreqs.put(5, 5);
+
+        Method method = RecognizedTextSnippetInterval.class.getDeclaredMethod("aggregatedSummForWorsFrequenciesVectors",
+                Integer[].class, Integer.class, Integer.class);
+        method.setAccessible(true);
+        Integer output;
+        output = (Integer) method.invoke(recognizedTextSnippetInterval,
+                 fullTestSnippetFreqs, subTestSnippetFreqs);
+
+        assertEquals(Integer.valueOf(26), output);
+    }
 }
