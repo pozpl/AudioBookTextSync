@@ -39,13 +39,14 @@ public class RecognizedTextSnippetInterval {
         Integer[] snippetsAggregatedSums = new Integer[allClustersNumber];
         snippetsAggregatedSums[0] = aggregatedSummForSnipetsDistance;
         Integer previowsWord = fullText[0];
+        Integer previousWordFreq = fullTextSnippetWordsFrequences.get(previowsWord);
         for(int clusterCounter = 1; clusterCounter < allClustersNumber; clusterCounter++){
             Integer addedWord = fullText[clusterCounter + subText.length - 1];
             this.updateFullTextSnippetFrequencies(fullTextSnippetWordsFrequences, previowsWord, addedWord);
 
             aggregatedSummForSnipetsDistance =
                     this.updateAggregatedSum(fullTextSnippetWordsFrequences,
-                    subTextWordsFrequences, previowsWord, addedWord, aggregatedSummForSnipetsDistance);
+                    subTextWordsFrequences, previowsWord, previousWordFreq, addedWord, aggregatedSummForSnipetsDistance);
             snippetsAggregatedSums[clusterCounter] = aggregatedSummForSnipetsDistance;
             previowsWord = fullText[clusterCounter];
 
@@ -102,22 +103,19 @@ public class RecognizedTextSnippetInterval {
             TreeMap<Integer, Integer> fullTextSnippetFreqs,
             TreeMap<Integer, Integer> subTextSnippetFreqs,
             Integer wordToRemove,
+            Integer previousWordFreq,
             Integer wordToAdd,
             Integer aggregatedSum){
 
-        Boolean fullTextContainsKey = fullTextSnippetFreqs.containsKey(wordToRemove);
+//        Boolean fullTextContainsKey = fullTextSnippetFreqs.containsKey(wordToRemove);
         Boolean subTextContainsKey = subTextSnippetFreqs.containsKey(wordToRemove);
         Integer aggregatedRemove = 0;
-        if (fullTextContainsKey && subTextContainsKey) {
+        if (subTextContainsKey) {
             Integer subWordFreq = subTextSnippetFreqs.get(wordToRemove);
-            Integer fullWordFreq = fullTextSnippetFreqs.get(wordToRemove);
-            aggregatedRemove += (fullWordFreq - subWordFreq) * (fullWordFreq - subWordFreq);
-        } else if (fullTextContainsKey) {
-            Integer fullWordFreq = fullTextSnippetFreqs.get(wordToRemove);
-            aggregatedRemove += fullWordFreq * fullWordFreq;
-        } else if (subTextContainsKey) {
-            Integer subWordFreq = subTextSnippetFreqs.get(wordToRemove);
-            aggregatedRemove += subWordFreq * subWordFreq;
+//            Integer fullWordFreq = fullTextSnippetFreqs.get(wordToRemove);
+            aggregatedRemove += (previousWordFreq - subWordFreq) * (previousWordFreq - subWordFreq);
+        } else {
+            aggregatedRemove += previousWordFreq * previousWordFreq;
         }
 
         Integer updatedAggregatedSum = aggregatedSum - aggregatedRemove;
