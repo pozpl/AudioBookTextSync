@@ -84,7 +84,7 @@ public class RecognizedTextSnippetIntervalTest extends TestCase {
         subTestSnippetFreqs.put(5, 5);
 
         Method method = RecognizedTextSnippetInterval.class.getDeclaredMethod("aggregatedSummForWorsFrequenciesVectors",
-                Integer[].class, Integer.class, Integer.class);
+                TreeMap.class, TreeMap.class);
         method.setAccessible(true);
         Integer output;
         output = (Integer) method.invoke(recognizedTextSnippetInterval,
