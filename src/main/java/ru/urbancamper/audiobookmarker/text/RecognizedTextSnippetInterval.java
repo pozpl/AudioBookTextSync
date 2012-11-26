@@ -102,7 +102,7 @@ public class RecognizedTextSnippetInterval {
         }
     }
 
-    public Integer updateAggregatedSum(
+    private Integer updateAggregatedSum(
             TreeMap<Integer, Integer> fullTextSnippetFreqs,
             TreeMap<Integer, Integer> subTextSnippetFreqs,
             Integer wordToRemove,
