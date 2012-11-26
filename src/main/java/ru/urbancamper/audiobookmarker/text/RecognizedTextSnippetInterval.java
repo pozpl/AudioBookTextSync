@@ -10,7 +10,8 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 /**
- *
+ *This class calculates inteval in full text that has min distance wit sub text interval
+ * in terms of frequencies vectors distance;
  * @author pozpl
  */
 public class RecognizedTextSnippetInterval {
