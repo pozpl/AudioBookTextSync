@@ -83,7 +83,7 @@ public class RecognizedTextSnippetInterval {
      * @param wordToRemove word to reduce frequence
      * @param wordToAdd word to increase frequence
      */
-    private void updateFullTextSnippetFrequencies(
+    public TreeMap<Integer,Integer> updateFullTextSnippetFrequencies(
             TreeMap<Integer, Integer> fullTextSnippetFreq, Integer wordToRemove,
             Integer wordToAdd){
         Integer wordToRemoveFreq = fullTextSnippetFreq.get(wordToRemove);
@@ -100,6 +100,7 @@ public class RecognizedTextSnippetInterval {
         }else{
             fullTextSnippetFreq.put(wordToAdd, Integer.valueOf(1));
         }
+        return fullTextSnippetFreq;
     }
 
     private Integer updateAggregatedSum(
