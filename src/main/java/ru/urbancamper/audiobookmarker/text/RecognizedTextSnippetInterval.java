@@ -102,7 +102,7 @@ public class RecognizedTextSnippetInterval {
         }
     }
 
-    private Integer updateAggregatedSum(
+    public Integer updateAggregatedSum(
             TreeMap<Integer, Integer> fullTextSnippetFreqs,
             TreeMap<Integer, Integer> subTextSnippetFreqs,
             Integer wordToRemove,
@@ -110,7 +110,6 @@ public class RecognizedTextSnippetInterval {
             Integer wordToAdd,
             Integer aggregatedSum){
 
-//        Boolean fullTextContainsKey = fullTextSnippetFreqs.containsKey(wordToRemove);
         Boolean subTextContainsKey = subTextSnippetFreqs.containsKey(wordToRemove);
         Integer aggregatedRemove = 0;
         if (subTextContainsKey) {
