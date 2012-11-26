@@ -42,13 +42,16 @@ public class RecognizedTextSnippetInterval {
         Integer previousWordFreq = fullTextSnippetWordsFrequences.get(previowsWord);
         for(int clusterCounter = 1; clusterCounter < allClustersNumber; clusterCounter++){
             Integer addedWord = fullText[clusterCounter + subText.length - 1];
+
             this.updateFullTextSnippetFrequencies(fullTextSnippetWordsFrequences, previowsWord, addedWord);
 
             aggregatedSummForSnipetsDistance =
                     this.updateAggregatedSum(fullTextSnippetWordsFrequences,
-                    subTextWordsFrequences, previowsWord, previousWordFreq, addedWord, aggregatedSummForSnipetsDistance);
+                    subTextWordsFrequences, previowsWord, previousWordFreq,
+                    addedWord, aggregatedSummForSnipetsDistance);
             snippetsAggregatedSums[clusterCounter] = aggregatedSummForSnipetsDistance;
             previowsWord = fullText[clusterCounter];
+            previousWordFreq = fullTextSnippetWordsFrequences.get(previowsWord);
 
         }
         return null;
@@ -112,32 +115,35 @@ public class RecognizedTextSnippetInterval {
         Integer aggregatedRemove = 0;
         if (subTextContainsKey) {
             Integer subWordFreq = subTextSnippetFreqs.get(wordToRemove);
-//            Integer fullWordFreq = fullTextSnippetFreqs.get(wordToRemove);
-            aggregatedRemove += (previousWordFreq - subWordFreq) * (previousWordFreq - subWordFreq);
+            Integer oldAggregated = (previousWordFreq - subWordFreq) * (previousWordFreq - subWordFreq);
+            Integer newAggregated = (previousWordFreq - subWordFreq - 1) * (previousWordFreq - subWordFreq - 1);
+            aggregatedRemove = oldAggregated - newAggregated;
         } else {
-            aggregatedRemove += previousWordFreq * previousWordFreq;
+            Integer oldAggregated = previousWordFreq * previousWordFreq;
+            Integer newAggregated = (previousWordFreq - 1) * (previousWordFreq - 1);
+            aggregatedRemove = oldAggregated - newAggregated;
         }
 
         Integer updatedAggregatedSum = aggregatedSum - aggregatedRemove;
 
-        Boolean fullTextContainsAddKey = fullTextSnippetFreqs.containsKey(wordToAdd);
-        Boolean subTextContainsAddKey = subTextSnippetFreqs.containsKey(wordToAdd);
+        Integer wordToAddFreq = fullTextSnippetFreqs.get(wordToAdd);
+        Boolean subTextContainsWordToAdd = subTextSnippetFreqs.containsKey(wordToAdd);
         Integer aggregatedAdd = 0;
-        if (fullTextContainsAddKey && subTextContainsAddKey) {
+        if (subTextContainsWordToAdd) {
             Integer subWordFreq = subTextSnippetFreqs.get(wordToAdd);
-            Integer fullWordFreq = fullTextSnippetFreqs.get(wordToAdd);
-            aggregatedAdd += (fullWordFreq - subWordFreq) * (fullWordFreq - subWordFreq);
-        } else if (fullTextContainsAddKey) {
-            Integer fullWordFreq = fullTextSnippetFreqs.get(wordToAdd);
-            aggregatedAdd += fullWordFreq * fullWordFreq;
-        } else if (subTextContainsAddKey) {
-            Integer subWordFreq = subTextSnippetFreqs.get(wordToAdd);
-            aggregatedAdd += subWordFreq * subWordFreq;
+            Integer newAggregated = (wordToAddFreq - subWordFreq) * (wordToAddFreq - subWordFreq);
+            Integer oldAggregated = (wordToAddFreq - subWordFreq - 1) * (wordToAddFreq - subWordFreq - 1);
+            aggregatedAdd = newAggregated - oldAggregated;
+        } else {
+            Integer newAggregated = wordToAddFreq * wordToAddFreq;
+            Integer oldAggregated = (wordToAddFreq - 1) * (wordToAddFreq - 1);
+            aggregatedAdd = newAggregated - oldAggregated;
         }
 
         updatedAggregatedSum += aggregatedAdd;
         return updatedAggregatedSum;
     }
+
 
     /**
      * Calculate equlidian norm for two frequencies vectors
