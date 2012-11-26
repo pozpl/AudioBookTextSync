@@ -43,7 +43,7 @@ public class RecognizedTextSnippetInterval {
         for(int clusterCounter = 1; clusterCounter < allClustersNumber; clusterCounter++){
             Integer addedWord = fullText[clusterCounter + subText.length - 1];
 
-            this.updateFullTextSnippetFrequencies(fullTextSnippetWordsFrequences, previowsWord, addedWord);
+            fullTextSnippetWordsFrequences = this.updateFullTextSnippetFrequencies(fullTextSnippetWordsFrequences, previowsWord, addedWord);
 
             aggregatedSummForSnipetsDistance =
                     this.updateAggregatedSum(fullTextSnippetWordsFrequences,
@@ -83,7 +83,7 @@ public class RecognizedTextSnippetInterval {
      * @param wordToRemove word to reduce frequence
      * @param wordToAdd word to increase frequence
      */
-    public TreeMap<Integer,Integer> updateFullTextSnippetFrequencies(
+    private TreeMap<Integer,Integer> updateFullTextSnippetFrequencies(
             TreeMap<Integer, Integer> fullTextSnippetFreq, Integer wordToRemove,
             Integer wordToAdd){
         Integer wordToRemoveFreq = fullTextSnippetFreq.get(wordToRemove);
