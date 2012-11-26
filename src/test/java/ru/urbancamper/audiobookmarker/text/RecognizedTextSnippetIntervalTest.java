@@ -140,10 +140,15 @@ public class RecognizedTextSnippetIntervalTest extends TestCase {
                  fullTestSnippetFreqs, 4, 5);
         output = (TreeMap<Integer, Integer>) method.invoke(recognizedTextSnippetInterval,
                  output, 1, 5);
+//        TreeMap<Integer, Integer> output =
+//                this.recognizedTextSnippetInterval.updateFullTextSnippetFrequencies(
+//                fullTestSnippetFreqs, 4, 5);
+//        output = this.recognizedTextSnippetInterval.updateFullTextSnippetFrequencies(
+//                output, 1, 5);
 
         assertEquals(4, output.size());
         assertEquals(Integer.valueOf(2), output.get(2));
-        assertEquals(Integer.valueOf(1), output.get(3));
+        assertEquals(Integer.valueOf(3), output.get(3));
         assertEquals(Integer.valueOf(3), output.get(4));
         assertEquals(Integer.valueOf(2), output.get(5));
 
