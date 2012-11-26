@@ -103,12 +103,13 @@ public class RecognizedTextSnippetIntervalTest extends TestCase {
         fullTestSnippetFreqs.put(2, 2);
         fullTestSnippetFreqs.put(3, 3);
         fullTestSnippetFreqs.put(4, 4);
+        fullTestSnippetFreqs.put(6, 1);
 
         subTestSnippetFreqs.put(2, 2);
         subTestSnippetFreqs.put(3, 3);
         subTestSnippetFreqs.put(4, 4);
         subTestSnippetFreqs.put(5, 4);
-        subTestSnippetFreqs.put(6, 1);
+
 
         Method method = RecognizedTextSnippetInterval.class.getDeclaredMethod("updateAggregatedSum",
                 TreeMap.class, TreeMap.class, Integer.class, Integer.class, Integer.class, Integer.class);
@@ -116,7 +117,9 @@ public class RecognizedTextSnippetIntervalTest extends TestCase {
         Integer output;
         output = (Integer) method.invoke(recognizedTextSnippetInterval,
                  fullTestSnippetFreqs, subTestSnippetFreqs, 5, 5, 6, 26);
+//        Integer output = this.recognizedTextSnippetInterval.updateAggregatedSum(
+//                fullTestSnippetFreqs, subTestSnippetFreqs, 5, 5, 6, 26);
 
-        assertEquals(Integer.valueOf(18), output);
+        assertEquals(Integer.valueOf(26), output);
     }
 }
