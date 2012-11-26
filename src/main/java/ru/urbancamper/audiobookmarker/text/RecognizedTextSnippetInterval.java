@@ -103,6 +103,16 @@ public class RecognizedTextSnippetInterval {
         return fullTextSnippetFreq;
     }
 
+    /**
+     * This function upgrades aggregated sum.
+     * @param fullTextSnippetFreqs - full text frequencies
+     * @param subTextSnippetFreqs sub text frequencies
+     * @param wordToRemove word to remove
+     * @param previousWordFreq frequence of word to remove
+     * @param wordToAdd word to add
+     * @param aggregatedSum aggregated sum value
+     * @return
+     */
     private Integer updateAggregatedSum(
             TreeMap<Integer, Integer> fullTextSnippetFreqs,
             TreeMap<Integer, Integer> subTextSnippetFreqs,
