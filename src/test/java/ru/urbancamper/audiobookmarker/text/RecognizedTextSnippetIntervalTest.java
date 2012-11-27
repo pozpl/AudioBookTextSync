@@ -158,9 +158,11 @@ public class RecognizedTextSnippetIntervalTest extends TestCase {
             InvocationTargetException, IllegalAccessException{
         Integer[] distancesVector = {1, 3, 5, 6, 8, 4};
         Method method = RecognizedTextSnippetInterval.class.getDeclaredMethod("findSnippetWithMinDistance",
-                Integer[].class);
+                new Class[]{Integer[].class});
         method.setAccessible(true);
         Integer output;
-        output = (Integer) method.invoke(recognizedTextSnippetInterval, distancesVector);
+        output = (Integer) method.invoke(recognizedTextSnippetInterval, new Object[]{distancesVector});
+//        Integer output = this.recognizedTextSnippetInterval.findSnippetWithMinDistance(distancesVector);
+        assertEquals(Integer.valueOf(0), output);
     }
 }
