@@ -36,17 +36,15 @@ public class RecognizedTextSnippetIntervalTest extends TestCase {
     /**
      * Test of calculateFullTextBoundsForRecognizedSnippet method, of class RecognizedTextSnippetInterval.
      */
-//    public void testCalculateFullTextBoundsForRecognizedSnippet() {
-//        System.out.println("calculateFullTextBoundsForRecognizedSnippet");
-//        Integer[] fullText = {1, 2, 3};
-//        Integer[] subText = {1, 2, 3};
-//        RecognizedTextSnippetInterval instance = new RecognizedTextSnippetInterval();
-//        Integer[] expResult = null;
-//        Integer[] result = instance.calculateFullTextBoundsForRecognizedSnippet(fullText, subText);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    public void testCalculateFullTextBoundsForRecognizedSnippet() {
+        System.out.println("calculateFullTextBoundsForRecognizedSnippet");
+        Integer[] fullText = {1, 2, 3, 4, 3, 5, 6, 19, 8, 4, 3, 1};
+        Integer[] subText = {4, 3, 5, 6};
+        RecognizedTextSnippetInterval instance = new RecognizedTextSnippetInterval();
+        Integer expResult = 3;
+        Integer result = instance.calculateFullTextBoundsForRecognizedSnippet(fullText, subText);
+        assertEquals(expResult, result);
+    }
 
     @SuppressWarnings("unchecked")
     public void testWordsFrequencesForTextSnippet() throws NoSuchMethodException,
