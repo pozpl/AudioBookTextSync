@@ -21,10 +21,9 @@ public class RecognizedTextSnippetInterval {
      * snippet are probably reside.
      * @param fullText full text in integers array form
      * @param subText sub text in integers array form
-     * @return Integer[] bounds indexes of first word and last word to place
-     * recognized text to.
+     * @return Integer start position of recognized interval
      */
-    public Integer[] calculateFullTextBoundsForRecognizedSnippet(
+    public Integer calculateFullTextBoundsForRecognizedSnippet(
             Integer[] fullText, Integer[] subText){
 
         TreeMap<Integer, Integer> subTextWordsFrequences =
@@ -55,7 +54,8 @@ public class RecognizedTextSnippetInterval {
             previousWordFreq = fullTextSnippetWordsFrequences.get(previowsWord);
 
         }
-        return null;
+        Integer minDistanceAggregatedSummIndex = this.findSnippetWithMinDistance(snippetsAggregatedSums);
+        return minDistanceAggregatedSummIndex;
     }
 
     /**
