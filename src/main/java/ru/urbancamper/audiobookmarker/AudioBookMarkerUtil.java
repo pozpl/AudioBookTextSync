@@ -88,7 +88,7 @@ public class AudioBookMarkerUtil {
 
 
     /**
-     * This function gets an array of file paths and returns market dokument
+     * This function gets an array of file paths and returns market document
      *
      * @param audioBookFilesPaths
      * @param fullText
