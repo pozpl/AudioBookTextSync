@@ -35,15 +35,19 @@ public class BookText {
 
     private HashMap<String, Integer> registredFileMapper;
 
+    private RecognizedTextSnippetInterval recognizedTextSnippetInterval;
+
     public BookText(LanguageModelBasedTextTokenizer textTokenizer,
             WordsToNumsMap wordsToNumMapper,
-            LongestSubsequenceFinder subsequnceFinder
+            LongestSubsequenceFinder subsequnceFinder,
+            RecognizedTextSnippetInterval recognizedTextSnippetInterval
             ){
         this.recognizedAudioFiles = new ArrayList<RecognizedTextOfSingleAudiofile>();
         this.textTokenizer = textTokenizer;
         this.wordsToNumMapper = wordsToNumMapper;
         this.longestSubsequenceFinder = subsequnceFinder;
         this.registredFileMapper = new HashMap<String, Integer>();
+        this.recognizedTextSnippetInterval = recognizedTextSnippetInterval;
     }
 
     public void setFullText(String fullText){
@@ -68,11 +72,30 @@ public class BookText {
             RecognizedTextOfSingleAudiofile recognizedText = it.next();
             String[] recognizedTextAsTokens = recognizedText.getTokens();
             Integer[] recognizedTextAsNumbers = this.wordsToNumMapper.getNumbersFromWords(recognizedTextAsTokens);
+
+
             TreeMap<Integer, Integer> recTextLongestSubsequence = this.longestSubsequenceFinder.getLongestSubsequenceWithMinDistance(this.textInNumericForm, recognizedTextAsNumbers);
             recognizedTextLongestSubsequences.add(recTextLongestSubsequence);
         }
 
         return recognizedTextLongestSubsequences;
+    }
+
+    /**
+     * Shift mapping of sub text relatively of shift
+     * @param fullSubTextMap - tree map of equality between full text and sub text map
+     * @param shiftIndex - shift index of sub text in the full text recognized index
+     * @return return Tree map with shifted results
+     */
+    private TreeMap<Integer, Integer> shiftMappingOfSubText(TreeMap<Integer, Integer> fullSubTextMap,
+            Integer shiftIndex){
+        TreeMap<Integer, Integer> shiftedTreeMap = new TreeMap<Integer, Integer>();
+        for(Integer fullTextWordIndex : fullSubTextMap.keySet()){
+            Integer shiftedFullTextWordIndex = fullTextWordIndex + shiftIndex;
+            shiftedTreeMap.put(shiftedFullTextWordIndex,
+                    fullSubTextMap.get(fullTextWordIndex));
+        }
+        return shiftedTreeMap;
     }
 
     private String constructWordWithMarkInfo(String word, Integer fileIndex,Double startTime){
