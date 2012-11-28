@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerSphinx;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerSphinxCached;
@@ -26,6 +27,7 @@ import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerStub;
 import ru.urbancamper.audiobookmarker.text.BookText;
 import ru.urbancamper.audiobookmarker.text.LanguageModelBasedTextTokenizer;
 import ru.urbancamper.audiobookmarker.text.LongestSubsequenceFinder;
+import ru.urbancamper.audiobookmarker.text.RecognizedTextSnippetInterval;
 import ru.urbancamper.audiobookmarker.text.WordsToNumsMap;
 
 /**
@@ -74,8 +76,15 @@ public class BeansAnnotationsForTests {
     }
 
     @Bean
+    @Scope("singleton")
+    public RecognizedTextSnippetInterval recognizedTextSnippetInterval(){
+        return new RecognizedTextSnippetInterval();
+    }
+
+    @Bean
+    @Scope("prototype")
     public BookText bookText() {
-        return new BookText(this.textTokenizer(), this.wordsToNumMap(), this.longestSubsequenceFinder());
+        return new BookText(this.textTokenizer(), this.wordsToNumMap(), this.longestSubsequenceFinder(), this.recognizedTextSnippetInterval());
     }
 
     @Bean
