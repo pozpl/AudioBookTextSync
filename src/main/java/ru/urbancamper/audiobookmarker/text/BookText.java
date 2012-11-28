@@ -66,6 +66,11 @@ public class BookText {
                 new RecognizedTextOfSingleAudiofile[this.recognizedAudioFiles.size()]);
     }
 
+    /**
+     * Iterate through recognized text peaces and find mapping between words of
+     * this recognized peaces to full text words
+     * @return ArrayList of mappings of recognized text to full text
+     */
     private ArrayList<TreeMap<Integer, Integer>> getLongestSubsequenceMappingFromRecognizedTexts(){
         ArrayList<TreeMap<Integer, Integer>> recognizedTextLongestSubsequences = new ArrayList<TreeMap<Integer, Integer>>();
         for (Iterator<RecognizedTextOfSingleAudiofile> it = this.recognizedAudioFiles.iterator(); it.hasNext();) {
@@ -73,8 +78,11 @@ public class BookText {
             String[] recognizedTextAsTokens = recognizedText.getTokens();
             Integer[] recognizedTextAsNumbers = this.wordsToNumMapper.getNumbersFromWords(recognizedTextAsTokens);
 
+            Integer recognizedTextBeginIndex  = this.recognizedTextSnippetInterval.calculateFullTextBoundsForRecognizedSnippet(
+                    this.textInNumericForm, recognizedTextAsNumbers);
 
-            TreeMap<Integer, Integer> recTextLongestSubsequence = this.longestSubsequenceFinder.getLongestSubsequenceWithMinDistance(this.textInNumericForm, recognizedTextAsNumbers);
+            TreeMap<Integer, Integer> recTextLongestSubsequence =
+                    this.longestSubsequenceFinder.getLongestSubsequenceWithMinDistance(this.textInNumericForm, recognizedTextAsNumbers);
             recognizedTextLongestSubsequences.add(recTextLongestSubsequence);
         }
 
