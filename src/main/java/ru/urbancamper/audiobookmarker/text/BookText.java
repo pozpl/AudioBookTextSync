@@ -4,6 +4,7 @@
 package ru.urbancamper.audiobookmarker.text;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -80,7 +81,9 @@ public class BookText {
 
             Integer recognizedTextBeginIndex  = this.recognizedTextSnippetInterval.calculateFullTextBoundsForRecognizedSnippet(
                     this.textInNumericForm, recognizedTextAsNumbers);
-
+            Integer[] fullTextSnippetToAlign = new Integer[recognizedTextAsNumbers.length];
+            fullTextSnippetToAlign = Arrays.copyOfRange(this.textInNumericForm,
+                    recognizedTextBeginIndex, recognizedTextAsNumbers.length);
             TreeMap<Integer, Integer> recTextLongestSubsequence =
                     this.longestSubsequenceFinder.getLongestSubsequenceWithMinDistance(this.textInNumericForm, recognizedTextAsNumbers);
             recognizedTextLongestSubsequences.add(recTextLongestSubsequence);
