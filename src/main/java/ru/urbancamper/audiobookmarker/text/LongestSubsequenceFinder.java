@@ -54,7 +54,7 @@ public class LongestSubsequenceFinder {
     }
 
     /**
-     * Naive longest subsequence algorithm, which do not keep in mind distance betwin
+     * Naive longest subsequence algorithm, which do not keep in mind distance between
      * words.
      * @param fullArray
      * @param subArray
