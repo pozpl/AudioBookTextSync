@@ -4,7 +4,10 @@
  */
 package ru.urbancamper.audiobookmarker.text;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.TreeMap;
 import junit.framework.TestCase;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -125,5 +128,24 @@ public class BookTextTest extends TestCase {
         System.out.println("|" + markedText + "|");
         System.out.println("|" + bookFullTextWithMarks + "|");
         BookTextTest.assertEquals(bookFullTextWithMarks, markedText);
+    }
+
+    public void testGetLongestSubsequenceMappingFromRecognizedTexts()  throws NoSuchMethodException,
+            InvocationTargetException, IllegalAccessException {
+
+        ApplicationContext ctxt = new AnnotationConfigApplicationContext(BeansAnnotationsForTests.class);
+        BookText instance = ctxt.getBean(BookText.class);
+        instance.setFullText( bookFullText);
+        for(RecognizedTextOfSingleAudiofile recognizedFile: this.recognizedFiles){
+            instance.registerRecognizedTextPiece(recognizedFile);
+        }
+
+        Method method =
+          RecognizedTextSnippetInterval.class.getDeclaredMethod("getLongestSubsequenceMappingFromRecognizedTexts",
+                new Class[]{});
+        method.setAccessible(true);
+        TreeMap<Integer, Integer> output;
+        output = (TreeMap<Integer, Integer>) method.invoke(instance, new Object[]{});
+
     }
 }
