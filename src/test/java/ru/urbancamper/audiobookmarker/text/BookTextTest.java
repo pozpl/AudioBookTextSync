@@ -144,8 +144,8 @@ public class BookTextTest extends TestCase {
           RecognizedTextSnippetInterval.class.getDeclaredMethod("getLongestSubsequenceMappingFromRecognizedTexts",
                 new Class[]{});
         method.setAccessible(true);
-        TreeMap<Integer, Integer> output;
-        output = (TreeMap<Integer, Integer>) method.invoke(instance, new Object[]{});
+        ArrayList<TreeMap<Integer, Integer>> output;
+        output = (ArrayList<TreeMap<Integer, Integer>>) method.invoke(instance, new Object[]{});
 
     }
 }
