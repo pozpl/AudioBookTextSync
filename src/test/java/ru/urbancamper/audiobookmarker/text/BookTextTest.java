@@ -35,7 +35,7 @@ public class BookTextTest extends TestCase {
             + " word1 word1 word1  word5 word3 noword word1 word4 word2 word1";
     private static String bookFullTextWithMarks =
             "<1:0.1/>word1 <1:1.5/>word2 <1:2.1/>word3 noword word4"
-            + " word1 word1 word1 <2:3.1/>word5 <2:4.1/>word3 noword <2:6.1>word1 <2:7.1>word4 word2 word1";
+            + " word1 word1 word1 <2:3.1/>word5 <2:4.1/>word3 noword <2:6.1/>word1 <2:7.1/>word4 word2 word1";
 
     public BookTextTest(String testName) {
         super(testName);
