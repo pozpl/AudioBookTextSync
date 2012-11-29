@@ -141,11 +141,11 @@ public class BookTextTest extends TestCase {
         }
 
         Method method =
-          RecognizedTextSnippetInterval.class.getDeclaredMethod("getLongestSubsequenceMappingFromRecognizedTexts");
-//                new Class[]{});
+          BookText.class.getDeclaredMethod("getLongestSubsequenceMappingFromRecognizedTexts", null);
+//                new Class[0]);
         method.setAccessible(true);
         ArrayList<TreeMap<Integer, Integer>> output;
-        output = (ArrayList<TreeMap<Integer, Integer>>) method.invoke(instance);//, new Object[]{});
+        output = (ArrayList<TreeMap<Integer, Integer>>) method.invoke(instance, null);
 
     }
 }
