@@ -86,7 +86,7 @@ public class BookText {
                     recognizedTextBeginIndex, recognizedTextAsNumbers.length + recognizedTextBeginIndex);
             TreeMap<Integer, Integer> recTextLongestSubsequence =
                     this.longestSubsequenceFinder.getLongestSubsequenceWithMinDistance(fullTextSnippetToAlign, recognizedTextAsNumbers);
-            this.shiftMappingOfSubText(recTextLongestSubsequence, recognizedTextBeginIndex);
+            recTextLongestSubsequence = this.shiftMappingOfSubText(recTextLongestSubsequence, recognizedTextBeginIndex);
             recognizedTextLongestSubsequences.add(recTextLongestSubsequence);
         }
 
