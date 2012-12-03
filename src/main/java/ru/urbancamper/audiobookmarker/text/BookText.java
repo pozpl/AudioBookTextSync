@@ -17,6 +17,7 @@ import java.util.TreeMap;
  */
 public class BookText {
 
+    private final Integer errorsInteval;
     /**
      * the full text of Audiobook in plain text fomat
      */
@@ -49,7 +50,10 @@ public class BookText {
         this.longestSubsequenceFinder = subsequnceFinder;
         this.registredFileMapper = new HashMap<String, Integer>();
         this.recognizedTextSnippetInterval = recognizedTextSnippetInterval;
+        this.errorsInteval = 4;
     }
+
+
 
     public void setFullText(String fullText){
         this.fullText = fullText;
