@@ -50,7 +50,7 @@ public class BookText {
         this.longestSubsequenceFinder = subsequnceFinder;
         this.registredFileMapper = new HashMap<String, Integer>();
         this.recognizedTextSnippetInterval = recognizedTextSnippetInterval;
-        this.errorsInteval = 4;
+        this.errorsInteval = 6;
     }
 
 
@@ -86,8 +86,9 @@ public class BookText {
             Integer recognizedTextBeginIndex  = this.recognizedTextSnippetInterval.calculateFullTextBoundsForRecognizedSnippet(
                     this.textInNumericForm, recognizedTextAsNumbers);
             Integer[] fullTextSnippetToAlign = new Integer[recognizedTextAsNumbers.length];
+            Integer endOfInterval = recognizedTextAsNumbers.length + recognizedTextBeginIndex + this.errorsInteval;
             fullTextSnippetToAlign = Arrays.copyOfRange(this.textInNumericForm,
-                    recognizedTextBeginIndex, recognizedTextAsNumbers.length + recognizedTextBeginIndex);
+                    recognizedTextBeginIndex, endOfInterval);
             TreeMap<Integer, Integer> recTextLongestSubsequence =
                     this.longestSubsequenceFinder.getLongestSubsequenceWithMinDistance(fullTextSnippetToAlign, recognizedTextAsNumbers);
             recTextLongestSubsequence = this.shiftMappingOfSubText(recTextLongestSubsequence, recognizedTextBeginIndex);
