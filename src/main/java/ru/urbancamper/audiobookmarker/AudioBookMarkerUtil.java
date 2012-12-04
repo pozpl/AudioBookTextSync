@@ -49,7 +49,7 @@ public class AudioBookMarkerUtil {
         File[] filesInDir = directory.listFiles();
         ArrayList<String> filePathsList = new ArrayList<String>();
         for(File file: filesInDir){
-            if(this.isThisCacheFile(file.getAbsolutePath())){
+            if(! this.isThisFileIsCacheFile(file.getAbsolutePath())){
                 filePathsList.add(file.getAbsolutePath());
             }
         }
@@ -57,12 +57,15 @@ public class AudioBookMarkerUtil {
         return filePathsArray;
     }
 
-    private Boolean isThisCacheFile(String filePath){
-        String tokenRegex = "\\.cache$";
+    private Boolean isThisFileIsCacheFile(String filePath){
+        String cacheRegexp = "\\.cached$";
+        Pattern regexp = Pattern.compile(cacheRegexp);
+        Matcher matcher = regexp.matcher(filePath);
+        if(matcher.find()){
+            return Boolean.TRUE;
+        }
 
-        Pattern tokenPattern = Pattern.compile(tokenRegex);
-        Matcher tokensMatcher = tokenPattern.matcher(filePath);
-        return Boolean.valueOf(tokensMatcher.matches());
+        return Boolean.FALSE;
     }
 
     private String getBookFullText(String txtFilePath){
