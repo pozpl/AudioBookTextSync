@@ -49,7 +49,9 @@ public class AudioBookMarkerUtil {
         File[] filesInDir = directory.listFiles();
         ArrayList<String> filePathsList = new ArrayList<String>();
         for(File file: filesInDir){
-            filePathsList.add(file.getAbsolutePath());
+            if(this.isThisCacheFile(file.getAbsolutePath())){
+                filePathsList.add(file.getAbsolutePath());
+            }
         }
         String[] filePathsArray = filePathsList.toArray(new String[filePathsList.size()]);
         return filePathsArray;
