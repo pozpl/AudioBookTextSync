@@ -35,14 +35,14 @@ public class RecognizedTextSnippetInterval {
                 this.aggregatedSummForWorsFrequenciesVectors(
                 fullTextSnippetWordsFrequences, subTextWordsFrequences);
 
-        Integer allClustersNumber = fullText.length - subText.length;
+        Integer allClustersNumber = fullText.length - subText.length + 1;
         Integer[] snippetsAggregatedSums = new Integer[allClustersNumber];
         snippetsAggregatedSums[0] = aggregatedSummForSnipetsDistance;
         Integer previowsWord = fullText[0];
         Integer previousWordFreq = fullTextSnippetWordsFrequences.get(previowsWord);
         for(int clusterCounter = 1; clusterCounter < allClustersNumber; clusterCounter++){
             Integer addedWord = fullText[clusterCounter + subText.length - 1];
-
+            
             fullTextSnippetWordsFrequences = this.updateFullTextSnippetFrequencies(fullTextSnippetWordsFrequences, previowsWord, addedWord);
 
             aggregatedSummForSnipetsDistance =
