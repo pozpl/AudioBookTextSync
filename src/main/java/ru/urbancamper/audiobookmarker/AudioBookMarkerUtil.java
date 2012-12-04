@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerInterface;
@@ -51,6 +53,14 @@ public class AudioBookMarkerUtil {
         }
         String[] filePathsArray = filePathsList.toArray(new String[filePathsList.size()]);
         return filePathsArray;
+    }
+
+    private Boolean isThisCacheFile(String filePath){
+        String tokenRegex = "\\.cache$";
+
+        Pattern tokenPattern = Pattern.compile(tokenRegex);
+        Matcher tokensMatcher = tokenPattern.matcher(filePath);
+        return Boolean.valueOf(tokensMatcher.matches());
     }
 
     private String getBookFullText(String txtFilePath){
