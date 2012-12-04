@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *This class calculates inteval in full text that has min distance wit sub text interval
@@ -15,6 +17,8 @@ import java.util.TreeSet;
  * @author pozpl
  */
 public class RecognizedTextSnippetInterval {
+
+    protected final Log logger = LogFactory.getLog(getClass());
 
     /**
      * This function calculate two bounds in a full text array in which  a recognized
@@ -42,7 +46,7 @@ public class RecognizedTextSnippetInterval {
         Integer previousWordFreq = fullTextSnippetWordsFrequences.get(previowsWord);
         for(int clusterCounter = 1; clusterCounter < allClustersNumber; clusterCounter++){
             Integer addedWord = fullText[clusterCounter + subText.length - 1];
-            
+
             fullTextSnippetWordsFrequences = this.updateFullTextSnippetFrequencies(fullTextSnippetWordsFrequences, previowsWord, addedWord);
 
             aggregatedSummForSnipetsDistance =
