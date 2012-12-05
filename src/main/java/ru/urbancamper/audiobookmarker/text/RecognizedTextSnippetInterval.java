@@ -59,6 +59,9 @@ public class RecognizedTextSnippetInterval {
 
         }
         Integer minDistanceAggregatedSummIndex = this.findSnippetWithMinDistance(snippetsAggregatedSums);
+        this.logger.info("Find snippet interval  of "+ subText.length +"length in "
+                + minDistanceAggregatedSummIndex + "position of text with lenght " +
+                fullText.length);
         return minDistanceAggregatedSummIndex;
     }
 
