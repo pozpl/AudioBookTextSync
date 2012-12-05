@@ -11,6 +11,12 @@ package ru.urbancamper.audiobookmarker.text;
 public class BitapSubtextFinding {
 
 
+    private Byte[] fillByteArrayFromWordsNumbersArray(Integer[] text, Integer wordTomark){
+        Integer bytesArrayLength = text.length / 8;
+        return null;
+    }
+
+
     /**
      * Shift bytes array on n positions to the right
      * @param bytes
