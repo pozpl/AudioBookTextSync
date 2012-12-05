@@ -12,7 +12,14 @@ public class BitapSubtextFinding {
 
 
     private Byte[] fillByteArrayFromWordsNumbersArray(Integer[] text, Integer wordTomark){
-        Integer bytesArrayLength = text.length / 8;
+        Integer bytesArrayLength = text.length / Byte.SIZE;
+        Byte[] byteArray = new Byte[bytesArrayLength];
+        for(Integer bytesCounter = 0; bytesCounter < bytesArrayLength; bytesCounter++){
+            Integer textArrayIndex = bytesCounter * Byte.SIZE;
+            for(Integer bitCounter = 0; bitCounter < Byte.SIZE; bitCounter++){
+
+            }
+        }
         return null;
     }
 
