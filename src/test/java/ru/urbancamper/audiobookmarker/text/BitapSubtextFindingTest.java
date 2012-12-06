@@ -33,8 +33,9 @@ public class BitapSubtextFindingTest extends TestCase {
 
     public void testFillByteArrayFromWordsNumbersArray() throws NoSuchMethodException,
             InvocationTargetException, IllegalAccessException {
-        Integer[] textWords = {1, 2, 3, 4, 5};
-        Integer wordToFind = 3;
+        Integer[] textWords = {1, 2, 3, 4, 5, 1, 2, 5, 1, 1, 1, 1,1, 1, 1,1,
+        1,5,5, 6, 7};
+        Integer wordToFind = 5;
         Method method = BitapSubtextFinding.class.getDeclaredMethod("fillByteArrayFromWordsNumbersArray",
                 Integer[].class, Integer.class);
         method.setAccessible(true);
@@ -42,7 +43,13 @@ public class BitapSubtextFindingTest extends TestCase {
         output = (Byte[]) method.invoke(bitapSubtextFinding,
                  textWords, wordToFind);
 
-        Byte idealValue = 4;
+        assertEquals(3, output.length);
+
+        Byte idealValue = -112;
         assertEquals(idealValue, output[0]);
+        idealValue = 0;
+        assertEquals(idealValue, output[1]);
+        idealValue = 6;
+        assertEquals(idealValue, output[2]);
     }
 }
