@@ -41,7 +41,8 @@ public class BitapSubtextFindingTest extends TestCase {
         Byte[] output;
         output = (Byte[]) method.invoke(bitapSubtextFinding,
                  textWords, wordToFind);
-        Byte idealValue = 8;
+
+        Byte idealValue = 4;
         assertEquals(idealValue, output[0]);
     }
 }
