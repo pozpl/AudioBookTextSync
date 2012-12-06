@@ -38,9 +38,10 @@ public class BitapSubtextFindingTest extends TestCase {
         Method method = BitapSubtextFinding.class.getDeclaredMethod("fillByteArrayFromWordsNumbersArray",
                 Integer[].class, Integer.class);
         method.setAccessible(true);
-        Integer output;
-        output = (Integer) method.invoke(bitapSubtextFinding,
+        Byte[] output;
+        output = (Byte[]) method.invoke(bitapSubtextFinding,
                  textWords, wordToFind);
-
+        Byte idealValue = 8;
+        assertEquals(idealValue, output[0]);
     }
 }
