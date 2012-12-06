@@ -4,6 +4,8 @@
  */
 package ru.urbancamper.audiobookmarker.text;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import junit.framework.TestCase;
 
 /**
@@ -12,6 +14,8 @@ import junit.framework.TestCase;
  */
 public class BitapSubtextFindingTest extends TestCase {
 
+    private BitapSubtextFinding bitapSubtextFinding;
+
     public BitapSubtextFindingTest(String testName) {
         super(testName);
     }
@@ -19,6 +23,7 @@ public class BitapSubtextFindingTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
+        this.bitapSubtextFinding = new BitapSubtextFinding();
     }
 
     @Override
@@ -26,8 +31,16 @@ public class BitapSubtextFindingTest extends TestCase {
         super.tearDown();
     }
 
-    public void testFillByteArrayFromWordsNumbersArray() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testFillByteArrayFromWordsNumbersArray() throws NoSuchMethodException,
+            InvocationTargetException, IllegalAccessException {
+        Integer[] textWords = {1, 2, 3, 4, 5};
+        Integer wordToFind = 3;
+        Method method = BitapSubtextFinding.class.getDeclaredMethod("fillByteArrayFromWordsNumbersArray",
+                Integer[].class, Integer.class);
+        method.setAccessible(true);
+        Integer output;
+        output = (Integer) method.invoke(bitapSubtextFinding,
+                 textWords, wordToFind);
+
     }
 }
