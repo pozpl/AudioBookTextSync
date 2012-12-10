@@ -52,4 +52,14 @@ public class BitapSubtextFindingTest extends TestCase {
         idealValue = 6;
         assertEquals(idealValue, output[2]);
     }
+
+    public void testShiftBitsRight(){
+        Byte[] bytesArray = new Byte[]{1, 4, 8, 16};
+
+        this.bitapSubtextFinding.shiftBitsRight(bytesArray, 1);
+        Byte[] idealResult = new Byte[]{2, 8, 16, 32};
+        for(Integer elemCounter = 0; elemCounter < idealResult.length; elemCounter++){
+            assertEquals(idealResult[elemCounter], bytesArray[elemCounter]);
+        }
+    }
 }
