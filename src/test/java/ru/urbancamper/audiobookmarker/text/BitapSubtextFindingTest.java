@@ -53,11 +53,27 @@ public class BitapSubtextFindingTest extends TestCase {
         assertEquals(idealValue, output[2]);
     }
 
-    public void testShiftBitsRight(){
+//    public void testShiftBitsRight(){
+//        Byte[] bytesArray = new Byte[]{1, 4, 8, 16};
+//
+//        this.bitapSubtextFinding.shiftBitsRight(bytesArray, 1);
+//        Byte[] idealResult = new Byte[]{0, 2, 8, 16};
+//        for(Integer elemCounter = 0; elemCounter < idealResult.length; elemCounter++){
+//            assertEquals(idealResult[elemCounter], bytesArray[elemCounter]);
+//        }
+//    }
+    public void testShiftBitsLeft(){
         Byte[] bytesArray = new Byte[]{1, 4, 8, 16};
 
-        this.bitapSubtextFinding.shiftBitsRight(bytesArray, 1);
+        this.bitapSubtextFinding.shiftBitsLeft(bytesArray);
         Byte[] idealResult = new Byte[]{2, 8, 16, 32};
+        for(Integer elemCounter = 0; elemCounter < idealResult.length; elemCounter++){
+            assertEquals(idealResult[elemCounter], bytesArray[elemCounter]);
+        }
+
+        bytesArray = new Byte[]{127, 4, 8, 16};
+        idealResult = new Byte[]{2, 8, 16, 32};
+        this.bitapSubtextFinding.shiftBitsLeft(bytesArray);
         for(Integer elemCounter = 0; elemCounter < idealResult.length; elemCounter++){
             assertEquals(idealResult[elemCounter], bytesArray[elemCounter]);
         }
