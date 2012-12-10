@@ -36,15 +36,15 @@ public class BitapSubtextFinding {
      * @param bytes
      * @param rightShifts
      */
-    private static void shiftBitsRight(byte[] bytes, final int rightShifts) {
+    private static void shiftBitsRight(Byte[] bytes, final Integer rightShifts) {
         assert rightShifts >= 1 && rightShifts <= 7;
 
-        final int leftShifts = 8 - rightShifts;
+        final Integer leftShifts = 8 - rightShifts;
 
-        byte previousByte = bytes[0]; // keep the byte before modification
+        Byte previousByte = bytes[0]; // keep the byte before modification
         bytes[0] = (byte) (((bytes[0] & 0xff) >> rightShifts) | ((bytes[bytes.length - 1] & 0xff) << leftShifts));
-        for (int i = 1; i < bytes.length; i++) {
-            byte tmp = bytes[i];
+        for (Integer i = 1; i < bytes.length; i++) {
+            Byte tmp = bytes[i];
             bytes[i] = (byte) (((bytes[i] & 0xff) >> rightShifts) | ((previousByte & 0xff) << leftShifts));
             previousByte = tmp;
         }
