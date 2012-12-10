@@ -31,22 +31,34 @@ public class BitapSubtextFinding {
     }
 
 
-    /**
-     * Shift bytes array on n positions to the right
-     * @param bytes
-     * @param rightShifts
-     */
-    private static void shiftBitsRight(Byte[] bytes, final Integer rightShifts) {
-        assert rightShifts >= 1 && rightShifts <= 7;
+//    /**
+//     * Shift bytes array on n positions to the right
+//     * @param bytes
+//     * @param rightShifts
+//     */
+//    public static void shiftBitsRight(Byte[] bytes, final Integer rightShifts) {
+//        assert rightShifts >= 1 && rightShifts <= 7;
+//
+//        final Integer leftShifts = 8 - rightShifts;
+//
+//        Byte previousByte = bytes[0]; // keep the byte before modification
+//        bytes[0] = (byte) (((bytes[0] & 0xff) >> rightShifts) | ((bytes[bytes.length - 1] & 0xff) << leftShifts));
+//        for (Integer i = 1; i < bytes.length; i++) {
+//            Byte tmp = bytes[i];
+//            bytes[i] = (byte) (((bytes[i] & 0xff) >> rightShifts) | ((previousByte & 0xff) << leftShifts));
+//            previousByte = tmp;
+//        }
+//    }
 
-        final Integer leftShifts = 8 - rightShifts;
+    public static void  shiftBitsLeft(Byte[] bytes) {
 
-        Byte previousByte = bytes[0]; // keep the byte before modification
-        bytes[0] = (byte) (((bytes[0] & 0xff) >> rightShifts) | ((bytes[bytes.length - 1] & 0xff) << leftShifts));
-        for (Integer i = 1; i < bytes.length; i++) {
-            Byte tmp = bytes[i];
-            bytes[i] = (byte) (((bytes[i] & 0xff) >> rightShifts) | ((previousByte & 0xff) << leftShifts));
-            previousByte = tmp;
+        for(Integer bytesCounter = 0; bytesCounter < bytes.length; bytesCounter++){
+            Byte previousBit = 0;
+            previousBit = (byte)(bytes[bytesCounter] & (1 << 7));
+            bytes[bytesCounter] = (byte)(bytes[bytesCounter] << 1);
+            if(bytesCounter > 0){
+                bytes[bytesCounter] = (byte)(bytes[bytesCounter] | previousBit);
+            }
         }
     }
 
