@@ -50,7 +50,7 @@ public class BitapSubtextFinding {
 //        }
 //    }
 
-    public static void  shiftBitsLeft(Byte[] bytes) {
+    private void  shiftBitsLeft(Byte[] bytes) {
         Byte previousBit = 0;
         Byte currentBit = 0;
         previousBit = (byte)(bytes[0] & (1 << 7));
@@ -63,5 +63,7 @@ public class BitapSubtextFinding {
             previousBit = (byte)((currentBit >> 7) & 1);
         }
     }
+
+
 
 }
