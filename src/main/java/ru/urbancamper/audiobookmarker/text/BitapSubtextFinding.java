@@ -50,7 +50,13 @@ public class BitapSubtextFinding {
 //        }
 //    }
 
-    private void  shiftBitsLeft(Byte[] bytes) {
+    /**
+     * Shifts bytes array for one bit. Last bit from previous byte
+     * is tranmitted to current
+     * @param bytes
+     * @return Shifted vector of bytes
+     */
+    private Byte[]  shiftBitsLeft(Byte[] bytes) {
         Byte previousBit = 0;
         Byte currentBit = 0;
         previousBit = (byte)(bytes[0] & (1 << 7));
@@ -62,8 +68,11 @@ public class BitapSubtextFinding {
             }
             previousBit = (byte)((currentBit >> 7) & 1);
         }
+        return bytes;
     }
 
-
+    private Byte[] byteArrayAnd(Byte[] firstArray, Byte[] secondArray){
+        return null;
+    }
 
 }
