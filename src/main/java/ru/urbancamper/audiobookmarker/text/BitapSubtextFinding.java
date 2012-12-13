@@ -51,14 +51,16 @@ public class BitapSubtextFinding {
 //    }
 
     public static void  shiftBitsLeft(Byte[] bytes) {
-
+        Byte previousBit = 0;
+        Byte currentBit = 0;
+        previousBit = (byte)(bytes[0] & (1 << 7));
         for(Integer bytesCounter = 0; bytesCounter < bytes.length; bytesCounter++){
-            Byte previousBit = 0;
-            previousBit = (byte)(bytes[bytesCounter] & (1 << 7));
+            currentBit = (byte)(bytes[bytesCounter] & (1 << 7));
             bytes[bytesCounter] = (byte)(bytes[bytesCounter] << 1);
             if(bytesCounter > 0){
                 bytes[bytesCounter] = (byte)(bytes[bytesCounter] | previousBit);
             }
+            previousBit = (byte)((currentBit >> 7) & 1);
         }
     }
 
