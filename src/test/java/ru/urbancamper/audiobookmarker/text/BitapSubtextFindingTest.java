@@ -71,8 +71,8 @@ public class BitapSubtextFindingTest extends TestCase {
             assertEquals(idealResult[elemCounter], bytesArray[elemCounter]);
         }
 
-        bytesArray = new Byte[]{127, 4, 8, 16};
-        idealResult = new Byte[]{2, 8, 16, 32};
+        bytesArray = new Byte[]{-128, 4, 8, 16};
+        idealResult = new Byte[]{0, 9, 16, 32};
         this.bitapSubtextFinding.shiftBitsLeft(bytesArray);
         for(Integer elemCounter = 0; elemCounter < idealResult.length; elemCounter++){
             assertEquals(idealResult[elemCounter], bytesArray[elemCounter]);
