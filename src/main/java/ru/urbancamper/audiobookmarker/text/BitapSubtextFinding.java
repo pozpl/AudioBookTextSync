@@ -71,8 +71,13 @@ public class BitapSubtextFinding {
         return bytes;
     }
 
-    private Byte[] byteArrayAnd(Byte[] firstArray, Byte[] secondArray){
-        return null;
+    public Byte[] byteArrayAnd(Byte[] firstArray, Byte[] secondArray){
+        assert firstArray.length == secondArray.length;
+        Byte[] resultArray = new Byte[firstArray.length];
+        for(Integer indexCounter = 0; indexCounter < firstArray.length; indexCounter++){
+            resultArray[indexCounter] = (byte)(firstArray[indexCounter] & secondArray[indexCounter]);
+        }
+        return resultArray;
     }
 
 }
