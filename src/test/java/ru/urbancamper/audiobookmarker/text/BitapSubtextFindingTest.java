@@ -66,10 +66,10 @@ public class BitapSubtextFindingTest extends TestCase {
         Byte[] bytesArray = new Byte[]{1, 4, 8, 16};
 
         Method method = BitapSubtextFinding.class.getDeclaredMethod("shiftBitsLeft",
-                Byte[].class);
+                new Class[]{Byte[].class});
         method.setAccessible(true);
         Byte[] output;
-        method.invoke(bitapSubtextFinding,  bytesArray);
+        bytesArray  = (Byte[])method.invoke(bitapSubtextFinding, new Object[]{ bytesArray});
 
 //        this.bitapSubtextFinding.shiftBitsLeft(bytesArray);
         Byte[] idealResult = new Byte[]{2, 8, 16, 32};
@@ -80,11 +80,25 @@ public class BitapSubtextFindingTest extends TestCase {
         bytesArray = new Byte[]{-128, 4, 8, 16};
         idealResult = new Byte[]{0, 9, 16, 32};
 
-        method.invoke(bitapSubtextFinding,  bytesArray);
+        bytesArray  = (Byte[])method.invoke(bitapSubtextFinding, new Object[]{ bytesArray});
 
 //        this.bitapSubtextFinding.shiftBitsLeft(bytesArray);
         for(Integer elemCounter = 0; elemCounter < idealResult.length; elemCounter++){
             assertEquals(idealResult[elemCounter], bytesArray[elemCounter]);
         }
+    }
+
+    public void testByteArrayAnd(){
+        Byte[] firstArray = new Byte[]{1, 4, -1, -1};
+        Byte[] secondArray = new Byte[]{1, 5, -128, -3};
+
+
+
+        Byte[] bytesArray =  this.bitapSubtextFinding.byteArrayAnd(firstArray, secondArray);
+        Byte[] idealResult = new Byte[]{1, 1, -128, -1};
+        for(Integer elemCounter = 0; elemCounter < idealResult.length; elemCounter++){
+            assertEquals(idealResult[elemCounter], bytesArray[elemCounter]);
+        }
+
     }
 }
