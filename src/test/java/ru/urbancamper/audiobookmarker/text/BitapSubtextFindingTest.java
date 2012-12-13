@@ -62,10 +62,16 @@ public class BitapSubtextFindingTest extends TestCase {
 //            assertEquals(idealResult[elemCounter], bytesArray[elemCounter]);
 //        }
 //    }
-    public void testShiftBitsLeft(){
+    public void testShiftBitsLeft() throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
         Byte[] bytesArray = new Byte[]{1, 4, 8, 16};
 
-        this.bitapSubtextFinding.shiftBitsLeft(bytesArray);
+        Method method = BitapSubtextFinding.class.getDeclaredMethod("shiftBitsLeft",
+                Byte[].class);
+        method.setAccessible(true);
+        Byte[] output;
+        method.invoke(bitapSubtextFinding,  bytesArray);
+
+//        this.bitapSubtextFinding.shiftBitsLeft(bytesArray);
         Byte[] idealResult = new Byte[]{2, 8, 16, 32};
         for(Integer elemCounter = 0; elemCounter < idealResult.length; elemCounter++){
             assertEquals(idealResult[elemCounter], bytesArray[elemCounter]);
@@ -73,7 +79,10 @@ public class BitapSubtextFindingTest extends TestCase {
 
         bytesArray = new Byte[]{-128, 4, 8, 16};
         idealResult = new Byte[]{0, 9, 16, 32};
-        this.bitapSubtextFinding.shiftBitsLeft(bytesArray);
+
+        method.invoke(bitapSubtextFinding,  bytesArray);
+
+//        this.bitapSubtextFinding.shiftBitsLeft(bytesArray);
         for(Integer elemCounter = 0; elemCounter < idealResult.length; elemCounter++){
             assertEquals(idealResult[elemCounter], bytesArray[elemCounter]);
         }
