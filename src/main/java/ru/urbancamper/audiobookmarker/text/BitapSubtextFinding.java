@@ -160,24 +160,27 @@ public class BitapSubtextFinding {
 
 // Example : The mask for the letter 'e' and the pattern "hello" is
 // 11101 (0 means this letter is at this place in the pattern)
-//        for (int i = 0; i < pattern.length; ++i) {
-//            patternMask[(int) pattern.charAt(i)] |= 1 << i;
-//        }
+        BitSet[] patternMask = new BitSet[pattern.length];
+        for (int i = 0; i < pattern.length; ++i) {
+            patternMask[i] = this.fillBitSetFromWordsNumberArray(pattern, pattern[i]);
+        }
         int i = 0;
 
         while (i < doc.length) {
-            BitSet patternMask = this.fillBitSetFromWordsNumberArray(pattern, pattern[k]);
-            long old = 0;
-            long nextOld = 0;
+            BitSet textMask = this.fillBitSetFromWordsNumberArray(doc, doc[i]);
+            BitSet old = new BitSet();
+            BitSet nextOld = new BitSet();
 
             for (int d = 0; d <= k; ++d) {
+                BitSet e_d_shifted = this.shiftBitSetLeft(r[d]);
 // Three operations of the Levenshtein distance
-                long sub = (old | (r[d] & patternMask[doc.charAt(i)])) << 1;
-                long ins = old | ((r[d] & patternMask[doc.charAt(i)]) << 1);
-                long del = (nextOld | (r[d] & patternMask[doc.charAt(i)])) << 1;
-                old = r[d];
-                r[d] = sub | ins | del | 1;
-                nextOld = r[d];
+//                long sub = (old | (r[d] & patternMask[doc.charAt(i)])) << 1;
+//                BitSet sub = old.or(r[d].and(sub))
+//                long ins = old | ((r[d] & patternMask[doc.charAt(i)]) << 1);
+//                long del = (nextOld | (r[d] & patternMask[doc.charAt(i)])) << 1;
+//                old = r[d];
+//                r[d] = sub | ins | del | 1;
+//                nextOld = r[d];
             }
 // When r[k] is full of zeros, it means we matched the pattern
 // (modulo k errors)
