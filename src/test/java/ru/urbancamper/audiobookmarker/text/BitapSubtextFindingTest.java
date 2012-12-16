@@ -118,10 +118,10 @@ public class BitapSubtextFindingTest extends TestCase {
         BitSet result =
                 this.bitapSubtextFinding.fillBitSetFromWordsNumberArray(textWords, wordToFind);
 
-        assertEquals(textWords.length, result.length());
         assertTrue(result.get(4));
         assertTrue(result.get(7));
-        assertTrue(result.get(16));
         assertTrue(result.get(17));
+        assertTrue(result.get(18));
+        assertFalse(result.get(textWords.length -1));
     }
 }
