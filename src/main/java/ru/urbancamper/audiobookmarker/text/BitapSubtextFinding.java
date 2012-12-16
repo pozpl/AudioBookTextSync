@@ -4,13 +4,28 @@
  */
 package ru.urbancamper.audiobookmarker.text;
 
+import java.util.BitSet;
+
 /**
  *
  * @author pozpl
  */
 public class BitapSubtextFinding {
 
+    public BitSet fillBitSetFromWordsNumberArray(Integer[] text, Integer wordToMark){
+        BitSet textVectorBitSet = new BitSet(text.length);
+        for(Integer wordsCounter = 0; wordsCounter < text.length; wordsCounter++){
+            if(text[wordsCounter] == wordToMark){
+                textVectorBitSet.set(wordsCounter);
+            }else{
+                textVectorBitSet.set(wordsCounter, false);
+            }
+        }
+        return textVectorBitSet;
+    }
 
+
+    @Deprecated
     public Byte[] fillByteArrayFromWordsNumbersArray(Integer[] text, Integer wordTomark){
         Integer bytesArrayLength = text.length / 8;
         bytesArrayLength = text.length % 8 == 0 ? bytesArrayLength : bytesArrayLength + 1;
@@ -56,6 +71,7 @@ public class BitapSubtextFinding {
      * @param bytes
      * @return Shifted vector of bytes
      */
+    @Deprecated
     private Byte[]  shiftBitsLeft(Byte[] bytes) {
         Byte previousBit = 0;
         Byte currentBit = 0;
@@ -69,6 +85,32 @@ public class BitapSubtextFinding {
             previousBit = (byte)((currentBit >> 7) & 1);
         }
         return bytes;
+    }
+
+    public BitSet shiftBitSetLeft(BitSet bitSet) {
+        final long maskOfCarry = 0x8000000000000000L;
+        long[] aLong = bitSet.toLongArray();
+
+        boolean carry = false;
+        for (int i = 0; i < aLong.length; ++i) {
+            if (carry) {
+                carry = ((aLong[i] & maskOfCarry) != 0);
+                aLong[i] <<= 1;
+                ++aLong[i];
+            } else {
+                carry = ((aLong[i] & maskOfCarry) != 0);
+                aLong[i] <<= 1;
+            }
+        }
+
+        if (carry) {
+            long[] tmp = new long[aLong.length + 1];
+            System.arraycopy(aLong, 0, tmp, 0, aLong.length);
+            ++tmp[aLong.length];
+            aLong = tmp;
+        }
+
+        return BitSet.valueOf(aLong);
     }
 
     private Byte[] byteArrayAnd(Byte[] firstArray, Byte[] secondArray){
