@@ -6,6 +6,7 @@ package ru.urbancamper.audiobookmarker.text;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.BitSet;
 import junit.framework.TestCase;
 
 /**
@@ -104,5 +105,23 @@ public class BitapSubtextFindingTest extends TestCase {
             assertEquals(idealResult[elemCounter], bytesArray[elemCounter]);
         }
 
+    }
+
+    /**
+     * Test of fillBitSetFromWordsNumberArray method, of class BitapSubtextFinding.
+     */
+    public void testFillBitSetFromWordsNumberArray() {
+        System.out.println("fillBitSetFromWordsNumberArray");
+        Integer[] textWords = {1, 2, 3, 4, 5, 1, 2, 5, 1, 1, 1, 1,1, 1, 1,1,
+        1,5,5, 6, 7};
+        Integer wordToFind = 5;
+        BitSet result =
+                this.bitapSubtextFinding.fillBitSetFromWordsNumberArray(textWords, wordToFind);
+
+        assertEquals(textWords.length, result.length());
+        assertTrue(result.get(4));
+        assertTrue(result.get(7));
+        assertTrue(result.get(16));
+        assertTrue(result.get(17));
     }
 }
