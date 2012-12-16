@@ -87,6 +87,11 @@ public class BitapSubtextFinding {
         return bytes;
     }
 
+    /**
+     * Shifts Bit set for on bit to the left
+     * @param bitSet
+     * @return
+     */
     public BitSet shiftBitSetLeft(BitSet bitSet) {
         final long maskOfCarry = 0x8000000000000000L;
         long[] aLong = bitSet.toLongArray();
