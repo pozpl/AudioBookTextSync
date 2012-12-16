@@ -124,4 +124,28 @@ public class BitapSubtextFindingTest extends TestCase {
         assertTrue(result.get(18));
         assertFalse(result.get(textWords.length -1));
     }
+
+    /**
+     * Test of shiftBitSetLeft method, of class BitapSubtextFinding.
+     */
+    public void testShiftBitSetLeft() {
+        System.out.println("shiftBitSetLeft");
+        BitSet bitSet = new BitSet(10);
+        bitSet.set(0);
+        bitSet.set(1);
+        bitSet.set(5);
+        bitSet.set(9);
+        bitSet.set(8);
+
+
+        BitSet result = this.bitapSubtextFinding.shiftBitSetLeft(bitSet);
+
+        assertFalse(result.get(0));
+        assertTrue(result.get(1));
+        assertTrue(result.get(2));
+        assertFalse(result.get(3));
+        assertTrue(result.get(6));
+        assertTrue(result.get(9));
+        assertFalse(result.get(8));
+    }
 }
