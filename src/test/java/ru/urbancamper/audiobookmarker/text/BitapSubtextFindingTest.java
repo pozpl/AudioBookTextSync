@@ -6,7 +6,9 @@ package ru.urbancamper.audiobookmarker.text;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.List;
 import junit.framework.TestCase;
 
 /**
@@ -147,5 +149,18 @@ public class BitapSubtextFindingTest extends TestCase {
         assertTrue(result.get(6));
         assertTrue(result.get(9));
         assertFalse(result.get(8));
+    }
+
+    public void testFind(){
+        Integer[] textWords = {1, 2, 3, 4, 5, 1, 2, 5, 1, 1, 1, 1,1, 1, 1,1,
+        1,5,5, 6, 7};
+        Integer[] subTextWords = {1, 2, 3, 4};
+
+        List<Integer> foundResults= this.bitapSubtextFinding.find(textWords, subTextWords, subTextWords.length/2);
+        List<Integer> idealResults = new ArrayList<Integer>();
+        idealResults.add(0);
+        idealResults.add(5);
+
+        assertEquals(idealResults, foundResults);
     }
 }
