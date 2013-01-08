@@ -166,7 +166,7 @@ public class BitapSubtextFinding {
         for (int i = 0; i < pattern.length; ++i) {
             if(! patternMask.containsKey(pattern[i])){
                 BitSet patternMaskForWord = this.fillBitSetFromWordsNumberArray(pattern, pattern[i]);
-                patternMask.put(k, patternMaskForWord);
+                patternMask.put(pattern[i], patternMaskForWord);
             }
 
         }
