@@ -7,6 +7,7 @@ package ru.urbancamper.audiobookmarker.text;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
+import java.util.TreeMap;
 
 /**
  *
@@ -160,22 +161,45 @@ public class BitapSubtextFinding {
 
 // Example : The mask for the letter 'e' and the pattern "hello" is
 // 11101 (0 means this letter is at this place in the pattern)
-        BitSet[] patternMask = new BitSet[pattern.length];
+        TreeMap<Integer, BitSet> patternMask = new TreeMap<Integer, BitSet>();
+//        BitSet[] patternMask = new BitSet[pattern.length];
         for (int i = 0; i < pattern.length; ++i) {
-            patternMask[i] = this.fillBitSetFromWordsNumberArray(pattern, pattern[i]);
+            if(! patternMask.containsKey(pattern[i])){
+                BitSet patternMaskForWord = this.fillBitSetFromWordsNumberArray(pattern, pattern[i]);
+                patternMask.put(k, patternMaskForWord);
+            }
+
         }
         int i = 0;
 
         while (i < doc.length) {
             BitSet textMask = this.fillBitSetFromWordsNumberArray(doc, doc[i]);
+            BitSet symbolMask = (patternMask.containsKey(doc[i])) ? patternMask.get(doc[i])
+                    :new BitSet();
             BitSet old = new BitSet();
             BitSet nextOld = new BitSet();
 
             for (int d = 0; d <= k; ++d) {
-                BitSet e_d_shifted = this.shiftBitSetLeft(r[d]);
+                BitSet rDShifted = this.shiftBitSetLeft(r[d]);
+                rDShifted.and(symbolMask);
+                BitSet ins = (BitSet)(rDShifted.clone());
+                BitSet del = (BitSet)(rDShifted.clone());
+                BitSet sub = (BitSet)(rDShifted.clone());
+
+                ins.or(old);
+                BitSet oldShifted = this.shiftBitSetLeft(old);
+                sub.or(oldShifted);
+                BitSet nextOldShifted = this.shiftBitSetLeft(nextOld);
+                del.or(nextOldShifted);
+
+                old = (BitSet)(r[d].clone());
+                nextOld = (BitSet)(ins.clone());
+                nextOld.or(sub);
+                nextOld.or(del);
+                r[d] = nextOld;
+
 // Three operations of the Levenshtein distance
 //                long sub = (old | (r[d] & patternMask[doc.charAt(i)])) << 1;
-//                BitSet sub = old.or(r[d].and(sub))
 //                long ins = old | ((r[d] & patternMask[doc.charAt(i)]) << 1);
 //                long del = (nextOld | (r[d] & patternMask[doc.charAt(i)])) << 1;
 //                old = r[d];
