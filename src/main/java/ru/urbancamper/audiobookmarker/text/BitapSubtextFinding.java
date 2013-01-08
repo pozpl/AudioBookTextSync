@@ -208,16 +208,17 @@ public class BitapSubtextFinding {
             }
 // When r[k] is full of zeros, it means we matched the pattern
 // (modulo k errors)
-            if (0 < (r[k] & (1 << pattern.length()))) {
+            if(r[k].get(pattern.length)){
+//            if (0 < (r[k] & (1 << pattern.length()))) {
 // The pattern "aaa" for the document "bbaaavv" with k=2
 // will slide from "bba","baa","aaa","aav","avv"
 // Because we allow two errors !
 // This test keep only the first one and skip all the others.
 // (We can't skip by increasing i otherwise the r[d] will be
 // wrong)
-                if ((firstMatchedText == -1) || (i - firstMatchedText > pattern.length())) {
+                if ((firstMatchedText == -1) || (i - firstMatchedText > pattern.length)) {
                     firstMatchedText = i;
-                    indexes.add(firstMatchedText - pattern.length() + 1);
+                    indexes.add(firstMatchedText - pattern.length + 1);
                 }
             }
             i++;
