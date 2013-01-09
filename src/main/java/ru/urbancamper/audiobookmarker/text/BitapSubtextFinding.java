@@ -181,17 +181,18 @@ public class BitapSubtextFinding {
             BitSet nextOld = new BitSet();
 
             for (int d = 0; d <= k; ++d) {
-                BitSet rDShifted = this.shiftBitSetLeft(r[d]);
-                rDShifted.and(symbolMask);
+                BitSet rD = (BitSet)(r[d].clone());//this.shiftBitSetLeft(r[d]);
+                rD.and(symbolMask);
+                BitSet rDShifted = this.shiftBitSetLeft(rD);
                 BitSet ins = (BitSet)(rDShifted.clone());
-                BitSet del = (BitSet)(rDShifted.clone());
-                BitSet sub = (BitSet)(rDShifted.clone());
+                BitSet del = (BitSet)(rD.clone());
+                BitSet sub = (BitSet)(rD.clone());
 
                 ins.or(old);
-                BitSet oldShifted = this.shiftBitSetLeft(old);
-                sub.or(oldShifted);
-                BitSet nextOldShifted = this.shiftBitSetLeft(nextOld);
-                del.or(nextOldShifted);
+                sub.or(old);
+                sub = this.shiftBitSetLeft(sub);
+                del.or(nextOld);
+                del = this.shiftBitSetLeft(del);
 
                 old = (BitSet)(r[d].clone());
                 nextOld = (BitSet)(ins.clone());
