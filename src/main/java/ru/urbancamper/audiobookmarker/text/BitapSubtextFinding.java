@@ -157,6 +157,7 @@ public class BitapSubtextFinding {
 //        BitSet patternMask = new BitSet(pattern.length);
         for (int i = 0; i <= k; i++) {
             r[i] = new BitSet();
+            r[i].set(0);
         }
 
 // Example : The mask for the letter 'e' and the pattern "hello" is
