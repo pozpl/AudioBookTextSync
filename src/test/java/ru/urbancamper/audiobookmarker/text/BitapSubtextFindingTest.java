@@ -160,6 +160,7 @@ public class BitapSubtextFindingTest extends TestCase {
         List<Integer> idealResults = new ArrayList<Integer>();
         idealResults.add(0);
         idealResults.add(5);
+        idealResults.add(16);
 
         assertEquals(idealResults, foundResults);
     }
