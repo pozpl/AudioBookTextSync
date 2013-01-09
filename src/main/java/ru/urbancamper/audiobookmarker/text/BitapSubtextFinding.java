@@ -221,7 +221,7 @@ public class BitapSubtextFinding {
 // wrong)
                 if ((firstMatchedText == -1) || (i - firstMatchedText > pattern.length)) {
                     firstMatchedText = i;
-                     indexes.add(firstMatchedText - pattern.length + 1);
+                     indexes.add(firstMatchedText - pattern.length + k + 1);
                 }
             }
             i++;
