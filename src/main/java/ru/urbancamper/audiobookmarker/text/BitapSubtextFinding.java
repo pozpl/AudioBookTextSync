@@ -198,6 +198,7 @@ public class BitapSubtextFinding {
                 nextOld = (BitSet)(ins.clone());
                 nextOld.or(sub);
                 nextOld.or(del);
+                nextOld.set(0);
                 r[d] = nextOld;
 
 // Three operations of the Levenshtein distance
@@ -220,7 +221,7 @@ public class BitapSubtextFinding {
 // wrong)
                 if ((firstMatchedText == -1) || (i - firstMatchedText > pattern.length)) {
                     firstMatchedText = i;
-                    indexes.add(firstMatchedText - pattern.length + 1);
+                     indexes.add(firstMatchedText - pattern.length + 1);
                 }
             }
             i++;
