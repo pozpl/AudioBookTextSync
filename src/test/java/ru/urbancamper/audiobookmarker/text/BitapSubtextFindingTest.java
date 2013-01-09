@@ -153,7 +153,7 @@ public class BitapSubtextFindingTest extends TestCase {
 
     public void testFind(){
         Integer[] textWords = {1, 2, 3, 4, 5, 1, 2, 5, 1, 1, 1, 1,1, 1, 1,1,
-        1,5,5, 6, 7};
+        1,2 , 3, 6, 7};
         Integer[] subTextWords = {1, 2, 3, 4};
 
         List<Integer> foundResults= this.bitapSubtextFinding.find(textWords, subTextWords, subTextWords.length/2);
