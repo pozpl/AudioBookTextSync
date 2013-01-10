@@ -24,6 +24,7 @@ import org.springframework.core.env.Environment;
 import ru.urbancamper.audiobookmarker.AudioBookMarkerUtil;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerSphinx;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerSphinxCached;
+import ru.urbancamper.audiobookmarker.text.BitapSubtextFinding;
 import ru.urbancamper.audiobookmarker.text.BookText;
 import ru.urbancamper.audiobookmarker.text.LanguageModelBasedTextTokenizer;
 import ru.urbancamper.audiobookmarker.text.LongestSubsequenceFinder;
@@ -111,9 +112,15 @@ public class BeansAnnotations {
     }
 
     @Bean
+    @Scope("singleton")
+    public BitapSubtextFinding bitapSubtextFinding(){
+        return new BitapSubtextFinding();
+    }
+
+    @Bean
     @Scope("prototype")
     public BookText bookText() {
-        return new BookText(this.textTokenizer(), this.wordsToNumMap(), this.longestSubsequenceFinder(), this.recognizedTextSnippetInterval());
+        return new BookText(this.textTokenizer(), this.wordsToNumMap(), this.longestSubsequenceFinder(), this.bitapSubtextFinding());
     }
 
     @Bean
