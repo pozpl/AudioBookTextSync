@@ -83,12 +83,13 @@ public class BookText {
             Integer[] recognizedTextAsNumbers = this.wordsToNumMapper.getNumbersFromWords(recognizedTextAsTokens);
 
             Integer maxErrors = recognizedTextAsNumbers.length / 3;
+            maxErrors = maxErrors > 4 ? maxErrors : 4;
             List<Integer> foundIndexes  = this.bitapSubtextFinder.find(
                     this.textInNumericForm, recognizedTextAsNumbers, maxErrors);
             Integer recognizedTextBeginIndex = foundIndexes.size() > 0 ? foundIndexes.get(0)
                     : 0;
             Integer[] fullTextSnippetToAlign = new Integer[recognizedTextAsNumbers.length];
-            Integer endOfInterval = recognizedTextAsNumbers.length + recognizedTextBeginIndex;
+            Integer endOfInterval = recognizedTextAsNumbers.length + recognizedTextBeginIndex + maxErrors;
             fullTextSnippetToAlign = Arrays.copyOfRange(this.textInNumericForm,
                     recognizedTextBeginIndex, endOfInterval);
             TreeMap<Integer, Integer> recTextLongestSubsequence =
