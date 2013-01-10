@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
@@ -17,7 +18,6 @@ import java.util.TreeMap;
  */
 public class BookText {
 
-    private final Integer errorsInteval;
     /**
      * the full text of Audiobook in plain text fomat
      */
@@ -37,20 +37,19 @@ public class BookText {
 
     private HashMap<String, Integer> registredFileMapper;
 
-    private RecognizedTextSnippetInterval recognizedTextSnippetInterval;
+    private BitapSubtextFinding bitapSubtextFinder;
 
     public BookText(LanguageModelBasedTextTokenizer textTokenizer,
             WordsToNumsMap wordsToNumMapper,
             LongestSubsequenceFinder subsequnceFinder,
-            RecognizedTextSnippetInterval recognizedTextSnippetInterval
+            BitapSubtextFinding bitapSubtextFinder
             ){
         this.recognizedAudioFiles = new ArrayList<RecognizedTextOfSingleAudiofile>();
         this.textTokenizer = textTokenizer;
         this.wordsToNumMapper = wordsToNumMapper;
         this.longestSubsequenceFinder = subsequnceFinder;
         this.registredFileMapper = new HashMap<String, Integer>();
-        this.recognizedTextSnippetInterval = recognizedTextSnippetInterval;
-        this.errorsInteval = 6;
+        this.bitapSubtextFinder = bitapSubtextFinder;
     }
 
 
@@ -83,8 +82,9 @@ public class BookText {
             String[] recognizedTextAsTokens = recognizedText.getTokens();
             Integer[] recognizedTextAsNumbers = this.wordsToNumMapper.getNumbersFromWords(recognizedTextAsTokens);
 
-            Integer recognizedTextBeginIndex  = this.recognizedTextSnippetInterval.calculateFullTextBoundsForRecognizedSnippet(
-                    this.textInNumericForm, recognizedTextAsNumbers);
+            Integer maxErrors = recognizedTextAsNumbers.length / 3;
+            List<Integer> foundIndexes  = this.bitapSubtextFinder.find(
+                    this.textInNumericForm, recognizedTextAsNumbers, maxErrors);
             Integer[] fullTextSnippetToAlign = new Integer[recognizedTextAsNumbers.length];
             Integer endOfInterval = recognizedTextAsNumbers.length + recognizedTextBeginIndex + this.errorsInteval;
             fullTextSnippetToAlign = Arrays.copyOfRange(this.textInNumericForm,
