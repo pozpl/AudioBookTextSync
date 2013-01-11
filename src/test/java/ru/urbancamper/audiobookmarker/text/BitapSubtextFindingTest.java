@@ -164,4 +164,18 @@ public class BitapSubtextFindingTest extends TestCase {
 
         assertEquals(idealResults, foundResults);
     }
+
+    /**
+     * Test of findWithReducedError method, of class BitapSubtextFinding.
+     */
+    public void testFindWithReducedError() {
+        Integer[] textWords = {1, 2, 3, 4, 5, 1, 2, 5, 1, 1, 1, 1,1, 1, 1,1,
+        1,2 , 3, 6, 7};
+        Integer[] subTextWords = {1, 2, 3, 4};
+
+        Integer foundResult= this.bitapSubtextFinding.findWithReducedError(
+                textWords, subTextWords, subTextWords.length/2);
+        Integer idealResult =  0;
+        assertEquals(idealResult, foundResult);
+    }
 }
