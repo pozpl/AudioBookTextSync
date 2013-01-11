@@ -230,4 +230,26 @@ public class BitapSubtextFinding {
         return indexes;
     }
 
+    /**
+     * Find only one best fitting text snippet for pattern
+     * @param doc - document in number form
+     * @param pattern - puttern in number form
+     * @param initialError - initial number of permissible errors
+     * @return
+     */
+    public Integer findWithReducedError(Integer[] doc, Integer[] pattern, int initialError){
+        Integer foundSnippetIndex = 0;
+        for(Integer errorsCount = initialError; errorsCount >= 0; errorsCount--){
+            List<Integer> foundSnippets = this.find(doc, pattern, errorsCount);
+            if(foundSnippets.size() == 1){
+                foundSnippetIndex =  foundSnippets.get(0);
+                break;
+            }else if(errorsCount == 0){
+                foundSnippetIndex = foundSnippets.get(0);
+            }
+        }
+
+        return foundSnippetIndex;
+    }
+
 }
