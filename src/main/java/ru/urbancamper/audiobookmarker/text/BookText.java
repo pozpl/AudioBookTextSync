@@ -84,10 +84,8 @@ public class BookText {
 
             Integer maxErrors = recognizedTextAsNumbers.length / 3;
             maxErrors = maxErrors > 4 ? maxErrors : 4;
-            List<Integer> foundIndexes  = this.bitapSubtextFinder.find(
+            Integer recognizedTextBeginIndex = this.bitapSubtextFinder.findWithReducedError(
                     this.textInNumericForm, recognizedTextAsNumbers, maxErrors);
-            Integer recognizedTextBeginIndex = foundIndexes.size() > 0 ? foundIndexes.get(0)
-                    : 0;
             Integer[] fullTextSnippetToAlign = new Integer[recognizedTextAsNumbers.length];
             Integer endOfInterval = recognizedTextAsNumbers.length + recognizedTextBeginIndex + maxErrors;
             fullTextSnippetToAlign = Arrays.copyOfRange(this.textInNumericForm,
@@ -100,6 +98,7 @@ public class BookText {
 
         return recognizedTextLongestSubsequences;
     }
+
 
     /**
      * Shift mapping of sub text relatively of shift
