@@ -90,6 +90,8 @@ public class BookText {
             maxErrors = maxErrors > 4 ? maxErrors : 4;
             Integer recognizedTextBeginIndex = this.bitapSubtextFinder.findWithReducedError(
                     this.textInNumericForm, recognizedTextAsNumbers, maxErrors);
+            this.logger.info("Text with length " + this.recognizedAudioFiles.size() +
+                    "was found in " + recognizedTextBeginIndex + " position");
             Integer[] fullTextSnippetToAlign = new Integer[recognizedTextAsNumbers.length];
             Integer endOfInterval = recognizedTextAsNumbers.length + recognizedTextBeginIndex + maxErrors;
             fullTextSnippetToAlign = Arrays.copyOfRange(this.textInNumericForm,
