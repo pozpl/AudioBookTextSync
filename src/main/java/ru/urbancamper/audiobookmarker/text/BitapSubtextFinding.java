@@ -8,12 +8,16 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
 import java.util.TreeMap;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
  * @author pozpl
  */
 public class BitapSubtextFinding {
+
+    protected final Log logger = LogFactory.getLog(getClass());
 
     public BitSet fillBitSetFromWordsNumberArray(Integer[] text, Integer wordToMark){
         BitSet textVectorBitSet = new BitSet(text.length);
@@ -239,12 +243,16 @@ public class BitapSubtextFinding {
      */
     public Integer findWithReducedError(Integer[] doc, Integer[] pattern, int initialError){
         Integer foundSnippetIndex = 0;
+        this.logger.info("Start to find subtext with initial error rate " + initialError);
         for(Integer errorsCount = initialError; errorsCount >= 0; errorsCount--){
             List<Integer> foundSnippets = this.find(doc, pattern, errorsCount);
             if(foundSnippets.size() == 1){
+                this.logger.info("Subtext found with errors rate " + errorsCount);
                 foundSnippetIndex =  foundSnippets.get(0);
                 break;
             }else if(errorsCount == 0){
+                this.logger.info("Minimum errors count 0 was reached return first found index "
+                        + foundSnippets.get(0));
                 foundSnippetIndex = foundSnippets.get(0);
             }
         }
