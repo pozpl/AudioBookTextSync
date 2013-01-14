@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *Class to hold book text, it's tokenized structure and
@@ -17,6 +19,8 @@ import java.util.TreeMap;
  * @author pozpl
  */
 public class BookText {
+
+    protected final Log logger = LogFactory.getLog(getClass());
 
     /**
      * the full text of Audiobook in plain text fomat
