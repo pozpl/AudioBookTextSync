@@ -150,9 +150,6 @@ public class BitapSubtextFinding {
      */
     public List<Integer> find(Integer[] doc, Integer[] pattern, int k) {
 
-// Range of the alphabet
-// 128 is enough if we stay in the ASCII range (0-127)
-        int alphabetRange = 128;
         int firstMatchedText = -1;
 // Indexes where the pattern was found
         ArrayList<Integer> indexes = new ArrayList<Integer>();
@@ -241,12 +238,16 @@ public class BitapSubtextFinding {
      * @param initialError - initial number of permissible errors
      * @return
      */
-    public Integer findWithReducedError(Integer[] doc, Integer[] pattern, int initialError){
+    public Integer findWithReducedError(Integer[] doc, Integer[] patternBig, int initialError){
+
+        Integer[] pattern = this.getSubPattern(patternBig, 100);
+        Integer newErrorsRate = pattern.length / 3;
+        newErrorsRate = newErrorsRate > 4 ? newErrorsRate : 4;
         Integer foundSnippetIndex = 0;
         this.logger.info("Start to find subtext of " + pattern.length
                 + " in text with lenght "
                 + doc.length +" with initial error rate " + initialError);
-        for(Integer errorsCount = initialError; errorsCount >= 0; errorsCount--){
+        for(Integer errorsCount = newErrorsRate; errorsCount >= 0; errorsCount--){
             this.logger.info("current errors rate " + errorsCount);
             List<Integer> foundSnippets = this.find(doc, pattern, errorsCount);
             if(foundSnippets.size() == 1){
@@ -261,6 +262,14 @@ public class BitapSubtextFinding {
         }
 
         return foundSnippetIndex;
+    }
+
+    private Integer[] getSubPattern(Integer[] pattern, Integer numberOfElementsInSubPattern){
+        Integer subElementsCount = numberOfElementsInSubPattern < pattern.length ? numberOfElementsInSubPattern
+                : pattern.length;
+        Integer[] subPattern = new Integer[subElementsCount];
+        System.arraycopy(pattern, 0, subPattern, 0, subElementsCount);
+        return subPattern;
     }
 
 }
