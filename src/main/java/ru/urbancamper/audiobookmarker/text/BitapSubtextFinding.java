@@ -243,8 +243,11 @@ public class BitapSubtextFinding {
      */
     public Integer findWithReducedError(Integer[] doc, Integer[] pattern, int initialError){
         Integer foundSnippetIndex = 0;
-        this.logger.info("Start to find subtext with initial error rate " + initialError);
+        this.logger.info("Start to find subtext of " + pattern.length
+                + " in text with lenght "
+                + doc.length +" with initial error rate " + initialError);
         for(Integer errorsCount = initialError; errorsCount >= 0; errorsCount--){
+            this.logger.info("current errors rate " + errorsCount);
             List<Integer> foundSnippets = this.find(doc, pattern, errorsCount);
             if(foundSnippets.size() == 1){
                 this.logger.info("Subtext found with errors rate " + errorsCount);
