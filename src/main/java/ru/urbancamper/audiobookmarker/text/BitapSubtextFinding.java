@@ -25,9 +25,6 @@ public class BitapSubtextFinding {
             if(text[wordsCounter] == wordToMark){
                 textVectorBitSet.set(wordsCounter);
             }
-//            else{
-//                textVectorBitSet.set(wordsCounter, false);
-//            }
         }
         return textVectorBitSet;
     }
