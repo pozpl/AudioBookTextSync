@@ -173,7 +173,6 @@ public class BitapSubtextFinding {
         int i = 0;
 
         while (i < doc.length) {
-            BitSet textMask = this.fillBitSetFromWordsNumberArray(doc, doc[i]);
             BitSet symbolMask = (patternMask.containsKey(doc[i])) ? patternMask.get(doc[i])
                     :new BitSet();
             BitSet old = new BitSet();
