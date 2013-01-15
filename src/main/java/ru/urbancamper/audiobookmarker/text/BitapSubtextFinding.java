@@ -24,9 +24,10 @@ public class BitapSubtextFinding {
         for(Integer wordsCounter = 0; wordsCounter < text.length; wordsCounter++){
             if(text[wordsCounter] == wordToMark){
                 textVectorBitSet.set(wordsCounter);
-            }else{
-                textVectorBitSet.set(wordsCounter, false);
             }
+//            else{
+//                textVectorBitSet.set(wordsCounter, false);
+//            }
         }
         return textVectorBitSet;
     }
