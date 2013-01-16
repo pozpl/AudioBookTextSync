@@ -238,7 +238,7 @@ public class BitapSubtextFinding {
     public Integer findWithReducedError(Integer[] doc, Integer[] patternBig){
 
         Integer[] pattern = this.getSubPattern(patternBig, 1000);
-        Integer newErrorsRate = pattern.length / 3;
+        Integer newErrorsRate = 500;//pattern.length / 3;
         newErrorsRate = newErrorsRate > 4 ? newErrorsRate : 4;
         Integer foundSnippetIndex = 0;
         this.logger.info("Start to find subtext of " + pattern.length
@@ -255,6 +255,9 @@ public class BitapSubtextFinding {
                 this.logger.info("Minimum errors count 0 was reached return first found index "
                         + foundSnippets.get(0));
                 foundSnippetIndex = foundSnippets.get(0);
+            }
+            if(errorsCount == 5 && newErrorsRate > 490){
+                errorsCount = 490;
             }
         }
 
