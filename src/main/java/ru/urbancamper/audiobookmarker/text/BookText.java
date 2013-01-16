@@ -89,7 +89,7 @@ public class BookText {
             Integer maxErrors = recognizedTextAsNumbers.length / 3;
             maxErrors = maxErrors > 4 ? maxErrors : 4;
             Integer recognizedTextBeginIndex = this.bitapSubtextFinder.findWithReducedError(
-                    this.textInNumericForm, recognizedTextAsNumbers, maxErrors);
+                    this.textInNumericForm, recognizedTextAsNumbers);
             this.logger.info("Text with length " + this.recognizedAudioFiles.size() +
                     "was found in " + recognizedTextBeginIndex + " position");
             Integer[] fullTextSnippetToAlign = new Integer[recognizedTextAsNumbers.length];
