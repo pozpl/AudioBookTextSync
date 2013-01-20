@@ -159,8 +159,11 @@ public class BitapSubtextFindingTest extends TestCase {
         List<Integer> foundResults= this.bitapSubtextFinding.find(textWords, subTextWords, subTextWords.length/2);
         List<Integer> idealResults = new ArrayList<Integer>();
         idealResults.add(0);
+        idealResults.add(1);
         idealResults.add(5);
+        idealResults.add(6);
         idealResults.add(16);
+        idealResults.add(17);
 
         assertEquals(idealResults, foundResults);
     }
@@ -173,9 +176,11 @@ public class BitapSubtextFindingTest extends TestCase {
         1,2 , 3, 6, 7};
         Integer[] subTextWords = {1, 2, 3, 4};
 
-        Integer foundResult= this.bitapSubtextFinding.findWithReducedError(
+        Integer[] foundResult= this.bitapSubtextFinding.findWithReducedError(
                 textWords, subTextWords);
-        Integer idealResult =  0;
-        assertEquals(idealResult, foundResult);
+        Integer beginIndex =  0;
+        Integer endIndex =  3;
+        assertEquals(beginIndex, foundResult[0]);
+        assertEquals(endIndex, foundResult[1]);
     }
 }
