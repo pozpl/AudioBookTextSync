@@ -241,7 +241,6 @@ public class BitapSubtextFinding {
 //        newErrorsRate = newErrorsRate > 4 ? newErrorsRate : 4;
         Integer maxErrorsRate = pattern.length / 2;
         Integer foundSnippetIndex = 0;
-        Integer errorsInSequence = 0;
         this.logger.info("Start to find subtext of " + pattern.length
                 + " in text with lenght "
                 + doc.length );
@@ -251,20 +250,19 @@ public class BitapSubtextFinding {
             if(foundSnippets.size() == 1){
                 this.logger.info("Subtext found with errors rate " + errorsCount);
                 foundSnippetIndex =  foundSnippets.get(0);
-                errorsInSequence = errorsCount;
                 break;
             }else if(foundSnippets.size() > 1){
                 this.logger.info("Minimum errors count 0 was reached return first found index "
                         + foundSnippets.get(0));
                 foundSnippetIndex = foundSnippets.get(0);
-                errorsInSequence = errorsCount;
             }
 //            if(errorsCount == 5 && newErrorsRate > 490){
 //                errorsCount = 490;
 //            }
         }
-        Integer foundSnippetBeginIndex = doc.length - pattern.length - errorsInSequence;
-        return foundSnippetBeginIndex;
+
+        foundSnippetIndex = foundSnippetIndex > 0 ? foundSnippetIndex : 0;
+        return foundSnippetIndex;
     }
 
     private Integer[] getSubPattern(Integer[] pattern, Integer numberOfElementsInSubPattern){
