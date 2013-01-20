@@ -86,19 +86,17 @@ public class BookText {
             String[] recognizedTextAsTokens = recognizedText.getTokens();
             Integer[] recognizedTextAsNumbers = this.wordsToNumMapper.getNumbersFromWords(recognizedTextAsTokens);
 
-            Integer maxErrors = recognizedTextAsNumbers.length / 3;
-            maxErrors = maxErrors > 4 ? maxErrors : 4;
-            Integer recognizedTextBeginIndex = this.bitapSubtextFinder.findWithReducedError(
+            Integer[] recognizedTextBeginEndIndexes = this.bitapSubtextFinder.findWithReducedError(
                     this.textInNumericForm, recognizedTextAsNumbers);
             this.logger.info("Text with length " + this.recognizedAudioFiles.size() +
-                    "was found in " + recognizedTextBeginIndex + " position");
+                    "was found in " + recognizedTextBeginEndIndexes[0] + " position");
             Integer[] fullTextSnippetToAlign = new Integer[recognizedTextAsNumbers.length];
-            Integer endOfInterval = recognizedTextAsNumbers.length + recognizedTextBeginIndex + maxErrors;
+
             fullTextSnippetToAlign = Arrays.copyOfRange(this.textInNumericForm,
-                    recognizedTextBeginIndex, endOfInterval);
+                    recognizedTextBeginEndIndexes[0], recognizedTextBeginEndIndexes[1]);
             TreeMap<Integer, Integer> recTextLongestSubsequence =
                     this.longestSubsequenceFinder.getLongestSubsequenceWithMinDistance(fullTextSnippetToAlign, recognizedTextAsNumbers);
-            recTextLongestSubsequence = this.shiftMappingOfSubText(recTextLongestSubsequence, recognizedTextBeginIndex);
+            recTextLongestSubsequence = this.shiftMappingOfSubText(recTextLongestSubsequence, recognizedTextBeginEndIndexes[0]);
             recognizedTextLongestSubsequences.add(recTextLongestSubsequence);
         }
 
