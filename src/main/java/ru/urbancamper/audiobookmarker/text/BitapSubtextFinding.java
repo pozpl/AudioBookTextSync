@@ -231,37 +231,40 @@ public class BitapSubtextFinding {
     /**
      * Find only one best fitting text snippet for pattern
      * @param doc - document in number form
-     * @param pattern - puttern in number form
-     * @param initialError - initial number of permissible errors
+     * @param patternBig
      * @return
      */
     public Integer findWithReducedError(Integer[] doc, Integer[] patternBig){
 
         Integer[] pattern = this.getSubPattern(patternBig, 1000);
-        Integer newErrorsRate = 500;//pattern.length / 3;
-        newErrorsRate = newErrorsRate > 4 ? newErrorsRate : 4;
+//        Integer newErrorsRate = 0;//pattern.length / 3;
+//        newErrorsRate = newErrorsRate > 4 ? newErrorsRate : 4;
+        Integer maxErrorsRate = pattern.length / 2;
         Integer foundSnippetIndex = 0;
+        Integer errorsInSequence = 0;
         this.logger.info("Start to find subtext of " + pattern.length
                 + " in text with lenght "
                 + doc.length );
-        for(Integer errorsCount = 0; errorsCount <=  newErrorsRate; errorsCount++){
+        for(Integer errorsCount = 0; errorsCount <=  maxErrorsRate; errorsCount++){
             this.logger.info("current errors rate " + errorsCount);
             List<Integer> foundSnippets = this.find(doc, pattern, errorsCount);
             if(foundSnippets.size() == 1){
                 this.logger.info("Subtext found with errors rate " + errorsCount);
                 foundSnippetIndex =  foundSnippets.get(0);
+                errorsInSequence = errorsCount;
                 break;
             }else if(foundSnippets.size() > 1){
                 this.logger.info("Minimum errors count 0 was reached return first found index "
                         + foundSnippets.get(0));
                 foundSnippetIndex = foundSnippets.get(0);
+                errorsInSequence = errorsCount;
             }
-            if(errorsCount == 5 && newErrorsRate > 490){
-                errorsCount = 490;
-            }
+//            if(errorsCount == 5 && newErrorsRate > 490){
+//                errorsCount = 490;
+//            }
         }
-
-        return foundSnippetIndex;
+        Integer foundSnippetBeginIndex = doc.length - pattern.length - errorsInSequence;
+        return foundSnippetBeginIndex;
     }
 
     private Integer[] getSubPattern(Integer[] pattern, Integer numberOfElementsInSubPattern){
