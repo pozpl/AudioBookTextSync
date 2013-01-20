@@ -237,7 +237,7 @@ public class BitapSubtextFinding {
      */
     public Integer[] findWithReducedError(Integer[] doc, Integer[] patternBig){
 
-        Integer[] pattern = this.getSubPattern(patternBig, 1000);
+        Integer[] pattern = this.getSubPattern(patternBig, 0,1000);
 //        Integer newErrorsRate = 0;//pattern.length / 3;
 //        newErrorsRate = newErrorsRate > 4 ? newErrorsRate : 4;
         Integer maxErrorsRate = pattern.length / 2;
@@ -270,11 +270,42 @@ public class BitapSubtextFinding {
         return beginEndArray;
     }
 
-    private Integer[] getSubPattern(Integer[] pattern, Integer numberOfElementsInSubPattern){
+    private Integer[] functionFindFullPattern(Integer[] doc, Integer[] pattern, Integer beginIndex){
+
+//        Integer[] pattern = this.getSubPattern(patternBig, 1000);
+        Integer[] subDocument = this.getSubPattern(doc, beginIndex, doc.length - beginIndex);
+        Integer maxErrorsRate = pattern.length / 2;
+        Integer foundSnippetIndexBegin = 0;
+        Integer foundSnippetIndexEnd = 0;
+        this.logger.info("Start to find subtext of " + pattern.length
+                + " in text with lenght "
+                + subDocument.length );
+        for(Integer errorsCount = 0; errorsCount <=  maxErrorsRate; errorsCount++){
+            this.logger.info("current errors rate " + errorsCount);
+            List<Integer> foundSnippets = this.find(subDocument, pattern, errorsCount);
+            if(foundSnippets.size() == 2){
+                this.logger.info("Subtext found with errors rate " + errorsCount);
+                foundSnippetIndexBegin =  foundSnippets.get(0);
+                foundSnippetIndexEnd =  foundSnippets.get(1);
+                break;
+            }else if(foundSnippets.size() > 2){
+                this.logger.info("Minimum errors count 0 was reached return first found index "
+                        + foundSnippets.get(0));
+                foundSnippetIndexBegin =  foundSnippets.get(0);
+                foundSnippetIndexEnd =  foundSnippets.get(1);
+            }
+        }
+
+        foundSnippetIndexBegin = foundSnippetIndexBegin > 0 ? foundSnippetIndexBegin : 0;
+        Integer[] beginEndArray = {foundSnippetIndexBegin, foundSnippetIndexEnd};
+        return beginEndArray;
+    }
+
+    private Integer[] getSubPattern(Integer[] pattern, Integer offset, Integer numberOfElementsInSubPattern){
         Integer subElementsCount = numberOfElementsInSubPattern < pattern.length ? numberOfElementsInSubPattern
                 : pattern.length;
         Integer[] subPattern = new Integer[subElementsCount];
-        System.arraycopy(pattern, 0, subPattern, 0, subElementsCount);
+        System.arraycopy(pattern, offset, subPattern, 0, subElementsCount);
         return subPattern;
     }
 
