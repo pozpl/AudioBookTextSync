@@ -257,12 +257,12 @@ public class BitapSubtextFinding {
                         + foundSnippets.get(0));
                 foundSnippetIndexBegin =  foundSnippets.get(0);
                 foundSnippetIndexEnd =  foundSnippets.get(1);
-            }else if(foundSnippets.size() == 0){
+            }else if(foundSnippets.isEmpty()){
                 break;
             }
         }
 
-        foundSnippetIndexEnd = foundSnippetIndexEnd + (patternBig.length - pattern.length);
+        foundSnippetIndexEnd += (patternBig.length - pattern.length);
         Integer[] beginEndArray = {foundSnippetIndexBegin, foundSnippetIndexEnd};
         return beginEndArray;
     }
