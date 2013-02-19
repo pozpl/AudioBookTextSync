@@ -22,7 +22,7 @@ public class BookTextTest extends TestCase {
     private ArrayList<RecognizedTextOfSingleAudiofile> recognizedFiles;
 
     private static String[] recognizedTextStubs = {
-        "word1(0.1, 1.4) word2(1.5, 2.0) word3(2.1, 2.4) word4(2.6, 3.0) ",
+        "word1(0.1, 1.4) word2(1.5, 2.0) word3(2.1, 2.4) word4(2.6, 3.0) nm(3.0, 4.0) ssl(4.1, 5.0)",
         "word5(3.1, 3.4) word3(4.1, 4.4) word3(5.1, 5.4) word1(6.1, 6.4) word4(7.1, 7.4)",
 //        "word1(7.1, 7.4) word2(8.1, 8.4) word3(9.1, 9.4) word4(10.1, 10.4) ",
 //        "word3(11.1, 11.4) word2(12.1, 12.4) word3(13.1, 13.4) word4(14.1, 14.4) ",
