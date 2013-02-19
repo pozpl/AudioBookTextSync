@@ -244,12 +244,14 @@ public class BitapSubtextFinding {
         this.logger.info("Start to find subtext of " + pattern.length
                 + " in text with lenght "
                 + doc.length );
+        Integer finalErrorsRate = 0;
         for(Integer errorsCount = maxErrorsRate; errorsCount > 0;  errorsCount--){
             this.logger.info("current errors rate " + errorsCount);
             List<Integer> foundSnippets = this.find(doc, pattern, errorsCount);
             if(foundSnippets.size() == 2){
                 foundSnippetIndexBegin =  foundSnippets.get(0);
                 foundSnippetIndexEnd =  foundSnippets.get(1);
+                finalErrorsRate = errorsCount;
                 this.logger.info("Subtext found with errors rate "
                         + errorsCount
                         + " " + foundSnippetIndexBegin
@@ -260,16 +262,23 @@ public class BitapSubtextFinding {
                         + foundSnippets.get(0));
                 foundSnippetIndexBegin =  foundSnippets.get(0);
                 foundSnippetIndexEnd =  foundSnippets.get(1);
+                finalErrorsRate = errorsCount;
             }else if(foundSnippets.isEmpty()){
                 break;
             }
         }
 
-        foundSnippetIndexEnd += (patternBig.length - pattern.length);
+        foundSnippetIndexEnd += (patternBig.length - pattern.length) + finalErrorsRate;
         Integer[] beginEndArray = {foundSnippetIndexBegin, foundSnippetIndexEnd};
         return beginEndArray;
     }
-
+    /**
+     * @deprecated
+     * @param doc
+     * @param pattern
+     * @param beginIndex
+     * @return
+     */
     private Integer[] functionFindFullPattern(Integer[] doc, Integer[] pattern, Integer beginIndex){
 
 //        Integer[] pattern = this.getSubPattern(patternBig, 1000);
