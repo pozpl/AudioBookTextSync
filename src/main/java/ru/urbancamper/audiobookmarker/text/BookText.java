@@ -78,8 +78,8 @@ public class BookText {
      * this recognized peaces to full text words
      * @return ArrayList of mappings of recognized text to full text
      */
-    private ArrayList<TreeMap<Integer, Integer>> getLongestSubsequenceMappingFromRecognizedTexts(){
-        ArrayList<TreeMap<Integer, Integer>> recognizedTextLongestSubsequences = new ArrayList<TreeMap<Integer, Integer>>();
+    private ArrayList<TreeMap<Integer, Integer>> getLongestSubSequenceMappingFromRecognizedTexts(){
+        ArrayList<TreeMap<Integer, Integer>> recognizedTextLongestSubSequences = new ArrayList<TreeMap<Integer, Integer>>();
         for (Iterator<RecognizedTextOfSingleAudioFile> it = this.recognizedAudioFiles.iterator(); it.hasNext();) {
             RecognizedTextOfSingleAudioFile recognizedText = it.next();
             String[] recognizedTextAsTokens = recognizedText.getTokens();
@@ -89,17 +89,17 @@ public class BookText {
                     this.textInNumericForm, recognizedTextAsNumbers);
             this.logger.info("Text with length " + recognizedTextAsNumbers.length +
                     "was found in " + recognizedTextBeginEndIndexes[0] + " position");
-            Integer[] fullTextSnippetToAlign = new Integer[recognizedTextAsNumbers.length];
+            Integer[] fullTextSnippetToAlign;
 
             fullTextSnippetToAlign = Arrays.copyOfRange(this.textInNumericForm,
                     recognizedTextBeginEndIndexes[0], recognizedTextBeginEndIndexes[1]);
-            TreeMap<Integer, Integer> recTextLongestSubsequence =
+            TreeMap<Integer, Integer> recTextLongestSubSequence =
                     this.longestSubsequenceFinder.getLongestSubsequenceWithMinDistance(fullTextSnippetToAlign, recognizedTextAsNumbers);
-            recTextLongestSubsequence = this.shiftMappingOfSubText(recTextLongestSubsequence, recognizedTextBeginEndIndexes[0]);
-            recognizedTextLongestSubsequences.add(recTextLongestSubsequence);
+            recTextLongestSubSequence = this.shiftMappingOfSubText(recTextLongestSubSequence, recognizedTextBeginEndIndexes[0]);
+            recognizedTextLongestSubSequences.add(recTextLongestSubSequence);
         }
 
-        return recognizedTextLongestSubsequences;
+        return recognizedTextLongestSubSequences;
     }
 
 
@@ -145,7 +145,7 @@ public class BookText {
     }
 
     public String buildTextWithAudioMarks(){
-        ArrayList<TreeMap<Integer, Integer>> recognizedTextLongestSubSequences = this.getLongestSubsequenceMappingFromRecognizedTexts();
+        ArrayList<TreeMap<Integer, Integer>> recognizedTextLongestSubSequences = this.getLongestSubSequenceMappingFromRecognizedTexts();
         String markedText = "";
         Integer subSequenceCounter = 0;
         for(TreeMap<Integer, Integer> longestSubSequence : recognizedTextLongestSubSequences){
