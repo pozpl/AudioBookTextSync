@@ -254,8 +254,8 @@ public class BitapSubtextFinding {
                 finalErrorsRate = errorsCount;
                 this.logger.info("Subtext found with errors rate "
                         + errorsCount
-                        + " " + foundSnippetIndexBegin
-                        + " " + foundSnippetIndexEnd);
+                        + " index begin " + foundSnippetIndexBegin
+                        + " index end " + foundSnippetIndexEnd);
                 break;
             }else if(foundSnippets.size() > 2){
                 this.logger.info("Minimum errors count 0 was reached return first found index "
@@ -268,12 +268,28 @@ public class BitapSubtextFinding {
             }
         }
 
-        foundSnippetIndexEnd += (patternBig.length - pattern.length) + finalErrorsRate;
+        Integer fullPatternErrorsRate = this.evaluateErrorForFullPattern(patternBig.length, pattern.length, finalErrorsRate);
+        foundSnippetIndexEnd += patternBig.length  + fullPatternErrorsRate;
         Integer[] beginEndArray = {foundSnippetIndexBegin, foundSnippetIndexEnd};
+        this.logger.info("Subtext found first index " + foundSnippetIndexBegin
+                + " last index " + foundSnippetIndexEnd);
         return beginEndArray;
     }
+
     /**
-     * @deprecated
+     *
+     * @param fullPatternLength
+     * @param partPatternLength
+     * @param partPatternErrorsRate
+     * @return Errors rate for full pattern
+     */
+    private Integer evaluateErrorForFullPattern(Integer fullPatternLength, Integer partPatternLength,
+                                                Integer partPatternErrorsRate){
+        Integer fullPatternErrorsRate = fullPatternLength * partPatternErrorsRate / partPatternLength;
+        return fullPatternErrorsRate;
+    }
+
+    /**
      * @param doc
      * @param pattern
      * @param beginIndex
