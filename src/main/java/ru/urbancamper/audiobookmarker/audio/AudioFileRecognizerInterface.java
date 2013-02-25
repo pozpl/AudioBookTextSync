@@ -4,7 +4,7 @@
  */
 package ru.urbancamper.audiobookmarker.audio;
 
-import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
+import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudioFile;
 
 /**
  *
@@ -12,7 +12,7 @@ import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
  */
 public interface AudioFileRecognizerInterface {
 
-    public RecognizedTextOfSingleAudiofile recognize(String filePath, String unicFileIdentifier);
+    public RecognizedTextOfSingleAudioFile recognize(String filePath, String unicFileIdentifier);
     /**
      *
      * @param audioFilePath

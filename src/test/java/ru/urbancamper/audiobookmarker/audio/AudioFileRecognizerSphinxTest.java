@@ -11,9 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerSphinx;
 import ru.urbancamper.audiobookmarker.context.BeansAnnotationsForTests;
-import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
+import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudioFile;
 
 /**
  *
@@ -33,7 +32,7 @@ public class AudioFileRecognizerSphinxTest {
         Properties prop = new Properties();
         try {
             prop.load(new FileInputStream("src/main/resources/test.properties"));
-            RecognizedTextOfSingleAudiofile numbersText = recognizer.recognize(prop.getProperty("TEST_SPHINX_AUDIO_NUMBERS"), "numbers");
+            RecognizedTextOfSingleAudioFile numbersText = recognizer.recognize(prop.getProperty("TEST_SPHINX_AUDIO_NUMBERS"), "numbers");
             String[] tokens = numbersText.getTokens();
             for(String token : tokens){
                 System.out.println(token);

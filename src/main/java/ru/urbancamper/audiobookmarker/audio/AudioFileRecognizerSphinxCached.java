@@ -21,7 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
+import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudioFile;
 
 /**
  *
@@ -135,7 +135,7 @@ public class AudioFileRecognizerSphinxCached implements AudioFileRecognizerInter
      * @return
      */
     @Override
-    public RecognizedTextOfSingleAudiofile recognize(String filePath, String fileUnicIdentifier) {
+    public RecognizedTextOfSingleAudioFile recognize(String filePath, String fileUnicIdentifier) {
         String resultTextAggregated;
         if (!this.isThisFileIsCacheFile(filePath)) {
             String cacheFilePath = this.getCacheFilePath(filePath);
@@ -151,7 +151,7 @@ public class AudioFileRecognizerSphinxCached implements AudioFileRecognizerInter
             resultTextAggregated = "";
         }
 
-        RecognizedTextOfSingleAudiofile recognizedTextObj = new RecognizedTextOfSingleAudiofile(resultTextAggregated, fileUnicIdentifier);
+        RecognizedTextOfSingleAudioFile recognizedTextObj = new RecognizedTextOfSingleAudioFile(resultTextAggregated, fileUnicIdentifier);
 
         return recognizedTextObj;
     }

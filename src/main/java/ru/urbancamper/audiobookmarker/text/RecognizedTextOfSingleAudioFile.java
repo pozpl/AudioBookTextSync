@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  *
  * @author pozpl
  */
-public class RecognizedTextOfSingleAudiofile {
+public class RecognizedTextOfSingleAudioFile {
     /**
      * aligned recognized text in string form
      */
@@ -41,7 +41,7 @@ public class RecognizedTextOfSingleAudiofile {
     private String audioFileHash;
 
     /**
-     * Constructor of class RecognizedTextOfSingleAudiofile
+     * Constructor of class RecognizedTextOfSingleAudioFile
      * @param recognizedTextString String with such form:
      * word1(1.2, 1.4) word2(1.6, 1.9)....
      * The input format of recognizedTextString is output format of Spjinx4
@@ -49,7 +49,7 @@ public class RecognizedTextOfSingleAudiofile {
      * @param audioFileHash md5, sha or whatever hash of file
      * to distinguish one file from another even if names would changed
      */
-    public RecognizedTextOfSingleAudiofile(String recognizedTextString, String audioFileHash){
+    public RecognizedTextOfSingleAudioFile(String recognizedTextString, String audioFileHash){
         this.alignedTextSting = recognizedTextString;
         this.alignedTextTokens = new ArrayList<String>();
         this.startTimeOfTokens = new ArrayList<Double>();

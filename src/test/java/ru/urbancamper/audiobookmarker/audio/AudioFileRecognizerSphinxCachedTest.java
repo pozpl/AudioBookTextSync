@@ -14,7 +14,7 @@ import junit.framework.TestCase;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.urbancamper.audiobookmarker.context.BeansAnnotationsForTests;
-import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
+import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudioFile;
 
 /**
  *
@@ -68,8 +68,8 @@ public class AudioFileRecognizerSphinxCachedTest extends TestCase {
         Properties prop = new Properties();
         try {
             prop.load(new FileInputStream("src/main/resources/test.properties"));
-            RecognizedTextOfSingleAudiofile recognizedAudioFile = recognizer.recognize(prop.getProperty("TEST_SPHINX_AUDIO_NUMBERS"), "numbers");
-            RecognizedTextOfSingleAudiofile recognizedFromCache = recognizer.recognize(prop.getProperty("TEST_SPHINX_AUDIO_NUMBERS"), "numbers");
+            RecognizedTextOfSingleAudioFile recognizedAudioFile = recognizer.recognize(prop.getProperty("TEST_SPHINX_AUDIO_NUMBERS"), "numbers");
+            RecognizedTextOfSingleAudioFile recognizedFromCache = recognizer.recognize(prop.getProperty("TEST_SPHINX_AUDIO_NUMBERS"), "numbers");
 
             assertEquals(recognizedAudioFile.getAudioFileHash(), recognizedFromCache.getAudioFileHash());
             String[] tokensFromFile = recognizedAudioFile.getTokens();

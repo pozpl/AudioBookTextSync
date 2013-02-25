@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import org.apache.commons.logging.Log;
@@ -31,7 +30,7 @@ public class BookText {
 
     private Integer[] textInNumericForm;
 
-    private ArrayList<RecognizedTextOfSingleAudiofile> recognizedAudioFiles;
+    private ArrayList<RecognizedTextOfSingleAudioFile> recognizedAudioFiles;
 
     private LanguageModelBasedTextTokenizer textTokenizer;
 
@@ -48,7 +47,7 @@ public class BookText {
             LongestSubsequenceFinder subsequnceFinder,
             BitapSubtextFinding bitapSubtextFinder
             ){
-        this.recognizedAudioFiles = new ArrayList<RecognizedTextOfSingleAudiofile>();
+        this.recognizedAudioFiles = new ArrayList<RecognizedTextOfSingleAudioFile>();
         this.textTokenizer = textTokenizer;
         this.wordsToNumMapper = wordsToNumMapper;
         this.longestSubsequenceFinder = subsequnceFinder;
@@ -64,14 +63,14 @@ public class BookText {
         this.textInNumericForm = this.wordsToNumMapper.getNumbersFromWords(tokenizedBookText);
     }
 
-    public void registerRecognizedTextPiece(RecognizedTextOfSingleAudiofile recognizedFileText){
+    public void registerRecognizedTextPiece(RecognizedTextOfSingleAudioFile recognizedFileText){
         this.recognizedAudioFiles.add(recognizedFileText);
         this.registredFileMapper.put(recognizedFileText.getAudioFileHash(), this.recognizedAudioFiles.size());
     }
 
-    public RecognizedTextOfSingleAudiofile[] getListOfRegistredAudiofiles(){
+    public RecognizedTextOfSingleAudioFile[] getListOfRegistredAudiofiles(){
         return this.recognizedAudioFiles.toArray(
-                new RecognizedTextOfSingleAudiofile[this.recognizedAudioFiles.size()]);
+                new RecognizedTextOfSingleAudioFile[this.recognizedAudioFiles.size()]);
     }
 
     /**
@@ -81,8 +80,8 @@ public class BookText {
      */
     private ArrayList<TreeMap<Integer, Integer>> getLongestSubsequenceMappingFromRecognizedTexts(){
         ArrayList<TreeMap<Integer, Integer>> recognizedTextLongestSubsequences = new ArrayList<TreeMap<Integer, Integer>>();
-        for (Iterator<RecognizedTextOfSingleAudiofile> it = this.recognizedAudioFiles.iterator(); it.hasNext();) {
-            RecognizedTextOfSingleAudiofile recognizedText = it.next();
+        for (Iterator<RecognizedTextOfSingleAudioFile> it = this.recognizedAudioFiles.iterator(); it.hasNext();) {
+            RecognizedTextOfSingleAudioFile recognizedText = it.next();
             String[] recognizedTextAsTokens = recognizedText.getTokens();
             Integer[] recognizedTextAsNumbers = this.wordsToNumMapper.getNumbersFromWords(recognizedTextAsTokens);
 
@@ -146,13 +145,13 @@ public class BookText {
     }
 
     public String buildTextWithAudioMarks(){
-        ArrayList<TreeMap<Integer, Integer>> recognizedTextLongestSubsequences = this.getLongestSubsequenceMappingFromRecognizedTexts();
+        ArrayList<TreeMap<Integer, Integer>> recognizedTextLongestSubSequences = this.getLongestSubsequenceMappingFromRecognizedTexts();
         String markedText = "";
-        Integer subsequenceCounter = 0;
-        for(TreeMap<Integer, Integer> longestSubsequence: recognizedTextLongestSubsequences){
-            RecognizedTextOfSingleAudiofile recognizedFile = this.recognizedAudioFiles.get(subsequenceCounter);
+        Integer subSequenceCounter = 0;
+        for(TreeMap<Integer, Integer> longestSubSequence : recognizedTextLongestSubSequences){
+            RecognizedTextOfSingleAudioFile recognizedFile = this.recognizedAudioFiles.get(subSequenceCounter);
             Integer fileIndex = this.registredFileMapper.get(recognizedFile.getAudioFileHash());
-            for(Entry<Integer, Integer> fullTextToRecText: longestSubsequence.entrySet()){
+            for(Entry<Integer, Integer> fullTextToRecText: longestSubSequence.entrySet()){
                 Integer fullTextWordIndex = fullTextToRecText.getKey();
                 Integer recognizedTextWordIndex = fullTextToRecText.getValue();
 
@@ -164,7 +163,7 @@ public class BookText {
                 this.tokenizedBookText[fullTextWordIndex] = wordWithMarkerInfo;
 
             }
-            subsequenceCounter++;
+            subSequenceCounter++;
         }
 
         return this.textTokenizer.deTokenize(tokenizedBookText);//this.implodeTokensArray(this.tokenizedBookText);

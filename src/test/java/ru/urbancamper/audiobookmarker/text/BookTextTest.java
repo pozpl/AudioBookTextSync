@@ -19,7 +19,7 @@ import ru.urbancamper.audiobookmarker.context.BeansAnnotationsForTests;
  */
 public class BookTextTest extends TestCase {
 
-    private ArrayList<RecognizedTextOfSingleAudiofile> recognizedFiles;
+    private ArrayList<RecognizedTextOfSingleAudioFile> recognizedFiles;
 
     private static String[] recognizedTextStubs = {
         "word1(0.1, 1.4) word2(1.5, 2.0) word3(2.1, 2.4) word4(2.6, 3.0) nm(3.0, 4.0) ssl(4.1, 5.0)",
@@ -45,11 +45,11 @@ public class BookTextTest extends TestCase {
 
     @Override
     protected void setUp() throws Exception {
-        this.recognizedFiles = new ArrayList<RecognizedTextOfSingleAudiofile>();
+        this.recognizedFiles = new ArrayList<RecognizedTextOfSingleAudioFile>();
 
         Integer audioFileHashCounter = 0;
         for(String recognizedText : BookTextTest.recognizedTextStubs){
-            RecognizedTextOfSingleAudiofile recognizedFile = new RecognizedTextOfSingleAudiofile(
+            RecognizedTextOfSingleAudioFile recognizedFile = new RecognizedTextOfSingleAudioFile(
                     recognizedText,
                     BookTextTest.audioFilesHashes[audioFileHashCounter]);
             this.recognizedFiles.add(recognizedFile);
@@ -74,11 +74,11 @@ public class BookTextTest extends TestCase {
         ApplicationContext ctxt = new AnnotationConfigApplicationContext(BeansAnnotationsForTests.class);
 
         BookText instance = ctxt.getBean(BookText.class);
-        for(RecognizedTextOfSingleAudiofile recognizedFile: this.recognizedFiles){
+        for(RecognizedTextOfSingleAudioFile recognizedFile: this.recognizedFiles){
             instance.registerRecognizedTextPiece(recognizedFile);
         }
 
-        RecognizedTextOfSingleAudiofile[] retunedRecFiles = instance.getListOfRegistredAudiofiles();
+        RecognizedTextOfSingleAudioFile[] retunedRecFiles = instance.getListOfRegistredAudiofiles();
 
         assertEquals(retunedRecFiles.length, recognizedFiles.size());
 
@@ -96,11 +96,11 @@ public class BookTextTest extends TestCase {
         ApplicationContext ctxt = new AnnotationConfigApplicationContext(BeansAnnotationsForTests.class);
 
         BookText instance = ctxt.getBean(BookText.class);
-        for(RecognizedTextOfSingleAudiofile recognizedFile: this.recognizedFiles){
+        for(RecognizedTextOfSingleAudioFile recognizedFile: this.recognizedFiles){
             instance.registerRecognizedTextPiece(recognizedFile);
         }
 
-        RecognizedTextOfSingleAudiofile[] retunedRecFiles = instance.getListOfRegistredAudiofiles();
+        RecognizedTextOfSingleAudioFile[] retunedRecFiles = instance.getListOfRegistredAudiofiles();
 
         assertEquals(retunedRecFiles.length, recognizedFiles.size());
 
@@ -119,7 +119,7 @@ public class BookTextTest extends TestCase {
 
         BookText instance = ctxt.getBean(BookText.class);
         instance.setFullText( bookFullText);
-        for(RecognizedTextOfSingleAudiofile recognizedFile: this.recognizedFiles){
+        for(RecognizedTextOfSingleAudioFile recognizedFile: this.recognizedFiles){
             instance.registerRecognizedTextPiece(recognizedFile);
         }
 
@@ -136,7 +136,7 @@ public class BookTextTest extends TestCase {
         ApplicationContext ctxt = new AnnotationConfigApplicationContext(BeansAnnotationsForTests.class);
         BookText instance = ctxt.getBean(BookText.class);
         instance.setFullText( bookFullText);
-        for(RecognizedTextOfSingleAudiofile recognizedFile: this.recognizedFiles){
+        for(RecognizedTextOfSingleAudioFile recognizedFile: this.recognizedFiles){
             instance.registerRecognizedTextPiece(recognizedFile);
         }
 

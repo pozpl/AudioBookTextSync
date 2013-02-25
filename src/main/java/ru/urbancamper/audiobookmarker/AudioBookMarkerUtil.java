@@ -19,7 +19,7 @@ import org.apache.commons.logging.LogFactory;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerInterface;
 import ru.urbancamper.audiobookmarker.document.MarkedDocument;
 import ru.urbancamper.audiobookmarker.text.BookText;
-import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
+import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudioFile;
 
 /**
  *
@@ -118,7 +118,7 @@ public class AudioBookMarkerUtil {
             audioFilePath = audioBookFilesPaths[fileCounter];
             fileName = this.getAudioFileName(audioFilePath);
             audioFilesIdentificatorMap.put(fileName, fileCounter.toString());
-            RecognizedTextOfSingleAudiofile recognizedFile = this.audioRecognizer.recognize(audioFilePath, fileCounter.toString());
+            RecognizedTextOfSingleAudioFile recognizedFile = this.audioRecognizer.recognize(audioFilePath, fileCounter.toString());
             this.bookTextAggregator.registerRecognizedTextPiece(recognizedFile);
         }
         String markedText = this.bookTextAggregator.buildTextWithAudioMarks();

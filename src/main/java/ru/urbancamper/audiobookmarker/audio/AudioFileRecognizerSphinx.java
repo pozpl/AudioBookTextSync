@@ -12,7 +12,7 @@ import edu.cmu.sphinx.util.props.PropertyException;
 import java.io.File;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
+import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudioFile;
 
 /**
  *
@@ -70,10 +70,10 @@ public class AudioFileRecognizerSphinx implements AudioFileRecognizerInterface{
         return "";
     }
 
-    public RecognizedTextOfSingleAudiofile recognize(String filePath, String fileUnicIdentifier) {
+    public RecognizedTextOfSingleAudioFile recognize(String filePath, String fileUnicIdentifier) {
         String resultTextAggregated = getTextFromAudioFile(filePath, fileUnicIdentifier);
 
-        RecognizedTextOfSingleAudiofile recognizedTextObj = new RecognizedTextOfSingleAudiofile(resultTextAggregated, fileUnicIdentifier);
+        RecognizedTextOfSingleAudioFile recognizedTextObj = new RecognizedTextOfSingleAudioFile(resultTextAggregated, fileUnicIdentifier);
 
         return recognizedTextObj;
 

@@ -4,7 +4,7 @@
  */
 package ru.urbancamper.audiobookmarker.audio;
 
-import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudiofile;
+import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudioFile;
 
 /**
  *
@@ -23,8 +23,8 @@ public class AudioFileRecognizerStub implements AudioFileRecognizerInterface{
         this.stubText = stubText;
     }
 
-    public RecognizedTextOfSingleAudiofile recognize(String filePath, String unicFileIdentifier) {
-        return new RecognizedTextOfSingleAudiofile(stubText, unicFileIdentifier);
+    public RecognizedTextOfSingleAudioFile recognize(String filePath, String unicFileIdentifier) {
+        return new RecognizedTextOfSingleAudioFile(stubText, unicFileIdentifier);
     }
 
     public String getTextFromAudioFile(String audioFilePath, String fileIdentification) {
