@@ -279,7 +279,8 @@ public class BitapSubtextFinding {
      * @param beginIndex
      * @return
      */
-    private Integer[] functionFindFullPattern(Integer[] doc, Integer[] pattern, Integer beginIndex){
+    @Deprecated
+    private Integer[] findFullPattern(Integer[] doc, Integer[] pattern, Integer beginIndex){
 
 //        Integer[] pattern = this.getSubPattern(patternBig, 1000);
         Integer[] subDocument = this.getSubPattern(doc, beginIndex, doc.length - beginIndex);
