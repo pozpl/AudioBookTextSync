@@ -179,7 +179,7 @@ public class BitapSubtextFindingTest extends TestCase {
         Integer[] foundResult= this.bitapSubtextFinding.findWithReducedError(
                 textWords, subTextWords);
         Integer beginIndex =  0;
-        Integer endIndex =  3;
+        Integer endIndex =  7;
         assertEquals(beginIndex, foundResult[0]);
         assertEquals(endIndex, foundResult[1]);
     }
