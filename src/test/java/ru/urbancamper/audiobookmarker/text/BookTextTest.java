@@ -141,7 +141,7 @@ public class BookTextTest extends TestCase {
         }
 
         Method method =
-          BookText.class.getDeclaredMethod("getLongestSubsequenceMappingFromRecognizedTexts", null);
+          BookText.class.getDeclaredMethod("getLongestSubSequenceMappingFromRecognizedTexts", null);
 //                new Class[0]);
         method.setAccessible(true);
         ArrayList<TreeMap<Integer, Integer>> output;
