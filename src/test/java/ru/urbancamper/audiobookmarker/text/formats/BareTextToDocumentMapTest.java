@@ -1,5 +1,6 @@
 package ru.urbancamper.audiobookmarker.text.formats;
 
+import junit.framework.Assert;
 import org.junit.Test;
 
 import java.util.TreeMap;
@@ -18,6 +19,18 @@ public class BareTextToDocumentMapTest {
     @Test
     public void testMapBareTextToDocument() throws Exception {
         String[] bareText = {"this", "is", "test", "text"};
-        TreeMap<Integer, Integer> bareWordsToDocumentMap =
+        TreeMap<Integer, Integer> bareWordsToDocumentMapControl =  new TreeMap<Integer, Integer>();
+        bareWordsToDocumentMapControl.put(0, 4);
+        bareWordsToDocumentMapControl.put(1, 10);
+        bareWordsToDocumentMapControl.put(2, 16);
+        bareWordsToDocumentMapControl.put(3, 25);
+
+        BareTextToDocumentMap textToDocMapper = new BareTextToDocumentMap();
+        TreeMap<Integer, Integer> bareTextToDocObtained = textToDocMapper.mapBareTextToDocument(bareText, this.documentText);
+        for(Integer wordKey: bareWordsToDocumentMapControl.keySet()){
+            Assert.assertTrue(bareTextToDocObtained.containsKey(wordKey));
+            Assert.assertEquals(bareWordsToDocumentMapControl.get(wordKey), bareTextToDocObtained.get(wordKey));
+        }
+
     }
 }
