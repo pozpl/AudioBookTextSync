@@ -18,7 +18,7 @@ import ru.urbancamper.audiobookmarker.text.*;
  * perform operations to improve it with audiobook information.
  * @author pozpl
  */
-public class BookText {
+public class BookTextAudioAggregation {
 
     protected final Log logger = LogFactory.getLog(getClass());
 
@@ -43,11 +43,11 @@ public class BookText {
 
     private BitapSubtextFinding bitapSubtextFinder;
 
-    public BookText(LanguageModelBasedTextTokenizer textTokenizer,
-            WordsToNumsMap wordsToNumMapper,
-            LongestSubsequenceFinder subsequnceFinder,
-            BitapSubtextFinding bitapSubtextFinder
-            ){
+    public BookTextAudioAggregation(LanguageModelBasedTextTokenizer textTokenizer,
+                                    WordsToNumsMap wordsToNumMapper,
+                                    LongestSubsequenceFinder subsequnceFinder,
+                                    BitapSubtextFinding bitapSubtextFinder
+    ){
         this.recognizedAudioFiles = new ArrayList<RecognizedTextOfSingleAudioFile>();
         this.textTokenizer = textTokenizer;
         this.wordsToNumMapper = wordsToNumMapper;

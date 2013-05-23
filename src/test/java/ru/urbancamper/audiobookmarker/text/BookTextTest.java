@@ -12,7 +12,7 @@ import junit.framework.TestCase;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.urbancamper.audiobookmarker.context.BeansAnnotationsForTests;
-import ru.urbancamper.audiobookmarker.text.markerplacer.BookText;
+import ru.urbancamper.audiobookmarker.text.markerplacer.BookTextAudioAggregation;
 
 /**
  *
@@ -67,14 +67,14 @@ public class BookTextTest extends TestCase {
     }
 
     /**
-     * Test of registerRecognizedTextPiece method, of class BookText.
+     * Test of registerRecognizedTextPiece method, of class BookTextAudioAggregation.
      */
     public void testRegisterRecognisedTextPeace() {
         System.out.println("registerRecognisedTextPeace");
 
         ApplicationContext ctxt = new AnnotationConfigApplicationContext(BeansAnnotationsForTests.class);
 
-        BookText instance = ctxt.getBean(BookText.class);
+        BookTextAudioAggregation instance = ctxt.getBean(BookTextAudioAggregation.class);
         for(RecognizedTextOfSingleAudioFile recognizedFile: this.recognizedFiles){
             instance.registerRecognizedTextPiece(recognizedFile);
         }
@@ -90,13 +90,13 @@ public class BookTextTest extends TestCase {
     }
 
     /**
-     * Test of getListOfRegistredAudiofiles method, of class BookText.
+     * Test of getListOfRegistredAudiofiles method, of class BookTextAudioAggregation.
      */
     public void testGetListOfRegistredAudiofiles() {
         System.out.println("getListOfRegistredAudiofiles");
         ApplicationContext ctxt = new AnnotationConfigApplicationContext(BeansAnnotationsForTests.class);
 
-        BookText instance = ctxt.getBean(BookText.class);
+        BookTextAudioAggregation instance = ctxt.getBean(BookTextAudioAggregation.class);
         for(RecognizedTextOfSingleAudioFile recognizedFile: this.recognizedFiles){
             instance.registerRecognizedTextPiece(recognizedFile);
         }
@@ -112,13 +112,13 @@ public class BookTextTest extends TestCase {
     }
 
     /**
-     * Test of buildTextWithAudioMarks method, of class BookText.
+     * Test of buildTextWithAudioMarks method, of class BookTextAudioAggregation.
      */
     public void testBuildTextWithAudioMarks() {
         System.out.println("buildTextWithAudioMarks");
         ApplicationContext ctxt = new AnnotationConfigApplicationContext(BeansAnnotationsForTests.class);
 
-        BookText instance = ctxt.getBean(BookText.class);
+        BookTextAudioAggregation instance = ctxt.getBean(BookTextAudioAggregation.class);
         instance.setFullText( bookFullText);
         for(RecognizedTextOfSingleAudioFile recognizedFile: this.recognizedFiles){
             instance.registerRecognizedTextPiece(recognizedFile);
@@ -135,14 +135,14 @@ public class BookTextTest extends TestCase {
             InvocationTargetException, IllegalAccessException {
 
         ApplicationContext ctxt = new AnnotationConfigApplicationContext(BeansAnnotationsForTests.class);
-        BookText instance = ctxt.getBean(BookText.class);
+        BookTextAudioAggregation instance = ctxt.getBean(BookTextAudioAggregation.class);
         instance.setFullText( bookFullText);
         for(RecognizedTextOfSingleAudioFile recognizedFile: this.recognizedFiles){
             instance.registerRecognizedTextPiece(recognizedFile);
         }
 
         Method method =
-          BookText.class.getDeclaredMethod("getLongestSubSequenceMappingFromRecognizedTexts", null);
+          BookTextAudioAggregation.class.getDeclaredMethod("getLongestSubSequenceMappingFromRecognizedTexts", null);
 //                new Class[0]);
         method.setAccessible(true);
         ArrayList<TreeMap<Integer, Integer>> output;

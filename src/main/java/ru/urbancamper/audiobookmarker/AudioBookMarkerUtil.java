@@ -18,7 +18,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerInterface;
 import ru.urbancamper.audiobookmarker.document.MarkedDocument;
-import ru.urbancamper.audiobookmarker.text.markerplacer.BookText;
+import ru.urbancamper.audiobookmarker.text.markerplacer.BookTextAudioAggregation;
 import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudioFile;
 
 /**
@@ -27,7 +27,7 @@ import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudioFile;
  */
 public class AudioBookMarkerUtil {
 
-    private BookText bookTextAggregator;
+    private BookTextAudioAggregation bookTextAggregator;
 
     private AudioFileRecognizerInterface audioRecognizer;
 
@@ -36,7 +36,7 @@ public class AudioBookMarkerUtil {
      * @param bookText
      * @param audioRecognizer
      */
-    public AudioBookMarkerUtil(BookText bookText, AudioFileRecognizerInterface audioRecognizer){
+    public AudioBookMarkerUtil(BookTextAudioAggregation bookText, AudioFileRecognizerInterface audioRecognizer){
         this.bookTextAggregator = bookText;
         this.audioRecognizer = audioRecognizer;
     }

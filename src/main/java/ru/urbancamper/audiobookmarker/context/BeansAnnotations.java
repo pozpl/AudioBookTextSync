@@ -25,7 +25,7 @@ import ru.urbancamper.audiobookmarker.AudioBookMarkerUtil;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerSphinx;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerSphinxCached;
 import ru.urbancamper.audiobookmarker.text.BitapSubtextFinding;
-import ru.urbancamper.audiobookmarker.text.markerplacer.BookText;
+import ru.urbancamper.audiobookmarker.text.markerplacer.BookTextAudioAggregation;
 import ru.urbancamper.audiobookmarker.text.LanguageModelBasedTextTokenizer;
 import ru.urbancamper.audiobookmarker.text.LongestSubsequenceFinder;
 import ru.urbancamper.audiobookmarker.text.RecognizedTextSnippetInterval;
@@ -119,8 +119,8 @@ public class BeansAnnotations {
 
     @Bean
     @Scope("prototype")
-    public BookText bookText() {
-        return new BookText(this.textTokenizer(), this.wordsToNumMap(), this.longestSubsequenceFinder(), this.bitapSubtextFinding());
+    public BookTextAudioAggregation bookText() {
+        return new BookTextAudioAggregation(this.textTokenizer(), this.wordsToNumMap(), this.longestSubsequenceFinder(), this.bitapSubtextFinding());
     }
 
     @Bean
