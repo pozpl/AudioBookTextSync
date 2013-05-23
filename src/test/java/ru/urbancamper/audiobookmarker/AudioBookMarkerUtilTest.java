@@ -16,7 +16,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerStub;
 import ru.urbancamper.audiobookmarker.context.BeansAnnotationsForTests;
 import ru.urbancamper.audiobookmarker.document.MarkedDocument;
-import ru.urbancamper.audiobookmarker.text.BookText;
+import ru.urbancamper.audiobookmarker.text.markerplacer.BookText;
 
 /**
  *

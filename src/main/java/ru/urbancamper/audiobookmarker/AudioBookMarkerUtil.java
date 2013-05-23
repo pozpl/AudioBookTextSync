@@ -18,7 +18,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerInterface;
 import ru.urbancamper.audiobookmarker.document.MarkedDocument;
-import ru.urbancamper.audiobookmarker.text.BookText;
+import ru.urbancamper.audiobookmarker.text.markerplacer.BookText;
 import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudioFile;
 
 /**

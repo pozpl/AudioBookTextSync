@@ -12,6 +12,7 @@ import junit.framework.TestCase;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.urbancamper.audiobookmarker.context.BeansAnnotationsForTests;
+import ru.urbancamper.audiobookmarker.text.markerplacer.BookText;
 
 /**
  *

@@ -1,7 +1,7 @@
 /*
  *@autor pozpl
  */
-package ru.urbancamper.audiobookmarker.text;
+package ru.urbancamper.audiobookmarker.text.markerplacer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import ru.urbancamper.audiobookmarker.text.*;
 
 /**
  *Class to hold book text, it's tokenized structure and

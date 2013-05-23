@@ -25,7 +25,7 @@ import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerSphinx;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerSphinxCached;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerStub;
 import ru.urbancamper.audiobookmarker.text.BitapSubtextFinding;
-import ru.urbancamper.audiobookmarker.text.BookText;
+import ru.urbancamper.audiobookmarker.text.markerplacer.BookText;
 import ru.urbancamper.audiobookmarker.text.LanguageModelBasedTextTokenizer;
 import ru.urbancamper.audiobookmarker.text.LongestSubsequenceFinder;
 import ru.urbancamper.audiobookmarker.text.RecognizedTextSnippetInterval;
