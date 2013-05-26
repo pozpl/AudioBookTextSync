@@ -20,8 +20,6 @@ import ru.urbancamper.audiobookmarker.text.*;
  */
 public class BookTextAudioAggregation {
 
-    protected final Log logger = LogFactory.getLog(getClass());
-
     /**
      * the full text of Audiobook in plain text fomat
      */
