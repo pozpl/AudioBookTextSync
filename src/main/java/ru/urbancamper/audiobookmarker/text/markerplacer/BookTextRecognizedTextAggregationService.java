@@ -16,17 +16,6 @@ import java.util.*;
 public class BookTextRecognizedTextAggregationService {
     protected final Log logger = LogFactory.getLog(getClass());
 
-    /**
-     * the full text of Audiobook in plain text fomat
-     */
-//    private String fullText = "";
-//
-//    private String[] tokenizedBookText;
-//
-//    private Integer[] textInNumericForm;
-//
-//    private ArrayList<RecognizedTextOfSingleAudioFile> recognizedAudioFiles;
-
     private LanguageModelBasedTextTokenizer textTokenizer;
 
     private WordsToNumsMap wordsToNumMapper;
@@ -42,11 +31,9 @@ public class BookTextRecognizedTextAggregationService {
                                     LongestSubsequenceFinder subsequnceFinder,
                                     BitapSubtextFinding bitapSubtextFinder
     ){
-//        this.recognizedAudioFiles = new ArrayList<RecognizedTextOfSingleAudioFile>();
         this.textTokenizer = textTokenizer;
         this.wordsToNumMapper = wordsToNumMapper;
         this.longestSubsequenceFinder = subsequnceFinder;
-//        this.registratedFileMapper = new HashMap<String, Integer>();
         this.bitapSubtextFinder = bitapSubtextFinder;
     }
 
@@ -77,19 +64,21 @@ public class BookTextRecognizedTextAggregationService {
                                                                     BookTextAudioAggregation bookTextAudioAggregation){
 
         ArrayList<TreeMap<Integer, Integer>> recognizedTextLongestSubSequences = new ArrayList<TreeMap<Integer, Integer>>();
+
+        Integer[] fullTextNumericForm = this.wordsToNumMapper.getNumbersFromWords(bookTextAudioAggregation.getTokenizedBookText());
         for (Iterator<RecognizedTextOfSingleAudioFile> it = bookTextAudioAggregation.getRecognizedAudioFiles().iterator(); it.hasNext();) {
             RecognizedTextOfSingleAudioFile recognizedText = it.next();
             String[] recognizedTextAsTokens = recognizedText.getTokens();
             Integer[] recognizedTextAsNumbers = this.wordsToNumMapper.getNumbersFromWords(recognizedTextAsTokens);
 
             Integer[] recognizedTextBeginEndIndexes = this.bitapSubtextFinder.findWithReducedError(
-                    bookTextAudioAggregation.getTextInNumericForm(),
+                    fullTextNumericForm,
                     recognizedTextAsNumbers);
             this.logger.info("Text with length " + recognizedTextAsNumbers.length +
                     "was found in " + recognizedTextBeginEndIndexes[0] + " position");
             Integer[] fullTextSnippetToAlign;
 
-            fullTextSnippetToAlign = Arrays.copyOfRange(bookTextAudioAggregation.getTextInNumericForm(),
+            fullTextSnippetToAlign = Arrays.copyOfRange(fullTextNumericForm,
                     recognizedTextBeginEndIndexes[0], recognizedTextBeginEndIndexes[1]);
             TreeMap<Integer, Integer> recTextLongestSubSequence =
                     this.longestSubsequenceFinder.getLongestSubsequenceWithMinDistance(fullTextSnippetToAlign, recognizedTextAsNumbers);
