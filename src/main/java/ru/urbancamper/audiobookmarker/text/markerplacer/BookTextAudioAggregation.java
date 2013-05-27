@@ -20,11 +20,6 @@ import ru.urbancamper.audiobookmarker.text.*;
  */
 public class BookTextAudioAggregation {
 
-    /**
-     * the full text of Audiobook in plain text fomat
-     */
-    private String fullText = "";
-
     private String[] tokenizedBookText;
 
 
@@ -35,24 +30,18 @@ public class BookTextAudioAggregation {
 
     /**
      *
-     * @param fullText
      * @param tokenizedBookText
      * @param recognizedAudioFiles
      * @param registredFileMapper
      */
-    public BookTextAudioAggregation(String fullText,
-                                    String[] tokenizedBookText,
+    public BookTextAudioAggregation(String[] tokenizedBookText,
                                     ArrayList<RecognizedTextOfSingleAudioFile> recognizedAudioFiles,
                                     HashMap<String, Integer> registredFileMapper) {
-        this.fullText = fullText;
         this.tokenizedBookText = tokenizedBookText;
         this.recognizedAudioFiles = recognizedAudioFiles;
         this.registredFileMapper = registredFileMapper;
     }
 
-    public String getFullText() {
-        return fullText;
-    }
 
     public String[] getTokenizedBookText() {
         return tokenizedBookText;

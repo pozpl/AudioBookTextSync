@@ -14,11 +14,6 @@ import java.util.HashMap;
  */
 public class BookTextAudioAggregationBuilder {
 
-    /**
-     * the full text of Audiobook in plain text fomat
-     */
-    private String fullText = "";
-
     private String[] tokenizedBookText;
 
     private ArrayList<RecognizedTextOfSingleAudioFile> recognizedAudioFiles;
@@ -26,7 +21,6 @@ public class BookTextAudioAggregationBuilder {
     private HashMap<String, Integer> registredFileMapper;
 
     public BookTextAudioAggregationBuilder clearBuilder(){
-        this.fullText = null;
         this.tokenizedBookText = null;
         this.recognizedAudioFiles = null;
         this.registredFileMapper = null;
@@ -39,7 +33,6 @@ public class BookTextAudioAggregationBuilder {
      * @return this instance
      */
     public BookTextAudioAggregationBuilder fillFromBookAudioAggregation(BookTextAudioAggregation aggregationObj){
-        this.fullText = aggregationObj.getFullText();
         this.tokenizedBookText = aggregationObj.getTokenizedBookText();
         this.recognizedAudioFiles = aggregationObj.getRecognizedAudioFiles();
         this.registredFileMapper = aggregationObj.getRegistredFileMapper();
@@ -48,7 +41,6 @@ public class BookTextAudioAggregationBuilder {
 
     public BookTextAudioAggregation build(){
         BookTextAudioAggregation aggregation = new BookTextAudioAggregation(
-                this.fullText,
                 this.tokenizedBookText,
                 this.recognizedAudioFiles,
                 this.registredFileMapper
@@ -57,10 +49,6 @@ public class BookTextAudioAggregationBuilder {
         return aggregation;
     }
 
-    public BookTextAudioAggregationBuilder setFullText(String fullText) {
-        this.fullText = fullText;
-        return this;
-    }
 
     public BookTextAudioAggregationBuilder setTokenizedBookText(String[] tokenizedBookText) {
         this.tokenizedBookText = tokenizedBookText;
