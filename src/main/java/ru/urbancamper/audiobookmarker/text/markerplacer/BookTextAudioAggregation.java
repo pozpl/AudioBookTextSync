@@ -4,13 +4,8 @@
 package ru.urbancamper.audiobookmarker.text.markerplacer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
-import java.util.TreeMap;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
 import ru.urbancamper.audiobookmarker.text.*;
 
 /**
@@ -20,7 +15,7 @@ import ru.urbancamper.audiobookmarker.text.*;
  */
 public class BookTextAudioAggregation {
 
-    private String[] tokenizedBookText;
+    private String fullText;
 
 
 
@@ -30,21 +25,21 @@ public class BookTextAudioAggregation {
 
     /**
      *
-     * @param tokenizedBookText
+     * @param fullText
      * @param recognizedAudioFiles
      * @param registredFileMapper
      */
-    public BookTextAudioAggregation(String[] tokenizedBookText,
+    public BookTextAudioAggregation(String fullText,
                                     ArrayList<RecognizedTextOfSingleAudioFile> recognizedAudioFiles,
                                     HashMap<String, Integer> registredFileMapper) {
-        this.tokenizedBookText = tokenizedBookText;
+        this.fullText = fullText;
         this.recognizedAudioFiles = recognizedAudioFiles;
         this.registredFileMapper = registredFileMapper;
     }
 
 
-    public String[] getTokenizedBookText() {
-        return tokenizedBookText;
+    public String getFullText() {
+        return fullText;
     }
 
     public ArrayList<RecognizedTextOfSingleAudioFile> getRecognizedAudioFiles() {
