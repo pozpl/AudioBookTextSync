@@ -21,8 +21,6 @@ public class BookTextAudioAggregationBuilder {
 
     private String[] tokenizedBookText;
 
-    private Integer[] textInNumericForm;
-
     private ArrayList<RecognizedTextOfSingleAudioFile> recognizedAudioFiles;
 
     private HashMap<String, Integer> registredFileMapper;
@@ -30,7 +28,6 @@ public class BookTextAudioAggregationBuilder {
     public BookTextAudioAggregationBuilder clearBuilder(){
         this.fullText = null;
         this.tokenizedBookText = null;
-        this.textInNumericForm = null;
         this.recognizedAudioFiles = null;
         this.registredFileMapper = null;
         return this;
@@ -44,7 +41,6 @@ public class BookTextAudioAggregationBuilder {
     public BookTextAudioAggregationBuilder fillFromBookAudioAggregation(BookTextAudioAggregation aggregationObj){
         this.fullText = aggregationObj.getFullText();
         this.tokenizedBookText = aggregationObj.getTokenizedBookText();
-        this.textInNumericForm = aggregationObj.getTextInNumericForm();
         this.recognizedAudioFiles = aggregationObj.getRecognizedAudioFiles();
         this.registredFileMapper = aggregationObj.getRegistredFileMapper();
         return this;
@@ -54,7 +50,6 @@ public class BookTextAudioAggregationBuilder {
         BookTextAudioAggregation aggregation = new BookTextAudioAggregation(
                 this.fullText,
                 this.tokenizedBookText,
-                this.textInNumericForm,
                 this.recognizedAudioFiles,
                 this.registredFileMapper
         );
@@ -69,11 +64,6 @@ public class BookTextAudioAggregationBuilder {
 
     public BookTextAudioAggregationBuilder setTokenizedBookText(String[] tokenizedBookText) {
         this.tokenizedBookText = tokenizedBookText;
-        return this;
-    }
-
-    public BookTextAudioAggregationBuilder setTextInNumericForm(Integer[] textInNumericForm) {
-        this.textInNumericForm = textInNumericForm;
         return this;
     }
 

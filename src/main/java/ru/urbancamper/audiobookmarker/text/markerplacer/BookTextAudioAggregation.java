@@ -27,7 +27,7 @@ public class BookTextAudioAggregation {
 
     private String[] tokenizedBookText;
 
-    private Integer[] textInNumericForm;
+
 
     private ArrayList<RecognizedTextOfSingleAudioFile> recognizedAudioFiles;
 
@@ -37,18 +37,15 @@ public class BookTextAudioAggregation {
      *
      * @param fullText
      * @param tokenizedBookText
-     * @param textInNumericForm
      * @param recognizedAudioFiles
      * @param registredFileMapper
      */
     public BookTextAudioAggregation(String fullText,
                                     String[] tokenizedBookText,
-                                    Integer[] textInNumericForm,
                                     ArrayList<RecognizedTextOfSingleAudioFile> recognizedAudioFiles,
                                     HashMap<String, Integer> registredFileMapper) {
         this.fullText = fullText;
         this.tokenizedBookText = tokenizedBookText;
-        this.textInNumericForm = textInNumericForm;
         this.recognizedAudioFiles = recognizedAudioFiles;
         this.registredFileMapper = registredFileMapper;
     }
@@ -59,10 +56,6 @@ public class BookTextAudioAggregation {
 
     public String[] getTokenizedBookText() {
         return tokenizedBookText;
-    }
-
-    public Integer[] getTextInNumericForm() {
-        return textInNumericForm;
     }
 
     public ArrayList<RecognizedTextOfSingleAudioFile> getRecognizedAudioFiles() {
