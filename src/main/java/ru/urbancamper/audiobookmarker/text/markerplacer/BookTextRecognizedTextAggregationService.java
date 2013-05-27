@@ -79,7 +79,7 @@ public class BookTextRecognizedTextAggregationService {
             Integer[] fullTextSnippetToAlign;
 
             fullTextSnippetToAlign = Arrays.copyOfRange(fullTextNumericForm,
-                    recognizedTextBeginEndIndexes[0], recognizedTextBeginEndIndexes[1]);
+                                                    recognizedTextBeginEndIndexes[0], recognizedTextBeginEndIndexes[1]);
             TreeMap<Integer, Integer> recTextLongestSubSequence =
                     this.longestSubsequenceFinder.getLongestSubsequenceWithMinDistance(fullTextSnippetToAlign, recognizedTextAsNumbers);
             recTextLongestSubSequence = this.shiftMappingOfSubText(recTextLongestSubSequence, recognizedTextBeginEndIndexes[0]);
