@@ -20,6 +20,7 @@ public class FullTextAudioMark {
     private ArrayList<Double>  endTime;
 
     public FullTextAudioMark(){
+        this.fullTextTokens = new ArrayList<Integer>();
         this.audioFileIndex = new ArrayList<Integer>();
         this.beginTime = new ArrayList<Double>();
         this.endTime = new ArrayList<Double>();
