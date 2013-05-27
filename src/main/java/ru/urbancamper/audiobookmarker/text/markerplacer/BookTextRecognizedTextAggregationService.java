@@ -37,24 +37,11 @@ public class BookTextRecognizedTextAggregationService {
         this.bitapSubtextFinder = bitapSubtextFinder;
     }
 
-
-
-//    public void setFullText(String fullText){
-//        this.fullText = fullText;
-//        this.tokenizedBookText = textTokenizer.tokenize(fullText);
-//        this.textInNumericForm = this.wordsToNumMapper.getNumbersFromWords(tokenizedBookText);
-//    }
-//
-//    public void registerRecognizedTextPiece(RecognizedTextOfSingleAudioFile recognizedFileText){
-//        this.recognizedAudioFiles.add(recognizedFileText);
-//        this.registratedFileMapper.put(recognizedFileText.getAudioFileHash(), this.recognizedAudioFiles.size());
-//    }
-
-//    public RecognizedTextOfSingleAudioFile[] getListOfRegistredAudiofiles(){
-//        return this.recognizedAudioFiles.toArray(
-//                new RecognizedTextOfSingleAudioFile[this.recognizedAudioFiles.size()]);
-//    }
-
+    private Integer[] processFullTextToNumericForm(String fullText){
+        String[] tokenizedForm = this.textTokenizer.tokenize(fullText);
+        Integer[] numericForm = this.wordsToNumMapper.getNumbersFromWords(tokenizedForm);
+        return numericForm;
+    }
     /**
      * Iterate through recognized text peaces and find mapping between words of
      * this recognized peaces to full text words
@@ -65,7 +52,7 @@ public class BookTextRecognizedTextAggregationService {
 
         ArrayList<TreeMap<Integer, Integer>> recognizedTextLongestSubSequences = new ArrayList<TreeMap<Integer, Integer>>();
 
-        Integer[] fullTextNumericForm = this.wordsToNumMapper.getNumbersFromWords(bookTextAudioAggregation.getTokenizedBookText());
+        Integer[] fullTextNumericForm = this.processFullTextToNumericForm(bookTextAudioAggregation.getFullText());
         for (Iterator<RecognizedTextOfSingleAudioFile> it = bookTextAudioAggregation.getRecognizedAudioFiles().iterator(); it.hasNext();) {
             RecognizedTextOfSingleAudioFile recognizedText = it.next();
             String[] recognizedTextAsTokens = recognizedText.getTokens();
