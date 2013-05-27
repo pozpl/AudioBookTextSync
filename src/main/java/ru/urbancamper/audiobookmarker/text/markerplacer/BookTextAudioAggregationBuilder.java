@@ -14,14 +14,14 @@ import java.util.HashMap;
  */
 public class BookTextAudioAggregationBuilder {
 
-    private String[] tokenizedBookText;
+    private String fullText;
 
     private ArrayList<RecognizedTextOfSingleAudioFile> recognizedAudioFiles;
 
     private HashMap<String, Integer> registredFileMapper;
 
     public BookTextAudioAggregationBuilder clearBuilder(){
-        this.tokenizedBookText = null;
+        this.fullText = null;
         this.recognizedAudioFiles = null;
         this.registredFileMapper = null;
         return this;
@@ -33,7 +33,7 @@ public class BookTextAudioAggregationBuilder {
      * @return this instance
      */
     public BookTextAudioAggregationBuilder fillFromBookAudioAggregation(BookTextAudioAggregation aggregationObj){
-        this.tokenizedBookText = aggregationObj.getTokenizedBookText();
+        this.fullText = aggregationObj.getFullText();
         this.recognizedAudioFiles = aggregationObj.getRecognizedAudioFiles();
         this.registredFileMapper = aggregationObj.getRegistredFileMapper();
         return this;
@@ -41,7 +41,7 @@ public class BookTextAudioAggregationBuilder {
 
     public BookTextAudioAggregation build(){
         BookTextAudioAggregation aggregation = new BookTextAudioAggregation(
-                this.tokenizedBookText,
+                this.fullText,
                 this.recognizedAudioFiles,
                 this.registredFileMapper
         );
@@ -50,8 +50,8 @@ public class BookTextAudioAggregationBuilder {
     }
 
 
-    public BookTextAudioAggregationBuilder setTokenizedBookText(String[] tokenizedBookText) {
-        this.tokenizedBookText = tokenizedBookText;
+    public BookTextAudioAggregationBuilder setFullText(String fullText) {
+        this.fullText = fullText;
         return this;
     }
 
