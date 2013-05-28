@@ -20,6 +20,9 @@ import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerInterface;
 import ru.urbancamper.audiobookmarker.document.MarkedDocument;
 import ru.urbancamper.audiobookmarker.text.markerplacer.BookTextAudioAggregation;
 import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudioFile;
+import ru.urbancamper.audiobookmarker.text.markerplacer.BookTextAudioAggregationBuilder;
+import ru.urbancamper.audiobookmarker.text.markerplacer.BookTextRecognizedTextAggregationService;
+import ru.urbancamper.audiobookmarker.text.markerplacer.FullTextAudioMark;
 
 /**
  *
@@ -27,18 +30,22 @@ import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudioFile;
  */
 public class AudioBookMarkerUtil {
 
-    private BookTextAudioAggregation bookTextAggregator;
+    private BookTextRecognizedTextAggregationService bookTextRecognizedTextAggregationService;
 
     private AudioFileRecognizerInterface audioRecognizer;
 
+    private BookTextAudioAggregationBuilder bookTextAudioAggregationBuilder;
     /**
      *
      * @param bookText
      * @param audioRecognizer
      */
-    public AudioBookMarkerUtil(BookTextAudioAggregation bookText, AudioFileRecognizerInterface audioRecognizer){
-        this.bookTextAggregator = bookText;
+    public AudioBookMarkerUtil(BookTextRecognizedTextAggregationService bookTextRecognizedTextAggregationService,
+                               AudioFileRecognizerInterface audioRecognizer,
+                               BookTextAudioAggregationBuilder bookTextAudioAggregationBuilder){
+        this.bookTextRecognizedTextAggregationService = bookTextRecognizedTextAggregationService;
         this.audioRecognizer = audioRecognizer;
+        this.bookTextAudioAggregationBuilder = bookTextAudioAggregationBuilder;
     }
 
     protected final Log logger = LogFactory.getLog(getClass());
@@ -110,17 +117,23 @@ public class AudioBookMarkerUtil {
      * @return
      */
     public MarkedDocument makeMarkers(String[] audioBookFilesPaths, String fullText){
-        this.bookTextAggregator.setFullText(fullText);
         HashMap<String, String> audioFilesIdentificatorMap = new HashMap<String, String>();
         String audioFilePath;
         String fileName;
+        bookTextAudioAggregationBuilder.clearBuilder().setFullText(fullText);
+        ArrayList<RecognizedTextOfSingleAudioFile> recognizedFiles = new ArrayList<RecognizedTextOfSingleAudioFile>();
         for(Integer fileCounter = 0; fileCounter < audioBookFilesPaths.length; fileCounter++){
             audioFilePath = audioBookFilesPaths[fileCounter];
             fileName = this.getAudioFileName(audioFilePath);
             audioFilesIdentificatorMap.put(fileName, fileCounter.toString());
             RecognizedTextOfSingleAudioFile recognizedFile = this.audioRecognizer.recognize(audioFilePath, fileCounter.toString());
-            this.bookTextAggregator.registerRecognizedTextPiece(recognizedFile);
+            recognizedFiles.add(recognizedFile);
         }
+        bookTextAudioAggregationBuilder.setRecognizedAudioFiles(recognizedFiles);
+        BookTextAudioAggregation bookTextAudioAggregation = bookTextAudioAggregationBuilder.build();
+        FullTextAudioMark fullTextAudioMark =  this.bookTextRecognizedTextAggregationService
+                                                             .buildTokenizedTextAudioMarksMap(bookTextAudioAggregation);
+
         String markedText = this.bookTextAggregator.buildTextWithAudioMarks();
         MarkedDocument markedDokument = new MarkedDocument(markedText, audioFilesIdentificatorMap);
         return markedDokument;
