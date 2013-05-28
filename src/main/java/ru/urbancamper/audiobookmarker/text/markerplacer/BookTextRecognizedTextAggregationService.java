@@ -103,7 +103,7 @@ public class BookTextRecognizedTextAggregationService {
         FullTextAudioMark fullTextAudioMark = new FullTextAudioMark();
         for(TreeMap<Integer, Integer> longestSubSequence : recognizedTextLongestSubSequences){
             RecognizedTextOfSingleAudioFile recognizedFile = bookTextAudioAggregation.getRecognizedAudioFiles().get(subSequenceCounter);
-            Integer fileIndex = bookTextAudioAggregation.getRegistredFileMapper().get(recognizedFile.getAudioFileHash());
+//            Integer fileIndex = bookTextAudioAggregation.getRegistredFileMapper().get(recognizedFile.getAudioFileHash());
             for(Map.Entry<Integer, Integer> fullTextToRecText: longestSubSequence.entrySet()){
                 Integer fullTextWordIndex = fullTextToRecText.getKey();
                 Integer recognizedTextWordIndex = fullTextToRecText.getValue();
@@ -111,7 +111,7 @@ public class BookTextRecognizedTextAggregationService {
                 Double beginTime = recognizedFile.getBeginTimeOfTokenAtPosition(recognizedTextWordIndex);
                 Double endTime = recognizedFile.getEndTimeOfTokenAtPosition(recognizedTextWordIndex);
 
-                fullTextAudioMark.putAudioInfo(fullTextWordIndex, fileIndex, beginTime, endTime);
+                fullTextAudioMark.putAudioInfo(fullTextWordIndex, subSequenceCounter, beginTime, endTime);
             }
             subSequenceCounter++;
         }
