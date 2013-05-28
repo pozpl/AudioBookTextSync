@@ -37,9 +37,8 @@ public class BookTextRecognizedTextAggregationService {
         this.bitapSubtextFinder = bitapSubtextFinder;
     }
 
-    private Integer[] processFullTextToNumericForm(String fullText){
-        String[] tokenizedForm = this.textTokenizer.tokenize(fullText);
-        Integer[] numericForm = this.wordsToNumMapper.getNumbersFromWords(tokenizedForm);
+    private Integer[] processFullTextToNumericForm(String[] fullTextTokenized){
+        Integer[] numericForm = this.wordsToNumMapper.getNumbersFromWords(fullTextTokenized);
         return numericForm;
     }
     /**
@@ -52,7 +51,7 @@ public class BookTextRecognizedTextAggregationService {
 
         ArrayList<TreeMap<Integer, Integer>> recognizedTextLongestSubSequences = new ArrayList<TreeMap<Integer, Integer>>();
 
-        Integer[] fullTextNumericForm = this.processFullTextToNumericForm(bookTextAudioAggregation.getFullText());
+        Integer[] fullTextNumericForm = this.processFullTextToNumericForm(bookTextAudioAggregation.getFullTextTokenized());
         for (Iterator<RecognizedTextOfSingleAudioFile> it = bookTextAudioAggregation.getRecognizedAudioFiles().iterator(); it.hasNext();) {
             RecognizedTextOfSingleAudioFile recognizedText = it.next();
             String[] recognizedTextAsTokens = recognizedText.getTokens();
