@@ -1,6 +1,7 @@
 package ru.urbancamper.audiobookmarker.text.markerplacer;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,17 +14,17 @@ public class FullTextAudioMark {
 
     private ArrayList<Integer> fullTextTokens;
 
-    private ArrayList<Integer> audioFileIndex;
+    private TreeMap<Integer, Integer> audioFileIndex;
 
-    private ArrayList<Double>  beginTime;
+    private TreeMap<Integer, Double>  beginTime;
 
-    private ArrayList<Double>  endTime;
+    private TreeMap<Integer, Double>  endTime;
 
     public FullTextAudioMark(){
         this.fullTextTokens = new ArrayList<Integer>();
-        this.audioFileIndex = new ArrayList<Integer>();
-        this.beginTime = new ArrayList<Double>();
-        this.endTime = new ArrayList<Double>();
+        this.audioFileIndex = new TreeMap<Integer, Integer>();
+        this.beginTime = new TreeMap<Integer, Double>();
+        this.endTime = new TreeMap<Integer, Double>();
     }
 
     public void putAudioInfo(Integer fullTextTokenIndex,
@@ -31,9 +32,9 @@ public class FullTextAudioMark {
                              Double beginTime,
                              Double endTime){
         this.fullTextTokens.add(fullTextTokenIndex);
-        this.audioFileIndex.add(fullTextTokenIndex, fileIndex);
-        this.beginTime.add(fullTextTokenIndex, beginTime);
-        this.endTime.add(fullTextTokenIndex, endTime);
+        this.audioFileIndex.put(fullTextTokenIndex, fileIndex);
+        this.beginTime.put(fullTextTokenIndex, beginTime);
+        this.endTime.put(fullTextTokenIndex, endTime);
     }
 
     public Integer[] getFullTextTokenIndexes(){
