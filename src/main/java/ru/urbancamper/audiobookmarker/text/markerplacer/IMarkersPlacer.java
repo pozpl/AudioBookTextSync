@@ -14,5 +14,5 @@ import java.util.TreeMap;
  * Interface to marker placers those will place audio markers in text.
  */
 public interface IMarkersPlacer {
-    public String placeMarkers(FullTextAudioMark fullTextAudioMark );
+    public String produceDocumentWithMarkers(FullTextAudioMark fullTextAudioMark, String[] bareText, String document );
 }
