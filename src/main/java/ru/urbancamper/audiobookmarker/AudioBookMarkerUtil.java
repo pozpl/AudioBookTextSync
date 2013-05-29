@@ -18,11 +18,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerInterface;
 import ru.urbancamper.audiobookmarker.document.MarkedDocument;
-import ru.urbancamper.audiobookmarker.text.markerplacer.BookTextAudioAggregation;
+import ru.urbancamper.audiobookmarker.text.LanguageModelBasedTextTokenizer;
+import ru.urbancamper.audiobookmarker.text.markerplacer.*;
 import ru.urbancamper.audiobookmarker.text.RecognizedTextOfSingleAudioFile;
-import ru.urbancamper.audiobookmarker.text.markerplacer.BookTextAudioAggregationBuilder;
-import ru.urbancamper.audiobookmarker.text.markerplacer.BookTextRecognizedTextAggregationService;
-import ru.urbancamper.audiobookmarker.text.markerplacer.FullTextAudioMark;
 
 /**
  *
@@ -35,17 +33,21 @@ public class AudioBookMarkerUtil {
     private AudioFileRecognizerInterface audioRecognizer;
 
     private BookTextAudioAggregationBuilder bookTextAudioAggregationBuilder;
-    /**
-     *
-     * @param bookText
-     * @param audioRecognizer
-     */
+
+    private LanguageModelBasedTextTokenizer textTokenizer;
+
+    private IMarkersPlacer markersPlacer;
+
     public AudioBookMarkerUtil(BookTextRecognizedTextAggregationService bookTextRecognizedTextAggregationService,
                                AudioFileRecognizerInterface audioRecognizer,
-                               BookTextAudioAggregationBuilder bookTextAudioAggregationBuilder){
+                               BookTextAudioAggregationBuilder bookTextAudioAggregationBuilder,
+                               LanguageModelBasedTextTokenizer textTokenizer,
+                               IMarkersPlacer markersPlacer){
         this.bookTextRecognizedTextAggregationService = bookTextRecognizedTextAggregationService;
         this.audioRecognizer = audioRecognizer;
         this.bookTextAudioAggregationBuilder = bookTextAudioAggregationBuilder;
+        this.textTokenizer = textTokenizer;
+        this.markersPlacer = markersPlacer;
     }
 
     protected final Log logger = LogFactory.getLog(getClass());
@@ -120,7 +122,8 @@ public class AudioBookMarkerUtil {
         HashMap<String, String> audioFilesIdentificatorMap = new HashMap<String, String>();
         String audioFilePath;
         String fileName;
-        bookTextAudioAggregationBuilder.clearBuilder().setFullText(fullText);
+        String[] fullTextTokenized = this.textTokenizer.tokenize(fullText);
+        bookTextAudioAggregationBuilder.clearBuilder().setFullTextTokenized(fullTextTokenized);
         ArrayList<RecognizedTextOfSingleAudioFile> recognizedFiles = new ArrayList<RecognizedTextOfSingleAudioFile>();
         for(Integer fileCounter = 0; fileCounter < audioBookFilesPaths.length; fileCounter++){
             audioFilePath = audioBookFilesPaths[fileCounter];
@@ -134,8 +137,10 @@ public class AudioBookMarkerUtil {
         FullTextAudioMark fullTextAudioMark =  this.bookTextRecognizedTextAggregationService
                                                              .buildTokenizedTextAudioMarksMap(bookTextAudioAggregation);
 
-        String markedText = this.bookTextAggregator.buildTextWithAudioMarks();
-        MarkedDocument markedDokument = new MarkedDocument(markedText, audioFilesIdentificatorMap);
+         String textWithAudioMarks = this.markersPlacer.produceDocumentWithMarkers(
+                 fullTextAudioMark, fullTextTokenized, fullText);
+
+        MarkedDocument markedDokument = new MarkedDocument(textWithAudioMarks, audioFilesIdentificatorMap);
         return markedDokument;
     }
 
