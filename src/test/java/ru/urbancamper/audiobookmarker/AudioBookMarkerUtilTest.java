@@ -16,7 +16,11 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerStub;
 import ru.urbancamper.audiobookmarker.context.BeansAnnotationsForTests;
 import ru.urbancamper.audiobookmarker.document.MarkedDocument;
+import ru.urbancamper.audiobookmarker.text.LanguageModelBasedTextTokenizer;
 import ru.urbancamper.audiobookmarker.text.markerplacer.BookTextAudioAggregation;
+import ru.urbancamper.audiobookmarker.text.markerplacer.BookTextAudioAggregationBuilder;
+import ru.urbancamper.audiobookmarker.text.markerplacer.BookTextRecognizedTextAggregationService;
+import ru.urbancamper.audiobookmarker.text.markerplacer.Text;
 
 /**
  *
@@ -47,9 +51,14 @@ public class AudioBookMarkerUtilTest extends TestCase {
         ApplicationContext ctxt = new AnnotationConfigApplicationContext(BeansAnnotationsForTests.class);
         AudioFileRecognizerStub recognizer = (AudioFileRecognizerStub) ctxt.getBean("audioFileRecognizerStub");
         recognizer.setStubText(RECOGNIZED_AND_ALIGNED_STUB_TEXT);
-        BookTextAudioAggregation bookText = ctxt.getBean(BookTextAudioAggregation.class);
+        BookTextRecognizedTextAggregationService bookText = ctxt.getBean(BookTextRecognizedTextAggregationService.class);
+        BookTextAudioAggregationBuilder bookTextAudioAggregationBuilder =
+                ctxt.getBean(BookTextAudioAggregationBuilder.class);
+        LanguageModelBasedTextTokenizer textTokenizer = ctxt.getBean(LanguageModelBasedTextTokenizer.class);
+        Text textMarkerPlacer = ctxt.getBean(Text.class);
+        AudioBookMarkerUtil util = new AudioBookMarkerUtil(bookText, recognizer, bookTextAudioAggregationBuilder,
+                textTokenizer, textMarkerPlacer);
 
-        AudioBookMarkerUtil util = new AudioBookMarkerUtil(bookText, recognizer);
         String[] filePaths = {"/some/fictional/path"};
         MarkedDocument markedDocument = util.makeMarkers(filePaths, this.BOOK_TEXT);
         String markedText = markedDocument.getMarkedText();
@@ -68,9 +77,13 @@ public class AudioBookMarkerUtilTest extends TestCase {
         ApplicationContext ctxt = new AnnotationConfigApplicationContext(BeansAnnotationsForTests.class);
         AudioFileRecognizerStub recognizer = (AudioFileRecognizerStub) ctxt.getBean("audioFileRecognizerStub");
         recognizer.setStubText(RECOGNIZED_AND_ALIGNED_STUB_TEXT);
-        BookTextAudioAggregation bookText = ctxt.getBean(BookTextAudioAggregation.class);
-
-        AudioBookMarkerUtil util = new AudioBookMarkerUtil(bookText, recognizer);
+        BookTextRecognizedTextAggregationService bookText = ctxt.getBean(BookTextRecognizedTextAggregationService.class);
+        BookTextAudioAggregationBuilder bookTextAudioAggregationBuilder =
+                                                            ctxt.getBean(BookTextAudioAggregationBuilder.class);
+        LanguageModelBasedTextTokenizer textTokenizer = ctxt.getBean(LanguageModelBasedTextTokenizer.class);
+        Text textMarkerPlacer = ctxt.getBean(Text.class);
+        AudioBookMarkerUtil util = new AudioBookMarkerUtil(bookText, recognizer, bookTextAudioAggregationBuilder,
+                textTokenizer, textMarkerPlacer);
         Properties prop = new Properties();
         try {
             prop.load(new FileInputStream("src/main/resources/test.properties"));

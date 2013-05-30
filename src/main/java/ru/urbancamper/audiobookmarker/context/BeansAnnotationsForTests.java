@@ -30,7 +30,9 @@ import ru.urbancamper.audiobookmarker.text.LanguageModelBasedTextTokenizer;
 import ru.urbancamper.audiobookmarker.text.LongestSubsequenceFinder;
 import ru.urbancamper.audiobookmarker.text.RecognizedTextSnippetInterval;
 import ru.urbancamper.audiobookmarker.text.WordsToNumsMap;
+import ru.urbancamper.audiobookmarker.text.markerplacer.BookTextAudioAggregationBuilder;
 import ru.urbancamper.audiobookmarker.text.markerplacer.BookTextRecognizedTextAggregationService;
+import ru.urbancamper.audiobookmarker.text.markerplacer.Text;
 
 /**
  *
@@ -88,6 +90,21 @@ public class BeansAnnotationsForTests {
     public BitapSubtextFinding bitapSubtextFinding(){
         return new BitapSubtextFinding();
     }
+
+    @Bean
+    @Scope("prototype")
+    public BookTextAudioAggregationBuilder bookTextAudioAggregationBuilder(){
+        BookTextAudioAggregationBuilder bookTextAudioAggregationBuilder =
+                new BookTextAudioAggregationBuilder();
+        return bookTextAudioAggregationBuilder;
+    }
+
+    @Bean
+    @Scope("singleton")
+    public Text textMarketPlacer(){
+        return new Text();
+    }
+
 
     @Bean
     @Scope("prototype")

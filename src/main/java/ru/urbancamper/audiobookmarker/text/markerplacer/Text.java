@@ -11,13 +11,6 @@ import ru.urbancamper.audiobookmarker.text.formats.BareTextToDocumentMap;
  */
 public class Text implements IMarkersPlacer{
 
-    private BareTextToDocumentMap bareTextToDocumentMap;
-
-    public Text(BareTextToDocumentMap bareTextToDocumentMap){
-        this.bareTextToDocumentMap = bareTextToDocumentMap;
-    }
-
-
     /**
      *
      * @param fullTextAudioMark
