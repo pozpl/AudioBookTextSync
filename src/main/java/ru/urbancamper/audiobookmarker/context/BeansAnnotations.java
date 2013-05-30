@@ -22,10 +22,11 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import ru.urbancamper.audiobookmarker.AudioBookMarkerUtil;
+import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerInterface;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerSphinx;
 import ru.urbancamper.audiobookmarker.audio.AudioFileRecognizerSphinxCached;
 import ru.urbancamper.audiobookmarker.text.BitapSubtextFinding;
-import ru.urbancamper.audiobookmarker.text.markerplacer.BookTextAudioAggregation;
+import ru.urbancamper.audiobookmarker.text.markerplacer.*;
 import ru.urbancamper.audiobookmarker.text.LanguageModelBasedTextTokenizer;
 import ru.urbancamper.audiobookmarker.text.LongestSubsequenceFinder;
 import ru.urbancamper.audiobookmarker.text.RecognizedTextSnippetInterval;
@@ -119,15 +120,34 @@ public class BeansAnnotations {
 
     @Bean
     @Scope("prototype")
-    public BookTextAudioAggregation bookText() {
-        return new BookTextAudioAggregation(this.textTokenizer(), this.wordsToNumMap(), this.longestSubsequenceFinder(), this.bitapSubtextFinding());
+    public BookTextRecognizedTextAggregationService bookText() {
+        return new BookTextRecognizedTextAggregationService(
+                this.textTokenizer(), this.wordsToNumMap(), this.longestSubsequenceFinder(), this.bitapSubtextFinding());
+    }
+
+    @Bean
+    @Scope("prototype")
+    public BookTextAudioAggregationBuilder bookTextAudioAggregationBuilder(){
+        BookTextAudioAggregationBuilder bookTextAudioAggregationBuilder =
+                new BookTextAudioAggregationBuilder();
+        return bookTextAudioAggregationBuilder;
+    }
+
+    @Bean
+    @Scope("singleton")
+    public Text textMarketPlacer(){
+        return new Text();
     }
 
     @Bean
     @Scope("prototype")
     public AudioBookMarkerUtil audioBookMakerUtil(){
         AudioBookMarkerUtil bookMakerUtil = new AudioBookMarkerUtil(bookText(),
-                audioFileRecognozerSphinxCached());
+                audioFileRecognozerSphinxCached(),
+                bookTextAudioAggregationBuilder(),
+                this.textTokenizer(),
+                this.textMarketPlacer()
+        );
         return bookMakerUtil;
     }
 }
