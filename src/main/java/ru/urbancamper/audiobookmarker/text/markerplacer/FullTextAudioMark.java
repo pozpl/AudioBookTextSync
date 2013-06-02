@@ -37,6 +37,10 @@ public class FullTextAudioMark {
         this.endTime.put(fullTextTokenIndex, endTime);
     }
 
+    public Boolean isMarkerDefinedForFullTextIndex(Integer fullTextWordIndex){
+        return audioFileIndex.containsKey(fullTextWordIndex);
+    }
+
     public Integer[] getFullTextTokenIndexes(){
         return this.fullTextTokens.toArray(new Integer[this.fullTextTokens.size()]);
     }

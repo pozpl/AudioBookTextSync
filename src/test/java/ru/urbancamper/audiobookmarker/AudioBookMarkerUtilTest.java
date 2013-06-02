@@ -30,7 +30,7 @@ public class AudioBookMarkerUtilTest extends TestCase {
 
     private String RECOGNIZED_AND_ALIGNED_STUB_TEXT = "some(2.1, 2.7) kind(3.0, 4.0) of(4.5, 5.0)"
             + " text(6.1, 7.0) here(9.0, 10.0)";
-    private String BOOK_TEXT = "there is some kind of magnificent pease of literature text here";
+    private String BOOK_TEXT = "there is some kind of magnificent peace of literature text here";
 
     public AudioBookMarkerUtilTest(String testName) {
         super(testName);
@@ -63,7 +63,7 @@ public class AudioBookMarkerUtilTest extends TestCase {
         MarkedDocument markedDocument = util.makeMarkers(filePaths, this.BOOK_TEXT);
         String markedText = markedDocument.getMarkedText();
 
-        assertEquals("there is <1:2.1/>some <1:3.0/>kind of magnificent pease <1:4.5/>of literature <1:6.1/>text <1:9.0/>here", markedText);
+        assertEquals("there is <1:2.1/>some <1:3.0/>kind of magnificent peace <1:4.5/>of literature <1:6.1/>text <1:9.0/>here", markedText);
 
         HashMap<String, String> filesNamesToUidMap = markedDocument.getFileNamesToUidsMap();
         HashMap<String, String> filesNamesToUidMapExpected = new HashMap<String, String>();
@@ -93,7 +93,7 @@ public class AudioBookMarkerUtilTest extends TestCase {
             MarkedDocument markedDocument = util.makeMarkers(fileDir, bookFileDir);
             String markedText = markedDocument.getMarkedText();
 
-            assertEquals("there is <1:2.1/>some <1:3.0/>kind of magnificent pease <1:4.5/>of literature <1:6.1/>text <1:9.0/>here", markedText);
+            assertEquals("there is <1:2.1/>some <1:3.0/>kind of magnificent peace <1:4.5/>of literature <1:6.1/>text <1:9.0/>here", markedText);
 
             HashMap<String, String> filesNamesToUidMap = markedDocument.getFileNamesToUidsMap();
             HashMap<String, String> filesNamesToUidMapExpected = new HashMap<String, String>();

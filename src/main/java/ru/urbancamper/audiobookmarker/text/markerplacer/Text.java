@@ -30,10 +30,13 @@ public class Text implements IMarkersPlacer{
             String bareTextWord = bareText[bareTextWordIndex];
             Integer bareWordIndexInDoc = document.indexOf(bareTextWord, documentOffset);
 
-            Double beginTime = fullTextAudioMark.getBeginTime(bareTextWordIndex);
-            Double endTime = fullTextAudioMark.getEndTime(bareTextWordIndex);
-            Integer audioFileIndex = fullTextAudioMark.getFileIndex(bareTextWordIndex);
-            String marker = this.constructMarker(beginTime, endTime, audioFileIndex);
+            String marker = "";
+            if(fullTextAudioMark.isMarkerDefinedForFullTextIndex(bareTextWordIndex)){
+                Double beginTime = fullTextAudioMark.getBeginTime(bareTextWordIndex);
+                Double endTime = fullTextAudioMark.getEndTime(bareTextWordIndex);
+                Integer audioFileIndex = fullTextAudioMark.getFileIndex(bareTextWordIndex);
+                marker = this.constructMarker(beginTime, endTime, audioFileIndex);
+            }
 
             String markedTextBit = document.substring(previousMarkerIndex, bareWordIndexInDoc);
             markedDocument += markedTextBit + marker;
