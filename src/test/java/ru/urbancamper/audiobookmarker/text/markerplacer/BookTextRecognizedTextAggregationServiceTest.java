@@ -87,16 +87,13 @@ public class BookTextRecognizedTextAggregationServiceTest {
 
         Double[] realBeginTimes = {0.1, 1.5, 2.1, 2.6, 3.1, 4.1, 6.1, 7.1};
         Double[] realEndTimes =   {1.4, 2.0, 2.4, 3.0, 3.4, 4.4, 6.4, 7.4};
+        Integer[] audioFIleIndex =    {0,   0,   0,   0,   1,   1,   1,   1 };
         for(Integer fullTextWordsCounter = 0; fullTextWordsCounter < foundWordsIndexes.length; fullTextWordsCounter++){
             Integer fullTextWordIndex =  foundWordsIndexes[fullTextWordsCounter];
             Assert.assertEquals(realBeginTimes[fullTextWordsCounter], fullTextAudioMark.getBeginTime(fullTextWordIndex));
             Assert.assertEquals(realEndTimes[fullTextWordsCounter], fullTextAudioMark.getEndTime(fullTextWordIndex));
-
+            Assert.assertEquals(audioFIleIndex[fullTextWordsCounter], fullTextAudioMark.getFileIndex(fullTextWordIndex));
         }
 
     }
-//    "<1:0.1/>word1 <1:1.5/>word2 <1:2.1/>word3 noword <1:2.6/>word4"
-//            + " word1 word1 word1 <2:3.1/>word5 <2:4.1/>word3 <2:6.1/>word1 <2:7.1/>word4 word2 word1";
-//    "word1(0.1, 1.4) word2(1.5, 2.0) word3(2.1, 2.4) word4(2.6, 3.0) nm(3.0, 4.0) ssl(4.1, 5.0)",
-//            "word5(3.1, 3.4) word3(4.1, 4.4) word3(5.1, 5.4) word1(6.1, 6.4) word4(7.1, 7.4)",
 }
