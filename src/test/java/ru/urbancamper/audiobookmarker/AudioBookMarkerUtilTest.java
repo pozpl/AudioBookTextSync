@@ -63,7 +63,7 @@ public class AudioBookMarkerUtilTest extends TestCase {
         MarkedDocument markedDocument = util.makeMarkers(filePaths, this.BOOK_TEXT);
         String markedText = markedDocument.getMarkedText();
 
-        assertEquals("there is <1:2.1/>some <1:3.0/>kind of magnificent peace <1:4.5/>of literature <1:6.1/>text <1:9.0/>here", markedText);
+        assertEquals("there is <0:2.1>some <0:3.0>kind of magnificent peace <0:4.5>of literature <0:6.1>text <0:9.0>here", markedText);
 
         HashMap<String, String> filesNamesToUidMap = markedDocument.getFileNamesToUidsMap();
         HashMap<String, String> filesNamesToUidMapExpected = new HashMap<String, String>();
@@ -93,7 +93,7 @@ public class AudioBookMarkerUtilTest extends TestCase {
             MarkedDocument markedDocument = util.makeMarkers(fileDir, bookFileDir);
             String markedText = markedDocument.getMarkedText();
 
-            assertEquals("there is <1:2.1/>some <1:3.0/>kind of magnificent peace <1:4.5/>of literature <1:6.1/>text <1:9.0/>here", markedText);
+            assertEquals("there is <0:2.1>some <0:3.0>kind of magnificent peace <0:4.5>of literature <0:6.1>text <0:9.0>here", markedText);
 
             HashMap<String, String> filesNamesToUidMap = markedDocument.getFileNamesToUidsMap();
             HashMap<String, String> filesNamesToUidMapExpected = new HashMap<String, String>();
