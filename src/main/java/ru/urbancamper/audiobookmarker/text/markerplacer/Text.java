@@ -13,10 +13,10 @@ public class Text implements IMarkersPlacer{
 
     /**
      *
-     * @param fullTextAudioMark
-     * @param bareText
-     * @param document
-     * @return
+     * @param fullTextAudioMark  Data for audio markers
+     * @param bareText  tokenized text of an document
+     * @param document  Document as is in text form
+     * @return Document copy with audio marks
      */
     @Override
     public String produceDocumentWithMarkers(FullTextAudioMark fullTextAudioMark, String[] bareText, String document){
@@ -52,8 +52,14 @@ public class Text implements IMarkersPlacer{
         return markedDocument;
     }
 
+    /**
+     * Function to construct marker
+     * @param beginTime  Time of word begin
+     * @param endTime   Time of word end
+     * @param fileIndex Index of file
+     * @return  Marker string
+     */
     private String constructMarker(Double beginTime, Double endTime, Integer fileIndex){
-        String marker = "<" + fileIndex + ":" + beginTime + ">";
-        return marker;
+        return "<" + fileIndex + ":" + beginTime + ">";
     }
 }
