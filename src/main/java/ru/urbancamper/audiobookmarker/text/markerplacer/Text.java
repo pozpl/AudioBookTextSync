@@ -44,7 +44,7 @@ public class Text implements IMarkersPlacer{
             documentOffset = bareWordIndexInDoc + bareTextWord.length() - 1;
 
             if(documentOffset >= docLastCharacterIndex){
-                String lastTextBit = document.substring(previousMarkerIndex, documentOffset);
+                String lastTextBit = document.substring(previousMarkerIndex, docLastCharacterIndex + 1);
                 markedDocument += lastTextBit;
                 break;
             }
