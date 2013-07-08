@@ -49,6 +49,12 @@ public class Text implements IMarkersPlacer{
                 break;
             }
         }
+
+        if(documentOffset < docLastCharacterIndex){
+            String lastTextBit = document.substring(previousMarkerIndex, docLastCharacterIndex + 1);
+            markedDocument += lastTextBit;
+        }
+
         return markedDocument;
     }
 
