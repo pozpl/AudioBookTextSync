@@ -239,13 +239,14 @@ public class BitapSubtextFinding {
 
         Integer[] pattern = this.getSubPattern(patternBig, 0,1000);
         Integer maxErrorsRate = pattern.length / 2;
+//        maxErrorsRate = maxErrorsRate < 600 ? 600 : maxErrorsRate;
         Integer foundSnippetIndexBegin = 0;
         Integer foundSnippetIndexEnd = 0;
         this.logger.info("Start to find subtext of " + pattern.length
                 + " in text with lenght "
                 + doc.length );
         Integer finalErrorsRate = 0;
-        for(Integer errorsCount = maxErrorsRate; errorsCount > 0;  errorsCount--){
+        for(Integer errorsCount = maxErrorsRate; errorsCount < pattern.length -1;  errorsCount += 10){
             this.logger.info("current errors rate " + errorsCount);
             List<Integer> foundSnippets = this.find(doc, pattern, errorsCount);
             if(foundSnippets.size() == 2){
@@ -264,7 +265,8 @@ public class BitapSubtextFinding {
                 foundSnippetIndexEnd =  foundSnippets.get(1);
                 finalErrorsRate = errorsCount;
             }else if(foundSnippets.isEmpty()){
-                break;
+                this.logger.info("Not sufficient errors rate " + errorsCount + " brak!!!");
+//                break;
             }
         }
 
