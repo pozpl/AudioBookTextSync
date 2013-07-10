@@ -219,7 +219,7 @@ public class BitapSubtextFinding {
 // wrong)
                 if ((firstMatchedText == -1) || (i - firstMatchedText > pattern.length)) {
                     firstMatchedText = i;
-                     indexes.add(firstMatchedText - pattern.length);
+                     indexes.add(firstMatchedText - pattern.length + k + 1);
                      indexes.add(firstMatchedText);
                 }
             }
@@ -272,9 +272,7 @@ public class BitapSubtextFinding {
         }
 
         Integer fullPatternErrorsRate = this.evaluateErrorForFullPattern(patternBig.length, pattern.length, finalErrorsRate);
-        foundSnippetIndexEnd += patternBig.length  + fullPatternErrorsRate - subPatternToFindLength;
-        foundSnippetIndexEnd = (foundSnippetIndexEnd.intValue() < patternBig.length) ? foundSnippetIndexEnd : patternBig.length - 1;
-        foundSnippetIndexBegin = (foundSnippetIndexBegin > 0) ? foundSnippetIndexBegin : 0;
+        foundSnippetIndexEnd += patternBig.length  + fullPatternErrorsRate;
         Integer[] beginEndArray = {foundSnippetIndexBegin, foundSnippetIndexEnd};
         this.logger.info("Subtext found first index " + foundSnippetIndexBegin
                 + " last index " + foundSnippetIndexEnd);
